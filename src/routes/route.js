@@ -5,7 +5,7 @@ export const ROUTES = [
   {
     path: "/",
     element: <SiteRoot />,
-    childeren: [
+    children: [
       {
         path: "",
         element: <Home />,

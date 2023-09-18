@@ -1,15 +1,5 @@
-import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ROUTES } from "./routes/route";
-
-const router = createBrowserRouter(ROUTES);
-
-function App() {
-  return (
-    <RouterProvider router={router}>
-      <div className="App">Hello</div>;
-    </RouterProvider>
-  );
+function App({ children }) {
+  return <div className="App font-sora text-2xl font-semibold">{children}</div>;
 }
 
 export default App;
