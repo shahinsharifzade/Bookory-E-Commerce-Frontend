@@ -20,16 +20,29 @@ module.exports = {
       xl: "1.4rem",
       "2xl": "1.6rem",
     },
+
+    // screens: {
+    //   "minw-xsm": { raw: "(min-width: 300px)" },
+    //   "minw-sm": { raw: "(min-width: 640px)" },
+    //   "minw-md": { raw: "(min-width: 768px)" },
+    //   "minw-lg": { raw: "(min-width: 992px)" },
+    //   "minw-xl": { raw: "(min-width: 1320px)" },
+
+    //   "minw-1000": { raw: "(min-width: 1000px)" },
+    // },
+    screens: {
+      "minw-xsm": "300px",
+      "minw-sm": "640px",
+      "minw-md": "768px",
+      "minw-lg": "992px",
+      "minw-xl": "1320px",
+      "minw-1000": "1000px",
+    },
+
     extend: {
       colors: {
         primaryText: "#f65d4e",
-      },
-      screens: {
-        "maxw-xsm": { max: "640px" },
-        "maxw-sm": { max: "640px" },
-        "maxw-md": { max: "768px" },
-        "maxw-lg": { max: "992px" },
-        "maxw-xl": { max: "1320px" },
+        secondaryText: "#e6e6e6",
       },
     },
   },

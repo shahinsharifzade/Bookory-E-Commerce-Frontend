@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
+@layer base {
+  html {
+    font-size: 10px; /* Set the default font size */
+  }
+
+  @media (max-width: 767px) {
+    html {
+      font-size: 9px; /* Set the font size below 768px */
+    }
+  }
+}
 
 html,
 body,
@@ -131,11 +142,6 @@ a {
   &:hover {
     text-decoration: none;
   }
-}
-
-html {
-  font-family: "Jost", sans-serif;
-  font-size: 62.5%;
 }
 
 body {
