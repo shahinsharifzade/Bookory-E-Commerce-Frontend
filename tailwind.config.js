@@ -31,7 +31,7 @@ module.exports = {
     //   "minw-1000": { raw: "(min-width: 1000px)" },
     // },
     screens: {
-      "minw-xsm": "300px",
+      "minw-xsm": "576px",
       "minw-sm": "640px",
       "minw-md": "768px",
       "minw-lg": "992px",

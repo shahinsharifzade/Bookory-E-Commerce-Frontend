@@ -1,13 +1,12 @@
 import React from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/bundle";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-
-import { Pagination, Autoplay } from "swiper/modules";
-import BestsellerItem from "./BestsellerItem";
+import { Autoplay } from "swiper/modules";
+import TrendItem from "./TrendItem";
 
 //API
 const fetchBooks = async (search) => {
@@ -25,8 +24,8 @@ const fetchBooks = async (search) => {
 };
 //API
 
-const BestsellerList = () => {
-  //API
+const TrendList = () => {
+  // API
   const {
     data: booksData,
     isLoading: booksLoading,
@@ -43,51 +42,43 @@ const BestsellerList = () => {
   //API
 
   return (
-    <section className="mb-32">
+    <section>
       <div>
         <Swiper
           breakpoints={{
-            100: {
-              width: 300,
+            999: {
               slidesPerView: 1,
             },
-            450: {
-              width: 660,
+            1000: {
+              width: 1260,
               slidesPerView: 2,
             },
-            768: {
-              width: 720,
+            1400: {
+              width: 1820,
               slidesPerView: 3,
             },
-            870: {
-              width: 940,
-              slidesPerView: 4,
-            },
-            1000: {
-              width: 1220,
-              slidesPerView: 4,
-            },
-            1600: {
-              width: 1980,
-              slidesPerView: 6,
-            },
           }}
-          spaceBetween={30}
           centeredSlides={true}
+          resizeObserver={true}
+          observer={true}
+          updateOnWindowResize={true}
+          onTimeUpdate={true}
+          onBreakpoint={true}
+          grabCursor={true}
           loop={true}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}
-          modules={[Pagination, Autoplay]}
+          modules={[Autoplay]}
           className="mySwiper"
         >
           {booksData.map((item, index) => {
             console.log(item);
             return (
-              <SwiperSlide key={index}>
-                <BestsellerItem books={item} />
+              <SwiperSlide className="w-full px-12">
+                <TrendItem books={item} />
               </SwiperSlide>
             );
           })}
@@ -97,4 +88,4 @@ const BestsellerList = () => {
   );
 };
 
-export default BestsellerList;
+export default TrendList;

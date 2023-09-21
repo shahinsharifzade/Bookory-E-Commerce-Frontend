@@ -4,10 +4,10 @@ import React from "react";
 const BestsellerItem = (props) => {
   return (
     <div className="flex flex-col items-start justify-start bg-white  text-center">
-      <div className="w-full rounded-[2rem] minw-xsm:h-[44rem] minw-sm:h-[44rem] minw-md:h-[32rem] minw-1000:h-[40rem]">
+      <div className="w-full rounded-[2rem] min-[300px]:h-[44rem] minw-sm:h-[44rem] minw-md:h-[32rem] minw-1000:h-[40rem]">
         <img
           src={`https://localhost:7047/assets/images/books/${props.books.mainImage}`}
-          className="h-full w-full rounded-[2rem] cursor-pointer object-cover"
+          className="h-full w-full cursor-pointer rounded-[2rem] object-cover"
           alt="book cover"
         />
       </div>
