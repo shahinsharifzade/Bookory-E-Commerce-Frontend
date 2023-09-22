@@ -1,7 +1,7 @@
 import React from "react";
 import { Star } from "lucide-react";
 
-const TrendItem = (props) => {
+const KeepReadingMainItem = (props) => {
   const filledStars = [];
   const emptyStars = [];
 
@@ -15,8 +15,8 @@ const TrendItem = (props) => {
     emptyStars.push(<Star key={index} color="#f65d4e" size={"14px"} />);
   }
   return (
-    <div className="flex flex-col items-start justify-start rounded-[2rem] bg-[#F4FBF2] p-12 text-center minw-xsm:flex-row">
-      <div className="w-full shrink-0 rounded-[2rem] minw-xsm:w-[18rem]">
+    <div className="flex flex-col items-start justify-start  py-8 text-center minw-xsm:flex-row">
+      <div className="w-[26rem] shrink-0 minw-xsm:w-[18rem]">
         <img
           src={`https://localhost:7047/assets/images/books/${props.books.mainImage}`}
           className="aspect-[2.2/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
@@ -48,4 +48,4 @@ const TrendItem = (props) => {
   );
 };
 
-export default TrendItem;
+export default KeepReadingMainItem;

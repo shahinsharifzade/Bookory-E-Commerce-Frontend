@@ -11,13 +11,9 @@ import TrendItem from "./TrendItem";
 //API
 const fetchBooks = async (search) => {
   const response = await axios
-    .get(`https://localhost:7047/api/books`, {
-      params: {
-        search: search || "",
-      },
-    })
+    .get(`https://localhost:7047/api/books`)
     .catch((error) => {
-      console.log(error.response.data.message);
+      // console.log(error.response.data.message);
       return <div>{error.response.data.message}</div>;
     });
   return response.data;
@@ -59,12 +55,6 @@ const TrendList = () => {
             },
           }}
           centeredSlides={true}
-          resizeObserver={true}
-          observer={true}
-          updateOnWindowResize={true}
-          onTimeUpdate={true}
-          onBreakpoint={true}
-          grabCursor={true}
           loop={true}
           autoplay={{
             delay: 2500,
@@ -75,9 +65,9 @@ const TrendList = () => {
           className="mySwiper"
         >
           {booksData.map((item, index) => {
-            console.log(item);
+            // console.log(item, index);
             return (
-              <SwiperSlide className="w-full px-12">
+              <SwiperSlide key={index} className="w-full px-12">
                 <TrendItem books={item} />
               </SwiperSlide>
             );

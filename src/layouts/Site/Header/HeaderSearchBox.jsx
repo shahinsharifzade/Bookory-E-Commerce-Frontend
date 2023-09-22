@@ -17,7 +17,6 @@ const fetchBooks = async (search) => {
       console.log(error.response.data.message);
       return <div>{error.response.data.message}</div>;
     });
-  console.log(response);
   return response.data;
 };
 
@@ -25,7 +24,7 @@ const HeaderSearchBox = () => {
   const handleInputChange = async (event) => {
     event.preventDefault();
     const search = searchValue.current.value;
-    if (searchValue.current.value == "") {
+    if (searchValue.current.value === "") {
       setBook(null);
     } else {
       const books = await fetchBooks(search);
@@ -51,7 +50,7 @@ const HeaderSearchBox = () => {
   }
 
   return (
-    <div className="relative hidden w-full max-w-[55rem] md:flex minw-1000:block">
+    <div className="md:flex relative hidden w-full max-w-[55rem] minw-1000:block">
       <div className="absolute left-0 top-[111%]  w-full  bg-white">
         <ul className="mt-[24px] rounded-3xl border border-t-0 border-solid border-[#e4e4e4] bg-[#fff]">
           {book !== null ? (

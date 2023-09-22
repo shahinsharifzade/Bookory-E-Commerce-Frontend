@@ -3,6 +3,10 @@ import Banner from "./Banner";
 import Bestsellers from "./Bestsellers";
 import Deals from "./Deals";
 import Trends from "./Trends";
+import Quote from "./Quote";
+import PopularBooks from "./PopularBooks";
+import KeepReading from "./KeepReading";
+import PopularAuthors from "./PopularAuthors";
 
 const Home = () => {
   return (
@@ -11,6 +15,12 @@ const Home = () => {
       <Bestsellers />
       <Deals />
       <Trends />
+      <Quote />
+      <PopularBooks />
+      <div className="container mb-[8rem] flex flex-col minw-md:flex-row">
+        <PopularAuthors />
+        <KeepReading />
+      </div>
     </>
   );
 };

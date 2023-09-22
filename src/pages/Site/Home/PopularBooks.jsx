@@ -1,23 +1,29 @@
 import React from "react";
 import Button from "../../../components/ui/Button/Button";
-import TrendList from "../../../components/ui/Trend/TrendList";
+import PopularBooksBanner from "../../../components/ui/Popular/PopularBooksBanner";
+import PopularBooksList from "../../../components/ui/Popular/PopularBooksList";
 
-const Trends = () => {
+const Popular = () => {
   return (
-    <section className="mb-[6rem]">
+    <section>
       <div className="container mb-14 flex flex-col items-center justify-between min-[470px]:flex-row">
         <div className="flex w-full max-w-[100%] items-center justify-between">
           <h2 className="shrink-0 pr-12 text-[3.5rem] tracking-tighter">
-            What's In Trend
+            Popular Books
           </h2>
           <div className="mx-4 hidden h-[1px] grow bg-[#e6e6e6] minw-md:block"></div>
         </div>
         <Button text="View All" className="w-[200px]" />
       </div>
 
-      <TrendList />
+      <div className="container">
+        <div className="flex flex-col min-[1200px]:flex-row">
+          <PopularBooksList />
+          <PopularBooksBanner />
+        </div>
+      </div>
     </section>
   );
 };
 
-export default Trends;
+export default Popular;

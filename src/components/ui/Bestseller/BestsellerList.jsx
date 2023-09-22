@@ -12,13 +12,9 @@ import BestsellerItem from "./BestsellerItem";
 //API
 const fetchBooks = async (search) => {
   const response = await axios
-    .get(`https://localhost:7047/api/books`, {
-      params: {
-        search: search || "",
-      },
-    })
+    .get(`https://localhost:7047/api/books`)
     .catch((error) => {
-      console.log(error.response.data.message);
+      // console.log(error.response.data.message);
       return <div>{error.response.data.message}</div>;
     });
   return response.data;
@@ -47,8 +43,7 @@ const BestsellerList = () => {
       <div>
         <Swiper
           breakpoints={{
-            100: {
-              width: 300,
+            449: {
               slidesPerView: 1,
             },
             450: {
@@ -72,7 +67,6 @@ const BestsellerList = () => {
               slidesPerView: 6,
             },
           }}
-          spaceBetween={30}
           centeredSlides={true}
           loop={true}
           autoplay={{
@@ -84,7 +78,7 @@ const BestsellerList = () => {
           className="mySwiper"
         >
           {booksData.map((item, index) => {
-            console.log(item);
+            // console.log(item);
             return (
               <SwiperSlide key={index}>
                 <BestsellerItem books={item} />

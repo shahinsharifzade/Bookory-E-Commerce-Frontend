@@ -2,6 +2,18 @@ import React from "react";
 import { Star } from "lucide-react";
 
 const DealsItem = (props) => {
+  const filledStars = [];
+  const emptyStars = [];
+
+  for (let index = 0; index < props.books.rating; index++) {
+    filledStars.push(
+      <Star key={index} color="#f65d4e" fill="#f65d4e" size={"14px"} />,
+    );
+  }
+
+  for (let index = 0; index < 5 - props.books.rating; index++) {
+    emptyStars.push(<Star key={index} color="#f65d4e" size={"14px"} />);
+  }
   return (
     <div className="flex items-start justify-start bg-white px-6 py-6 text-center minw-md:w-[33rem]">
       <div className="mr-12 h-[18rem] w-full max-w-[13rem]">
@@ -16,13 +28,10 @@ const DealsItem = (props) => {
           {props.books.title}
         </p>
         <div className="mb-4 flex">
-          <Star />
-          <Star />
-          <Star />
-          <Star />
-          <Star />
-          <span className="pl-4">6</span>
+          {filledStars}
+          {emptyStars}
         </div>
+
         <p className="mb-4 cursor-pointer text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText">
           {props.books.author.name}
         </p>
