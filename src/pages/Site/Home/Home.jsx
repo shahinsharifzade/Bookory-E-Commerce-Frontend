@@ -7,6 +7,7 @@ import Quote from "./Quote";
 import PopularBooks from "./PopularBooks";
 import KeepReading from "./KeepReading";
 import PopularAuthors from "./PopularAuthors";
+import Genre from "./Genres";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <Trends />
       <Quote />
       <PopularBooks />
+      <Genre />
       <div className="container mb-[8rem] flex flex-col minw-md:flex-row">
         <PopularAuthors />
         <KeepReading />

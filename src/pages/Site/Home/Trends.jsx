@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../../../components/ui/Button/Button";
-import TrendList from "../../../components/ui/Trend/TrendList";
+import TrendList from "../../../components/ui/Trend/TrendsList";
 
 const Trends = () => {
   return (

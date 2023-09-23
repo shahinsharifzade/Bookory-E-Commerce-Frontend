@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import PopularAuthorItem from "./PopularAuthorItem";
+import LoadingSpinner from "../Loading/LoadingSpinner";
 
 const fetchAuthor = async () => {
   const response = await axios
@@ -24,7 +25,7 @@ const PopularAuthorsList = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner isLoading={isLoading} />;
   }
 
   if (isError) {

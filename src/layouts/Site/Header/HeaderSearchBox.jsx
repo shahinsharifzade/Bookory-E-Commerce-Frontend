@@ -5,6 +5,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useRef } from "react";
 import HeaderSearchItem from "./HeaderSearchItem";
+import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 
 const fetchBooks = async (search) => {
   const response = await axios
@@ -37,12 +38,12 @@ const HeaderSearchBox = () => {
 
   const {
     data: booksData,
-    isLoading: booksLoading,
+    isLoading: bookIsLoading,
     isError: booksError,
   } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
 
-  if (booksLoading) {
-    return <div>Loading...</div>;
+  if (bookIsLoading) {
+    return <LoadingSpinner isLoading={bookIsLoading} />;
   }
 
   if (booksError) {

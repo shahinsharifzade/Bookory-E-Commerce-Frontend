@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import DealsItem from "./DealsItem";
+import LoadingSpinner from "../Loading/LoadingSpinner";
 
 const fetchBooks = async () => {
   const response = await axios
@@ -16,12 +17,12 @@ const fetchBooks = async () => {
 const DealsList = () => {
   const {
     data: booksData,
-    isLoading: booksLoading,
+    isLoading: bookIsLoading,
     isError: booksError,
   } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
 
-  if (booksLoading) {
-    return <div>Loading...</div>;
+  if (bookIsLoading) {
+    return <LoadingSpinner isLoading={bookIsLoading} />;
   }
 
   if (booksError) {

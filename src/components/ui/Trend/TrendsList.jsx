@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/bundle";
 import { Autoplay } from "swiper/modules";
 import TrendItem from "./TrendItem";
+import LoadingSpinner from "../Loading/LoadingSpinner";
 
 //API
 const fetchBooks = async (search) => {
@@ -20,16 +21,16 @@ const fetchBooks = async (search) => {
 };
 //API
 
-const TrendList = () => {
+const TrendsList = () => {
   // API
   const {
     data: booksData,
-    isLoading: booksLoading,
+    isLoading: bookIsLoading,
     isError: booksError,
   } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
 
-  if (booksLoading) {
-    return <div>Loading...</div>;
+  if (bookIsLoading) {
+    return <LoadingSpinner isLoading={bookIsLoading} />;
   }
 
   if (booksError) {
@@ -78,4 +79,4 @@ const TrendList = () => {
   );
 };
 
-export default TrendList;
+export default TrendsList;

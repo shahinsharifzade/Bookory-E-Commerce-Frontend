@@ -9,6 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Pagination, Autoplay } from "swiper/modules";
 import BestsellerItem from "./BestsellerItem";
 
+import LoadingSpinner from "../Loading/LoadingSpinner";
+
 //API
 const fetchBooks = async (search) => {
   const response = await axios
@@ -21,16 +23,16 @@ const fetchBooks = async (search) => {
 };
 //API
 
-const BestsellerList = () => {
+const BestsellersList = () => {
   //API
   const {
     data: booksData,
-    isLoading: booksLoading,
+    isLoading: bookIsLoading,
     isError: booksError,
   } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
 
-  if (booksLoading) {
-    return <div>Loading...</div>;
+  if (bookIsLoading) {
+    return <LoadingSpinner isLoading={bookIsLoading} />;
   }
 
   if (booksError) {
@@ -91,4 +93,4 @@ const BestsellerList = () => {
   );
 };
 
-export default BestsellerList;
+export default BestsellersList;

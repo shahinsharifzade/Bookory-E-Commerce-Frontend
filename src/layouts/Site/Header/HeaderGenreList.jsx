@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 
 const fetchData = async () => {
   const response = await axios.get("https://localhost:7047/api/genres");
@@ -14,7 +15,7 @@ const HeaderGenreList = ({ isHovered }) => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner isLoading={isLoading} />;
   }
 
   if (isError) {
@@ -32,7 +33,7 @@ const HeaderGenreList = ({ isHovered }) => {
         {data.map((item) => (
           <li
             key={item.id}
-            className="border-secondaryText cursor-pointer border-b border-solid px-8 py-3 "
+            className="cursor-pointer border-b border-solid border-secondaryText px-8 py-3 "
           >
             <a
               href="#"
