@@ -44,9 +44,9 @@ const Quote = () => {
                 return (
                   <SwiperSlide key={index}>
                     <div className="pb-28">
-                      <h3 className="mb-20 pb-8 font-semibold text-[#999999]">
+                      <h3 className="mb-20 flex flex-col items-center pb-8   font-semibold text-[#999999]">
                         What People Saying
-                        <div className="h-[1px] w-32 bg-red-600"></div>
+                        <div className="mt-8 h-[1px] w-32 bg-red-600"></div>
                       </h3>
                       <q className="mb-[3rem] text-[2rem] font-semibold">
                         {quote.quote}

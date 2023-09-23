@@ -16,10 +16,10 @@ const FooterBottom = () => {
             . All rights reserved.
           </p>
           <div className="flex gap-4">
-            <img className="w-18 h-16" src={Mastercard} alt="" />
+            <img className="w-18 h-14" src={Mastercard} alt="" />
             <img className="h-16 w-16" src={Visa} alt="" />
             <img className="h-16 w-16" src={AmericanExpress} alt="" />
-            <img className="h-16 w-16" src={Paypal} alt="" />
+            <img className="h-14 w-16" src={Paypal} alt="" />
             <img className="w-18 h-16" src={WesternUnion} alt="" />
             <img className="h-16 w-16" src={Bitcoin} alt="" />
           </div>
