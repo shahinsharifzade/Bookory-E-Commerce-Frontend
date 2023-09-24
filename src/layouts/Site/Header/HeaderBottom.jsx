@@ -1,13 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HeaderBottom = () => {
   return (
-    <section className="minw-lg:block hidden">
+    <section className="hidden minw-lg:block">
       <div className="container">
         <nav>
           <ul className="flex items-center justify-center">
-            <li className=" mx-14 my-10">Home</li>
-            <li className="mx-14 my-10">Shop</li>
+            <li className=" mx-14 my-10">
+              <Link to={""}>Home</Link>
+            </li>
+            <li className="mx-14 my-10">
+              <Link to="/shop">Shop</Link>
+            </li>
             <li className="mx-14 my-10">Vendor</li>
             <li className="mx-14 my-10">Page</li>
             <li className="mx-14 my-10">Blog</li>

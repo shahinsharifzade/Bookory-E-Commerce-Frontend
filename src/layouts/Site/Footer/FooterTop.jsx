@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../../assets/icons/logo.svg";
+import icons from "../../../assets/icons/index";
 
 import SocialLink from "../../../components/ui/SocialLink/SocialLink";
 import {
@@ -37,12 +37,12 @@ const FooterTop = () => {
           <div className="flex flex-row flex-wrap ">
             <div className="flex flex-col pb-12 pr-12">
               <a href="#" className="pb-12">
-                <img src={Logo} alt="Logo" />
+                <img src={icons.Logo2} alt="Logo" />
               </a>
               <p className="pb-8 text-xl font-light text-secondaryText">
                 1418 River Drive, Suite 35 Cottonhall, <br /> CA 9622
               </p>
-              <a className="pb-8 text-xl underline" href="#">
+              <a className="pb-8 text-xl text-white underline" href="#">
                 SHOW ON MAP
               </a>
               <div className="space-x-5">
@@ -64,7 +64,7 @@ const FooterTop = () => {
                 <li className="pb-8 text-xl font-light text-secondaryText">
                   Saturday: 11:00 – 15:00
                 </li>
-                <li className="pb-8 text-[1.8rem] font-normal">
+                <li className="pb-8 text-[1.8rem] font-normal text-white">
                   contact@example.com
                 </li>
               </ul>
@@ -77,16 +77,24 @@ const FooterTop = () => {
             <p className=" text-white">Explore</p>
             <ul className="text-xl font-light text-secondaryText">
               <li className="pb-6">
-                <a href="#">About Us</a>
+                <a className="text-white" href="#">
+                  About Us
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Sitemap</a>
+                <a className="text-white" href="#">
+                  Sitemap
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Bookmarks</a>
+                <a className="text-white" href="#">
+                  Bookmarks
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Sign in/ Join</a>
+                <a className="text-white" href="#">
+                  Sign in/ Join
+                </a>
               </li>
             </ul>
           </div>
@@ -95,22 +103,34 @@ const FooterTop = () => {
             <p className=" text-white">Our Service</p>
             <ul className="text-xl font-light text-secondaryText">
               <li className="pb-6">
-                <a href="#">Help Center</a>
+                <a className="text-white" href="#">
+                  Help Center
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Returns</a>
+                <a className="text-white" href="#">
+                  Returns
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Product Recalls</a>
+                <a className="text-white" href="#">
+                  Product Recalls
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Accessability</a>
+                <a className="text-white" href="#">
+                  Accessability
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Contact Us</a>
+                <a className="text-white" href="#">
+                  Contact Us
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Store Pickup</a>
+                <a className="text-white" href="#">
+                  Store Pickup
+                </a>
               </li>
             </ul>
           </div>
@@ -119,19 +139,29 @@ const FooterTop = () => {
             <p className=" text-white">Categories</p>
             <ul className="text-xl font-light text-secondaryText">
               <li className="pb-6">
-                <a href="#">Action</a>
+                <a className="text-white" href="#">
+                  Action
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Comedy</a>
+                <a className="text-white" href="#">
+                  Comedy
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Drama</a>
+                <a className="text-white" href="#">
+                  Drama
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Horror</a>
+                <a className="text-white" href="#">
+                  Horror
+                </a>
               </li>
               <li className="pb-6">
-                <a href="#">Kids</a>
+                <a className="text-white" href="#">
+                  Kids
+                </a>
               </li>
             </ul>
           </div>

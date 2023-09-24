@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "swiper/swiper-bundle.css";
+/* @import "swiper/swiper.css"; */
+/* @import "swiper/components/navigation/navigation.css"; */
+
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
 @layer base {
   html {
@@ -141,7 +145,7 @@ table {
   border-spacing: 0;
 }
 a {
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
   display: inline-block;
   &:hover {

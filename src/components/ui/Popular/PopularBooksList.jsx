@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import PopularBookItem from "./PopularBookItem";
 import LoadingSpinner from "../Loading/LoadingSpinner";
 
-const fetchBooks = async (search) => {
+const fetchBooks = async () => {
   const response = await axios
     .get(`https://localhost:7047/api/books`)
     .catch((error) => {
@@ -34,7 +34,13 @@ const PopularBooksList = () => {
   return (
     <div className="flex flex-wrap max-[992px]:justify-around">
       {limitedBooksData.map((item, index) => {
-        return <PopularBookItem key={index} books={item} />;
+        return (
+          <PopularBookItem
+            key={index}
+            book={item}
+            booksArr={limitedBooksData}
+          />
+        );
       })}
     </div>
   );

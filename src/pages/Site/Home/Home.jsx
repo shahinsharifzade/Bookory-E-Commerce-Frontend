@@ -8,6 +8,8 @@ import PopularBooks from "./PopularBooks";
 import KeepReading from "./KeepReading";
 import PopularAuthors from "./PopularAuthors";
 import Genre from "./Genres";
+import BooksInformation from "../../../components/ui/Information/BooksInformation";
+import Information from "./Information";
 
 const Home = () => {
   return (
@@ -23,6 +25,7 @@ const Home = () => {
         <PopularAuthors />
         <KeepReading />
       </div>
+      <Information />
     </>
   );
 };
