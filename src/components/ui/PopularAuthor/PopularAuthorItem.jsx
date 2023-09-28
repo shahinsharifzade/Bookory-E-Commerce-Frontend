@@ -4,7 +4,7 @@ import React from "react";
 const PopularAuthorItem = (props) => {
   return (
     <div>
-      <div className="mb-12 flex w-full items-center">
+      <div className="mb-12 flex w-full  items-center">
         <div className="mr-6 w-[6rem] shrink-0 rounded-2xl">
           <img
             src={`https://localhost:7047/assets/images/authors/${props.author.mainImage}`}

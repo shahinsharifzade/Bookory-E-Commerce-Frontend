@@ -1,8 +1,12 @@
 import React from "react";
 
-const SocialLink = ({ href, icon }) => {
+const SocialLink = ({ href, icon, classes }) => {
   return (
-    <a href={href} className="hover:text-primaryText" target="_blank">
+    <a
+      href={href}
+      className={`hover:text-primaryText ${classes}`}
+      target="_blank"
+    >
       {icon}
     </a>
   );

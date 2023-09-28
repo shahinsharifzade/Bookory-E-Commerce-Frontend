@@ -1,0 +1,96 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+// import { api } from "../../../api";
+import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
+import AuthorItem from "./AuthorItem";
+import AuthorFilter from "./AuthorFilter";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+
+const PAGE_SIZE = 18;
+
+const fetchAuthor = async (pageNumber, pageSize) => {
+  const response = await axios
+    // .get(`/Authors/paged`, {
+    .get(`https://localhost:7047/api/Authors/paged`, {
+      params: {
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      },
+    })
+    .catch((error) => {
+      return <div>{error.response.data.message}</div>;
+    });
+  var authors = response.data.authors;
+  var totalCount = response.data.totalCount;
+  return { authors, totalCount };
+};
+
+const AuthorsList = () => {
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const {
+    data: authorsData,
+    isLoading,
+    isError,
+  } = useQuery(
+    {
+      queryKey: ["authors", pageNumber, PAGE_SIZE],
+      queryFn: () => fetchAuthor(pageNumber, PAGE_SIZE),
+    },
+    {
+      retry: false,
+    },
+  );
+
+  const [selectedLetter, setSelectedLetter] = useState("ALL");
+
+  const handleFilterClick = (letter) => {
+    setSelectedLetter(letter);
+    setPageNumber(1);
+  };
+
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+
+  if (isError) return <div>Error fetching data</div>;
+
+  const filteredAuthors =
+    selectedLetter === "ALL"
+      ? authorsData.authors
+      : authorsData.authors.filter((author) =>
+          author.name.startsWith(selectedLetter),
+        );
+
+  return (
+    <div className="container">
+      <AuthorFilter
+        selectedLetter={selectedLetter}
+        onFilterClick={handleFilterClick}
+      />
+      <div className="flex flex-row flex-wrap ">
+        {filteredAuthors?.length === 0 ? (
+          <div className="my-auto mb-12 w-full text-center text-[40px] text-secondaryText">
+            No authors found for the selected letter.
+          </div>
+        ) : (
+          filteredAuthors?.map((author, index) => (
+            <AuthorItem key={index} author={author} />
+          ))
+        )}
+      </div>
+
+      <div className="flex justify-center pb-24">
+        <Stack spacing={3}>
+          <Pagination
+            count={authorsData.totalCount}
+            page={pageNumber}
+            onChange={(_, page) => setPageNumber(page)}
+          />
+        </Stack>
+      </div>
+    </div>
+  );
+};
+
+export default AuthorsList;

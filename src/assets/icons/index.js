@@ -10,6 +10,7 @@ import WesternUnion from "./westernUnion.svg";
 import Basket from "./basket.svg";
 import Person from "./persons.svg";
 import HappyEmoji from "./happyEmoji.svg";
+import RightArrow from "./rightArrow.svg";
 
 const icons = {
   Book,
@@ -24,6 +25,7 @@ const icons = {
   Basket,
   Person,
   HappyEmoji,
+  RightArrow,
 };
 
 export default icons;

@@ -15,7 +15,7 @@ const FooterBottom = () => {
             Copyright © 2022 <span className="text-primaryText"> Bookory</span>
             . All rights reserved.
           </p>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <img className="w-18 h-14" src={Mastercard} alt="" />
             <img className="h-16 w-16" src={Visa} alt="" />
             <img className="h-16 w-16" src={AmericanExpress} alt="" />
