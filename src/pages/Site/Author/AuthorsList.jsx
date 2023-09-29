@@ -22,8 +22,8 @@ const fetchAuthor = async (pageNumber, pageSize) => {
     .catch((error) => {
       return <div>{error.response.data.message}</div>;
     });
-  var authors = response.data.authors;
-  var totalCount = response.data.totalCount;
+  const authors = response.data.authors;
+  const totalCount = response.data.totalCount;
   return { authors, totalCount };
 };
 

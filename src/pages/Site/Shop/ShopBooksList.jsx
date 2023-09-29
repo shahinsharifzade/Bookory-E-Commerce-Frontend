@@ -4,28 +4,30 @@ import React, { useState } from "react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import ShopBookItem from "./ShopBookItem";
 import { Pagination, Stack } from "@mui/material";
+import Qs from "qs";
 
 const PAGE_SIZE = 5;
 
-const fetchBooks = async (pageNumber, pageSize) => {
-  const response = await axios
-    .get(`https://localhost:7047/api/Books/paged`, {
-      params: {
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-      },
-    })
-    .catch((error) => {
-      return <div>{error.response.data.message}</div>;
-    });
+const fetchBooks = async (pageNumber, pageSize, selectedAuthors) => {
+  const params = {
+    pageNumber,
+    pageSize,
+    "filters.Authors": selectedAuthors,
+  };
+
+  const response = await axios.get(`https://localhost:7047/api/Books/paged`, {
+    params: params,
+    paramsSerializer: (params) => {
+      return Qs.stringify(params, { arrayFormat: "repeat" });
+    },
+  });
 
   const totalPage = response.data.totalCount;
   const books = response.data.books;
-
   return { books, totalPage };
 };
 
-const ShopBooksList = () => {
+const ShopBooksList = ({ selectedAuthors }) => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const {
@@ -33,8 +35,9 @@ const ShopBooksList = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["books", pageNumber, PAGE_SIZE],
-    queryFn: () => fetchBooks(pageNumber, PAGE_SIZE),
+    queryKey: ["books", pageNumber, PAGE_SIZE, selectedAuthors],
+    queryFn: () => fetchBooks(pageNumber, PAGE_SIZE, selectedAuthors),
+    retry: false,
   });
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;

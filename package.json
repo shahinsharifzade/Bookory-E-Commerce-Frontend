@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mui/base": "^5.0.0-beta.17",
     "@mui/icons-material": "^5.14.9",
     "@mui/material": "^5.14.9",
     "@tanstack/react-query": "^4.35.3",
@@ -16,6 +17,7 @@
     "axios": "^1.5.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.279.0",
+    "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.46.2",

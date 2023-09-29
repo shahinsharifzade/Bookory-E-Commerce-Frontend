@@ -1,72 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import { User2, Heart, ShoppingBasket } from "lucide-react";
 import axios from "axios";
-import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
+import { useMutation, QueryClient, useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
-import Cookies from "js-cookie";
+const queryClient = new QueryClient();
 
 const fetchWishList = async () => {
-  const response = await axios.get(`https://localhost:7047/api/Wishlist`);
-  return response.data;
-};
-
-const fetchBasket = async () => {
-  var response = await axios.get(`https://localhost:7047/api/Baskets`);
+  const response = await axios.get(`https://localhost:7047/api/Wishlist`, {
+    withCredentials: true,
+  });
   console.log(
-    "🚀 ~ file: HeaderIcons.jsx:15 ~ fetchBasket ~ response:",
-    response,
+    "🚀 ~ file: HeaderIcons.jsx:13 ~ fetchWishList ~ data:",
+    response.data,
   );
   return response.data;
 };
 
-const addBasket = async ({ Id, Quantity }) => {
-  const url = `https://localhost:7047/api/Baskets/add`;
-  const params = { Id, Quantity };
-  try {
-    const response = await axios.post(url, null, {
-      params,
-      withCredentials: true,
-    });
-    console.log(response.headers);
-    console.log(response);
-    console.log(response.headers["set-cookie"]);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response.data.message);
-  }
+const fetchBasket = async () => {
+  const response = await axios.get(`https://localhost:7047/api/Baskets`, {
+    withCredentials: true,
+  });
+  return response.data;
 };
 
+// const addBasket = async ({ Id, Quantity }) => {
+//   const url = `https://localhost:7047/api/Baskets/add`;
+//   const params = { Id, Quantity };
+//   try {
+//     const response = await axios.post(url, null, {
+//       params,
+//       withCredentials: true,
+//     });
+//     return response.data;
+//   } catch (error) {
+//     throw new Error(error.response.data.message);
+//   }
+// };
+
 const HeaderIcons = () => {
+  const [basketCount, setBasketCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
+
   const {
     data: wishlist,
     isLoading: wishlistIsLoading,
     isError: wishlistIsError,
-  } = useQuery({ queryKey: ["wishlist"], queryFn: fetchWishList });
+  } = useQuery({
+    queryKey: ["wishlist"],
+    queryFn: fetchWishList,
+    onSuccess: (data) => {
+      setWishlistCount(data.books.length);
+    },
+  });
 
   const {
     data: basket,
     isLoading: basketIsLoading,
     isError: basketIsError,
-  } = useQuery({ queryKey: ["basket"], queryFn: fetchBasket });
-
-  const { mutate, isLoading, isError, error, data } = useMutation({
-    mutationFn: addBasket,
-    onSuccess: async () => {
-      console.log("I'm first!");
+  } = useQuery({
+    queryKey: ["basket"],
+    queryFn: fetchBasket,
+    onSuccess: (data) => {
+      setBasketCount(data.length);
     },
   });
 
-  const handleClick = () => {
-    mutate({ Id: "a92af5f8-43fd-441e-e274-08dbb93d82fb", Quantity: 9 });
-  };
+  // const { mutate, isLoading, isError, error } = useMutation({
+  //   mutationFn: addBasket,
+  //   onSuccess: async () => {
+  //     await queryClient.invalidateQueries(["basket"]);
+  //     const updatedBasket = await fetchBasket();
+  //     setBasketCount(updatedBasket.length);
+  //   },
+  // });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error: {error.message}</div>;
-  }
+  // const handleClick = () => {
+  //   mutate({ Id: "14deddfb-c802-4ffe-db22-08dbb3cffbdc", Quantity: 11 });
+  // };
 
   if (basketIsLoading) return <LoadingSpinner isLoading={basketIsLoading} />;
 
@@ -91,7 +101,7 @@ const HeaderIcons = () => {
           className="mx-4 font-normal"
         />
         <span className="absolute right-2 top-[-6px] flex max-h-[11px] items-center rounded-md bg-primaryText px-[3px] text-[10px] font-semibold text-white">
-          {wishlist.books.length}
+          {wishlistCount}
         </span>
       </a>
       <a className="relative cursor-pointer text-black">
@@ -101,11 +111,11 @@ const HeaderIcons = () => {
           className="ml-2 mr-2 font-normal"
         />
         <span className="absolute right-0 top-[-6px] flex max-h-[11px] items-center rounded-md bg-primaryText px-[3px] text-[10px] font-semibold text-white">
-          {basket.length}
+          {basketCount}
         </span>
       </a>
 
-      <button onClick={handleClick}>SUBMIT</button>
+      {/* <button onClick={handleClick}>SUBMIT</button> */}
     </div>
   );
 };

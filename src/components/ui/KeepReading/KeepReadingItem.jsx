@@ -26,7 +26,7 @@ const KeepReadingItem = (props) => {
       </div>
 
       <div className="flex flex-col items-start justify-start ">
-        <p className="mb-4 cursor-pointer pt-8 hover:text-primaryText">
+        <p className="mb-4 line-clamp-1 cursor-pointer overflow-hidden  text-ellipsis pt-8 text-left hover:text-primaryText">
           {props.books.title}
         </p>
 
