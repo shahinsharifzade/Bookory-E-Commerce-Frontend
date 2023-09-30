@@ -6,8 +6,6 @@ import ShopBookItem from "./ShopBookItem";
 import { Pagination, Stack } from "@mui/material";
 import Qs from "qs";
 
-const PAGE_SIZE = 5;
-
 const fetchBooks = async (
   pageNumber,
   pageSize,
@@ -46,6 +44,7 @@ const ShopBooksList = ({
   priceRange,
   selectedRating,
   selectedSort,
+  pageSize,
 }) => {
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -57,7 +56,7 @@ const ShopBooksList = ({
     queryKey: [
       "books",
       pageNumber,
-      PAGE_SIZE,
+      pageSize,
       selectedAuthors,
       selectedGenres,
       priceRange,
@@ -67,7 +66,7 @@ const ShopBooksList = ({
     queryFn: () =>
       fetchBooks(
         pageNumber,
-        PAGE_SIZE,
+        pageSize,
         selectedAuthors,
         selectedGenres,
         priceRange,

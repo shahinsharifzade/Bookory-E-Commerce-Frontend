@@ -9,6 +9,7 @@ const Shop = () => {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 300]);
   const [selectedRating, setSelectedRating] = useState();
+  const [pageSize, setPageSize] = useState(20);
   const [sortBy, setSortBy] = useState("");
   const [MuiDrawer, setMuiDrawer] = useState(false);
 
@@ -26,6 +27,9 @@ const Shop = () => {
   };
   const handleSortChange = (sort) => {
     setSortBy(sort);
+  };
+  const handlePageSizeChange = (pageSize) => {
+    setPageSize(pageSize);
   };
 
   return (
@@ -46,7 +50,11 @@ const Shop = () => {
         setMuiDrawer={setMuiDrawer}
       />
 
-      <CenterBarFilter setMuiDrawer={setMuiDrawer} onSortChange={setSortBy} />
+      <CenterBarFilter
+        setMuiDrawer={setMuiDrawer}
+        onSortChange={handleSortChange}
+        onPageSizeChange={handlePageSizeChange}
+      />
 
       <ShopBooksList
         selectedAuthors={selectedAuthors}
@@ -54,6 +62,7 @@ const Shop = () => {
         priceRange={priceRange}
         selectedRating={selectedRating}
         selectedSort={sortBy}
+        pageSize={pageSize}
       />
     </section>
   );

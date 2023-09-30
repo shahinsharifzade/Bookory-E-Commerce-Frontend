@@ -17,12 +17,13 @@ const FilterByPrice = ({ onPriceRangeChange }) => {
       <Slider
         getAriaLabel={() => "Price Range Filter"}
         value={value}
-        max={value[1]}
+        aria-labelledby="range-slider"
+        max={300}
         onChange={handleChange}
         valueLabelDisplay="auto"
       />
       <div className="text-lg ">
-        <span className="text-[#999999]">Price </span>${value[0]} - {value[1]}
+        <span className="text-[#999999]">Price: </span>${value[0]} - {value[1]}
       </div>
     </div>
   );
