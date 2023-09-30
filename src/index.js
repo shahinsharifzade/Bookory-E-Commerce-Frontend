@@ -19,7 +19,7 @@ root.render(
       <App>
         <RouterProvider router={router}></RouterProvider>
       </App>
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   </React.StrictMode>,
 );

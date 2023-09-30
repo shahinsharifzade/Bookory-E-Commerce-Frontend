@@ -22,10 +22,6 @@ const FilterByAuthor = ({ onAuthorsChange }) => {
     queryKey: ["authors"],
     queryFn: fetchAuthor,
   });
-  console.log(
-    "🚀 ~ file: FilterByAuthor.jsx:19 ~ FilterByAuthor ~ authorsData:",
-    authorsData,
-  );
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [selectedAuthors, setSelectedAuthors] = useState([]);
@@ -54,7 +50,10 @@ const FilterByAuthor = ({ onAuthorsChange }) => {
           </h5>
           <ul className="flex flex-col gap-3 text-xl font-light">
             {authorsData.map((author) => (
-              <div className="flex items-center justify-between">
+              <div
+                key={author.id}
+                className="flex items-center justify-between"
+              >
                 <label
                   key={author.id}
                   className="flex cursor-pointer items-center"

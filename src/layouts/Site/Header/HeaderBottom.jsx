@@ -14,7 +14,9 @@ const HeaderBottom = () => {
               <Link to="/shop">Shop</Link>
             </li>
             <li className="mx-14 my-10">Vendor</li>
-            <li className="mx-14 my-10">Page</li>
+            <li className="mx-14 my-10">
+              <Link to={"/author"}>Author </Link>
+            </li>
             <li className="mx-14 my-10">Blog</li>
             <li className="mx-14 my-10">Contact</li>
           </ul>

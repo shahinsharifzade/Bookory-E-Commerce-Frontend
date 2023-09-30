@@ -9,10 +9,7 @@ const fetchWishList = async () => {
   const response = await axios.get(`https://localhost:7047/api/Wishlist`, {
     withCredentials: true,
   });
-  console.log(
-    "🚀 ~ file: HeaderIcons.jsx:13 ~ fetchWishList ~ data:",
-    response.data,
-  );
+
   return response.data;
 };
 
@@ -22,20 +19,6 @@ const fetchBasket = async () => {
   });
   return response.data;
 };
-
-// const addBasket = async ({ Id, Quantity }) => {
-//   const url = `https://localhost:7047/api/Baskets/add`;
-//   const params = { Id, Quantity };
-//   try {
-//     const response = await axios.post(url, null, {
-//       params,
-//       withCredentials: true,
-//     });
-//     return response.data;
-//   } catch (error) {
-//     throw new Error(error.response.data.message);
-//   }
-// };
 
 const HeaderIcons = () => {
   const [basketCount, setBasketCount] = useState(0);
@@ -64,19 +47,6 @@ const HeaderIcons = () => {
       setBasketCount(data.length);
     },
   });
-
-  // const { mutate, isLoading, isError, error } = useMutation({
-  //   mutationFn: addBasket,
-  //   onSuccess: async () => {
-  //     await queryClient.invalidateQueries(["basket"]);
-  //     const updatedBasket = await fetchBasket();
-  //     setBasketCount(updatedBasket.length);
-  //   },
-  // });
-
-  // const handleClick = () => {
-  //   mutate({ Id: "14deddfb-c802-4ffe-db22-08dbb3cffbdc", Quantity: 11 });
-  // };
 
   if (basketIsLoading) return <LoadingSpinner isLoading={basketIsLoading} />;
 
@@ -114,8 +84,6 @@ const HeaderIcons = () => {
           {basketCount}
         </span>
       </a>
-
-      {/* <button onClick={handleClick}>SUBMIT</button> */}
     </div>
   );
 };

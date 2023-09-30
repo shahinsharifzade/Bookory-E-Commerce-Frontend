@@ -45,8 +45,8 @@ const FilterByGenre = ({ onGenresChange }) => {
             Genres
           </h5>
           <ul className="flex flex-col gap-3 text-xl font-light">
-            {data.map((genre) => (
-              <div className="flex items-center justify-between">
+            {data.map((genre, index) => (
+              <div key={index} className="flex items-center justify-between">
                 <label
                   key={genre.id}
                   className="flex cursor-pointer items-center"
@@ -63,7 +63,6 @@ const FilterByGenre = ({ onGenresChange }) => {
                     {genre.name}
                   </p>
                 </label>
-                <span className="cursor-pointer font-light text-[#999999]">{`( ${genre.books.length} )`}</span>
               </div>
             ))}
           </ul>

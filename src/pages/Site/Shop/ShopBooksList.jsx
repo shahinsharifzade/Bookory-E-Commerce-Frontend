@@ -8,11 +8,24 @@ import Qs from "qs";
 
 const PAGE_SIZE = 5;
 
-const fetchBooks = async (pageNumber, pageSize, selectedAuthors) => {
+const fetchBooks = async (
+  pageNumber,
+  pageSize,
+  selectedAuthors,
+  selectedGenres,
+  priceRange,
+  selectedRating,
+  selectedSort,
+) => {
   const params = {
     pageNumber,
     pageSize,
     "filters.Authors": selectedAuthors,
+    "filters.Genres": selectedGenres,
+    "filters.MinPrice": priceRange[0],
+    "filters.MaxPrice": priceRange[1],
+    "filters.Rating": selectedRating,
+    "filters.SortBy": selectedSort,
   };
 
   const response = await axios.get(`https://localhost:7047/api/Books/paged`, {
@@ -27,7 +40,13 @@ const fetchBooks = async (pageNumber, pageSize, selectedAuthors) => {
   return { books, totalPage };
 };
 
-const ShopBooksList = ({ selectedAuthors }) => {
+const ShopBooksList = ({
+  selectedAuthors,
+  selectedGenres,
+  priceRange,
+  selectedRating,
+  selectedSort,
+}) => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const {
@@ -35,8 +54,26 @@ const ShopBooksList = ({ selectedAuthors }) => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["books", pageNumber, PAGE_SIZE, selectedAuthors],
-    queryFn: () => fetchBooks(pageNumber, PAGE_SIZE, selectedAuthors),
+    queryKey: [
+      "books",
+      pageNumber,
+      PAGE_SIZE,
+      selectedAuthors,
+      selectedGenres,
+      priceRange,
+      selectedRating,
+      selectedSort,
+    ],
+    queryFn: () =>
+      fetchBooks(
+        pageNumber,
+        PAGE_SIZE,
+        selectedAuthors,
+        selectedGenres,
+        priceRange,
+        selectedRating,
+        selectedSort,
+      ),
     retry: false,
   });
 

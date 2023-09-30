@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import FilterByAuthor from "./FilterByAuthor";
 import FilterByGenre from "./FilterByGenre";
 import Drawer from "@mui/material/Drawer";
+import FilterByPrice from "./FilterByPrice";
+import FilterByRating from "./FilterByRating";
 
 const SidebarFilter = ({
   onAuthorsChange,
   onGenresChange,
+  onPriceRangeChange,
+  onRatingChange,
   MuiDrawer,
   setMuiDrawer,
 }) => {
@@ -27,6 +31,8 @@ const SidebarFilter = ({
         <div className="w-[300px] px-12 font-sora">
           <FilterByGenre onGenresChange={onGenresChange} />
           <FilterByAuthor onAuthorsChange={onAuthorsChange} />
+          <FilterByPrice onPriceRangeChange={onPriceRangeChange} />
+          <FilterByRating onRatingChange={onRatingChange} />
         </div>
       </Drawer>
     </>
