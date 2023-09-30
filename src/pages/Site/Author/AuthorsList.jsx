@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-// import { api } from "../../../api";
+import { api } from "../../../api";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import AuthorItem from "./AuthorItem";
 import AuthorFilter from "./AuthorFilter";
@@ -11,9 +11,9 @@ import Stack from "@mui/material/Stack";
 const PAGE_SIZE = 18;
 
 const fetchAuthor = async (pageNumber, pageSize) => {
-  const response = await axios
-    // .get(`/Authors/paged`, {
-    .get(`https://localhost:7047/api/Authors/paged`, {
+  const response = await api
+    .get(`/Authors/paged`, {
+      // .get(`https://localhost:7047/api/Authors/paged`, {
       params: {
         pageNumber: pageNumber,
         pageSize: pageSize,

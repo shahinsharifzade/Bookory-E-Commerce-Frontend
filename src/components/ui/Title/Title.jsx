@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 
 const Title = (props) => {
   return (
-    <div className="bg-[#f0f0f0] py-20">
+    <div className={`bg-[#f0f0f0] py-20 ${props.containerClasses}`}>
       <div className="container flex items-center justify-between">
-        <h3 className="text-[5rem] font-semibold minw-sm:text-[6.4rem]">
+        <h3
+          className={`text-[5rem] font-semibold minw-sm:text-[6.4rem] ${props.titleClasses}`}
+        >
           {props.title}
         </h3>
         <nav>
@@ -39,3 +41,5 @@ const Title = (props) => {
 };
 
 export default Title;
+
+//Props { mainNav , containerClasses , titleClasses , secondaryNav , secondaryNavDisplay , lastNav ,   }

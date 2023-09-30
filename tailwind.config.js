@@ -43,6 +43,7 @@ module.exports = {
       colors: {
         primaryText: "#f65d4e",
         secondaryText: "#e6e6e6",
+        secondartTextBold: "#999999",
       },
     },
   },

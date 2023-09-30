@@ -3,6 +3,7 @@ import Shop from "../pages/Site/Shop/Shop";
 import Author from "../pages/Site/Author/Author";
 import SiteRoot from "../pages/Site/SiteRoot/SiteRoot";
 import AuthorDetails from "../pages/Site/AuthorDetails/AuthorDetails";
+import BookDetails from "../pages/Site/BookDetails/BookDetails";
 
 export const ROUTES = [
   {
@@ -20,16 +21,14 @@ export const ROUTES = [
       {
         path: "author",
         element: <Author />,
-        // children: [
-        //   {
-        //     path: ":authorId",
-        //     element: <AuthorDetails />,
-        //   },
-        // ],
       },
       {
         path: "author/:authorId",
         element: <AuthorDetails />,
+      },
+      {
+        path: "shop/:bookId",
+        element: <BookDetails />,
       },
     ],
   },

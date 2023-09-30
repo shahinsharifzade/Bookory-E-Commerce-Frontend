@@ -17,7 +17,7 @@ const CenterBarFilter = ({ setMuiDrawer, onSortChange, onPageSizeChange }) => {
     onPageSizeChange(pageSize);
   };
 
-  const sortArray = [k
+  const sortArray = [
     {
       value: "priceLowToHigh",
       name: "Price low to high",
