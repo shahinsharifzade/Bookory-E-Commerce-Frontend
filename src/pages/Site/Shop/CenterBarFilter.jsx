@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Sliders } from "lucide-react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import "./CenterBarFilter.css";
 
 const CenterBarFilter = ({ setMuiDrawer, onSortChange, onPageSizeChange }) => {
   const [sortBy, setSortBy] = useState("averageRating");
@@ -80,7 +79,16 @@ const CenterBarFilter = ({ setMuiDrawer, onSortChange, onPageSizeChange }) => {
 
         <div className="flex gap-4">
           <div>
-            <FormControl sx={{ width: 140 }}>
+            <FormControl
+              sx={{
+                width: 140,
+                "& .MuiSelect-select": {
+                  fontSize: 12,
+                  padding: "10px 6px",
+                  fontWeight: 600,
+                },
+              }}
+            >
               <InputLabel
                 id="sort-label"
                 sx={{ fontSize: "12px", fontWeight: 600 }}
@@ -110,7 +118,16 @@ const CenterBarFilter = ({ setMuiDrawer, onSortChange, onPageSizeChange }) => {
           </div>
 
           <div>
-            <FormControl sx={{ width: 140 }}>
+            <FormControl
+              sx={{
+                width: 140,
+                "& .MuiSelect-select": {
+                  fontSize: 10,
+                  padding: "10px 6px",
+                  fontWeight: 600,
+                },
+              }}
+            >
               <InputLabel
                 id="demo-simple-select-label"
                 sx={{ fontSize: "12px", fontWeight: 600 }}

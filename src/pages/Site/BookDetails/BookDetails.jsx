@@ -5,10 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import BookDetailsContent from "./BookDetailsContent";
+import BookDetailsDesciption from "./BookDetailsDesciption";
+import RelatedBooksList from "./RelatedBooksList";
 
 const fetchBook = async (bookId) => {
   var response = await axios.get(`https://localhost:7047/api/Books/${bookId}`);
-  console.log(response.data);
   return response.data;
 };
 
@@ -40,6 +41,8 @@ const BookDetails = () => {
       />
 
       <BookDetailsContent book={book} />
+      <BookDetailsDesciption book={book} />
+      <RelatedBooksList />
     </div>
   );
 };

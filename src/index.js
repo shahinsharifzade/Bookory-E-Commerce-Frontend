@@ -8,6 +8,7 @@ import { ROUTES } from "./routes/route";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter(ROUTES);
 const queryClient = new QueryClient();
@@ -18,8 +19,9 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <App>
         <RouterProvider router={router}></RouterProvider>
+        <ToastContainer />
       </App>
-      {/* <ReactQueryDevtools /> */}
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>,
 );

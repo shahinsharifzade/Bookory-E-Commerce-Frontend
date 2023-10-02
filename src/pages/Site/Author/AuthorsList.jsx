@@ -11,9 +11,9 @@ import Stack from "@mui/material/Stack";
 const PAGE_SIZE = 18;
 
 const fetchAuthor = async (pageNumber, pageSize) => {
-  const response = await api
-    .get(`/Authors/paged`, {
-      // .get(`https://localhost:7047/api/Authors/paged`, {
+  const response = await axios
+    // .get(`/Authors/paged`, {
+    .get(`https://localhost:7047/api/Authors/paged`, {
       params: {
         pageNumber: pageNumber,
         pageSize: pageSize,
