@@ -42,7 +42,7 @@ const BookDetails = () => {
 
       <BookDetailsContent book={book} />
       <BookDetailsDesciption book={book} />
-      <RelatedBooksList />
+      <RelatedBooksList selectedGenres={book.genres} />
     </div>
   );
 };

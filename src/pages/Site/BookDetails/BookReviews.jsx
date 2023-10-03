@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
-import { UserCircle2 } from "lucide-react";
+import { Star, UserCircle2 } from "lucide-react";
+import ReviewForm from "./ReviewForm";
 
 const fetchReview = async (Id) => {
   const response = await axios.get(
@@ -10,6 +11,7 @@ const fetchReview = async (Id) => {
   );
   return response.data;
 };
+
 const fetchUser = async (userId) => {
   const response = await axios.get(
     `https://localhost:7047/api/Users/${userId}`,
@@ -29,7 +31,6 @@ const BookReviews = ({ id }) => {
 
   const fetchUserForReview = async (userId) => {
     const userData = await fetchUser(userId);
-    console.log(userData);
     return userData;
   };
 
@@ -37,7 +38,6 @@ const BookReviews = ({ id }) => {
     const userDataPromises = reviewsData.map((review) =>
       fetchUserForReview(review.userId),
     );
-    console.log(userDataPromises);
 
     const userData = await Promise.all(userDataPromises);
     return userData;
@@ -79,6 +79,9 @@ const BookReviews = ({ id }) => {
             </div>
           </div>
         ))}
+        <div>
+          <ReviewForm bookId={id} />
+        </div>
       </div>
     </>
   );
