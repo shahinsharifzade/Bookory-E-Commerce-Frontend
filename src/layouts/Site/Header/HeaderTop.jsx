@@ -12,19 +12,19 @@ const HeaderTop = () => {
   const socialLinks = [
     {
       href: "https://www.instagram.com/sahin_sf/",
-      icon: <Instagram size="14px" />,
+      icon: <Instagram color="#fff" size="14px" />,
     },
     {
       href: "https://twitter.com/sahin_sf",
-      icon: <Twitter size="14px" />,
+      icon: <Twitter color="#fff" size="14px" />,
     },
     {
       href: "https://www.facebook.com/sahin_sf",
-      icon: <Facebook size="14px" />,
+      icon: <Facebook color="#fff" size="14px" />,
     },
     {
       href: "https://www.linkedin.com/in/sahin_sf",
-      icon: <Linkedin size="14px" />,
+      icon: <Linkedin color="#fff" size="14px" />,
     },
   ];
 
@@ -32,7 +32,10 @@ const HeaderTop = () => {
     <section className="flex min-h-[4.4rem] items-center bg-[#282828] text-lg text-white">
       <div className="container flex flex-row items-center justify-between">
         <div className="flex flex-row">
-          <a href="#" className="mr-14 cursor-pointer hover:text-primaryText">
+          <a
+            href="#"
+            className="mr-14 cursor-pointer text-white hover:text-primaryText"
+          >
             Find a bookstore
           </a>
           <div className="flex items-center">

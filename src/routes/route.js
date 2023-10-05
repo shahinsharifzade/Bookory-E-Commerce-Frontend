@@ -4,6 +4,7 @@ import Author from "../pages/Site/Author/Author";
 import SiteRoot from "../pages/Site/SiteRoot/SiteRoot";
 import AuthorDetails from "../pages/Site/AuthorDetails/AuthorDetails";
 import BookDetails from "../pages/Site/BookDetails/BookDetails";
+import Store from "../pages/Site/Vendor/Store";
 
 export const ROUTES = [
   {
@@ -29,6 +30,10 @@ export const ROUTES = [
       {
         path: "shop/:bookId",
         element: <BookDetails />,
+      },
+      {
+        path: "store",
+        element: <Store />,
       },
     ],
   },

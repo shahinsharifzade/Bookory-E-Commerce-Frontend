@@ -7,20 +7,23 @@ const Title = (props) => {
     <div className={`bg-[#f0f0f0] py-20 ${props.containerClasses}`}>
       <div className="container flex items-center justify-between">
         <h3
-          className={`text-[5rem] font-semibold minw-sm:text-[6.4rem] ${props.titleClasses}`}
+          className={`text-[5rem] font-semibold capitalize minw-sm:text-[6.4rem] ${props.titleClasses}`}
         >
           {props.title}
         </h3>
         <nav>
           <ul className="flex items-center text-lg text-[#999999]">
             <li>
-              <Link className="text-[#999999]" to={"/"}>
+              <Link className="uppercase text-[#999999]" to={"/"}>
                 {props.mainNav}
               </Link>
             </li>
             <ArrowRight className="mx-4" size={"14px"} />
             <li className="">
-              <Link className="text-primaryText" to={`/${props.secondaryNav}`}>
+              <Link
+                className="uppercase text-primaryText"
+                to={`/${props.secondaryNav}`}
+              >
                 {props.secondaryNav}
               </Link>
             </li>

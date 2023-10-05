@@ -22,6 +22,7 @@ const HappyCustomerInformation = () => {
   } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
 
   const [happyCustomer, setHappyCutomer] = useState(0);
+
   useEffect(() => {
     if (booksData) {
       const totalBooks = booksData.length;
@@ -41,7 +42,9 @@ const HappyCustomerInformation = () => {
           <img src={icons.HappyEmoji} className="h-16 w-16" alt="Book icon" />
         </div>
         <div>
-          <p className="mb-4 text-[2.6rem] font-semibold">{happyCustomer}%</p>
+          <p className="mb-4 text-[2.6rem] font-semibold">
+            {Math.ceil(happyCustomer)}%
+          </p>
           <h5 className="text-lg font-normal text-[#999999]">HAPPY CUSTOMER</h5>
         </div>
       </div>

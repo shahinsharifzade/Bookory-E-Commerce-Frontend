@@ -1,20 +1,21 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Star } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { setRating } from "../../../features/bookFilter/bookFiltersSlice";
 
-const FilterByRating = ({ onRatingChange }) => {
-  const [selectedRating, setSelectedRating] = useState(null);
+const FilterByRating = () => {
+  const selectedRating = useSelector((state) => state.filters.selectedRating);
+  const dispatch = useDispatch();
 
   const handleRatingChange = useCallback(
     (value) => {
       if (value === selectedRating) {
-        setSelectedRating(null);
-        onRatingChange(null);
+        dispatch(setRating(null));
       } else {
-        setSelectedRating(value);
-        onRatingChange(value);
+        dispatch(setRating(value));
       }
     },
-    [selectedRating, onRatingChange],
+    [selectedRating],
   );
 
   const renderStars = useMemo(
@@ -44,6 +45,7 @@ const FilterByRating = ({ onRatingChange }) => {
             htmlFor={`rating${ratingValue}`}
             className="cursor-pointer"
           >
+            {console.log(ratingValue)}
             <input
               type="radio"
               value={ratingValue}

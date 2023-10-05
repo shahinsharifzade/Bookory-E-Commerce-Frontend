@@ -19,7 +19,7 @@ const ShopBookItem = (props) => {
 
   return (
     <div
-      className="flex w-[50%] flex-col items-start justify-start rounded-[2rem] p-12 text-center min-[800px]:w-1/3 min-[1080px]:w-1/4 min-[1360px]:w-1/5 "
+      className="flex w-[50%] flex-col items-center justify-start rounded-[2rem] p-12 text-center min-[800px]:w-1/3 min-[1080px]:w-1/4 min-[1360px]:w-1/5 "
       onMouseEnter={() => {
         setIsHovered(true);
       }}
@@ -27,7 +27,7 @@ const ShopBookItem = (props) => {
         setIsHovered(false);
       }}
     >
-      <Link to={`/shop/${props.book.id}`}>
+      <Link to={`/shop/${props.book.id}`} className="w-full">
         <div className="relative w-full shrink-0 rounded-[2rem] minw-md:w-[24rem] min-[1200px]:w-[23rem]">
           <img
             src={`https://localhost:7047/assets/images/books/${props.book.mainImage}`}
@@ -42,8 +42,9 @@ const ShopBookItem = (props) => {
           >
             <div>
               <a
-                className="animate__fadeInRight animate__animated animate__faster ease transform rounded-full bg-white p-2 transition-all duration-300 hover:bg-primaryText "
+                className="animate__fadeInRight animate__animated animate__faster ease  transform rounded-full bg-white p-2 transition-all duration-300 hover:bg-primaryText "
                 href="#"
+                onClick={(e) => e.preventDefault()}
               >
                 <Heart color="#000000" strokeWidth={"1px"} />
               </a>

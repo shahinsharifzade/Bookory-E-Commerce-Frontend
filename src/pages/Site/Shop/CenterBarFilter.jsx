@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import { Sliders } from "lucide-react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setPageSize,
+  setSort,
+} from "../../../features/bookFilter/bookFiltersSlice";
 
-const CenterBarFilter = ({ setMuiDrawer, onSortChange, onPageSizeChange }) => {
-  const [sortBy, setSortBy] = useState("averageRating");
-  const [pageSize, setPageSize] = useState(20);
+const CenterBarFilter = ({ setMuiDrawer }) => {
+  const dispatch = useDispatch();
+
+  const pageSize = useSelector((state) => state.filters.pageSize);
+  const sortBy = useSelector((state) => state.filters.selectedSort);
 
   const handleSortType = (value) => {
-    setSortBy(value);
-    onSortChange(value);
+    dispatch(setSort(value));
   };
 
   const handlePageSize = (pageSize) => {
-    setPageSize(pageSize);
-    onPageSizeChange(pageSize);
+    dispatch(setPageSize(pageSize));
   };
 
   const sortArray = [

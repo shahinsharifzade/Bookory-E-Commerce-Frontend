@@ -22,7 +22,7 @@ const HeaderSearchBar = () => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="ml-8 mr-5 hidden cursor-pointer items-center justify-between rounded-[4rem] bg-primaryText px-[3rem] py-[1.5rem] text-xl font-medium text-white minw-1000:block minw-1000:flex">
+        <div className="ml-8 mr-5 hidden cursor-pointer items-center justify-between rounded-[4rem] bg-primaryText px-[3rem] py-[1.5rem] text-xl font-medium text-white minw-1000:flex">
           <div className="flex items-center">
             <div className="mr-2 ">
               <LayoutGrid

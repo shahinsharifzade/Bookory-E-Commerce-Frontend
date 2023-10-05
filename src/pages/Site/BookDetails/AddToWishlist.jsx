@@ -1,40 +1,42 @@
-import React from "react";
-import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
+import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import {
-  showToastInfoMessage,
-  showToastSuccessMessage,
-} from "../../../utils/toastUtils";
-
-const addToWishlist = async ({ Id }) => {
-  const params = { Id };
-  const response = await axios.post(
-    `https://localhost:7047/api/Wishlist`,
-    null,
-    {
-      params,
-      withCredentials: true,
-    },
-  );
-  return response.data;
-};
+  useAddToWishlist,
+  useCheckItemExists,
+  useDeleteItem,
+} from "../../../service/wishlistService";
+import { logDOM } from "@testing-library/react";
 
 const AddToWishlist = ({ book }) => {
-  const { mutate: wishlistMutate } = useMutation({
-    mutationFn: addToWishlist,
-    onSuccess: () => {
-      showToastSuccessMessage("Item added ✅");
-    },
-    onError: (error) => {
-      showToastInfoMessage(`${error.response.data.message}`);
-    },
-  });
+  const { mutate, isLoading } = useAddToWishlist();
+  const { mutate: deleteMutate, isLoading: removeItemIsLoading } =
+    useDeleteItem();
+
+  const { data, isLoading: bookIsLoading } = useCheckItemExists(book.id);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading && !bookIsLoading && data) {
+      console.log(data.statusCode);
+      setIsInWishlist(data.statusCode === 200);
+    }
+  }, [data, isLoading, bookIsLoading]);
 
   const handleAddToWishlist = (e) => {
     e.preventDefault();
-    wishlistMutate({ Id: book.id });
+    if (isInWishlist) {
+      deleteMutate(book.id);
+    } else {
+      mutate(book.id);
+    }
+    setIsInWishlist(!isInWishlist);
   };
+
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+  if (bookIsLoading) return <LoadingSpinner isLoading={bookIsLoading} />;
+  if (removeItemIsLoading)
+    return <LoadingSpinner isLoading={removeItemIsLoading} />;
 
   return (
     <>
@@ -42,7 +44,12 @@ const AddToWishlist = ({ book }) => {
         <form onSubmit={handleAddToWishlist}>
           <button type="submit" className="flex items-end">
             <div className="rounded-full border border-solid border-secondaryText active:scale-95 active:shadow-lg">
-              <Heart className="m-4" color="#e6e6e6" size={"30px"} />
+              <Heart
+                className="m-4"
+                fill={isInWishlist ? "#f65d4e" : "#fff"}
+                color="#e6e6e6"
+                size={"30px"}
+              />
             </div>
           </button>
         </form>

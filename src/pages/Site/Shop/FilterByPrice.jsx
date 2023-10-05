@@ -1,12 +1,15 @@
 import React from "react";
 import Slider from "@mui/material/Slider";
+import { useDispatch, useSelector } from "react-redux";
+import { setPriceRange } from "../../../features/bookFilter/bookFiltersSlice";
 
-const FilterByPrice = ({ onPriceRangeChange }) => {
-  const [value, setValue] = React.useState([0, 300]);
+const FilterByPrice = () => {
+  // const [value, setValue] = React.useState([0, 300]);
+  const value = useSelector((state) => state.filters.priceRange);
+  const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
-    onPriceRangeChange(newValue);
-    setValue(newValue);
+    dispatch(setPriceRange(newValue));
   };
 
   return (

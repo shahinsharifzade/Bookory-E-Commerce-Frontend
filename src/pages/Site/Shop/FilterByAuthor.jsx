@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthors } from "../../../features/bookFilter/bookFiltersSlice";
 
 const fetchAuthor = async () => {
   const response = await axios
@@ -13,7 +15,7 @@ const fetchAuthor = async () => {
   return response.data;
 };
 
-const FilterByAuthor = ({ onAuthorsChange }) => {
+const FilterByAuthor = () => {
   const {
     data: authorsData,
     isLoading: auhtorsLoading,
@@ -23,17 +25,16 @@ const FilterByAuthor = ({ onAuthorsChange }) => {
     queryFn: fetchAuthor,
   });
 
-  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  const [selectedAuthors, setSelectedAuthors] = useState([]);
+  const dispatch = useDispatch();
+  const selectedAuthors = useSelector((state) => state.filters.selectedAuthors);
 
+  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const handleAuthorChange = (authorId) => {
     const updatedAuthors = selectedAuthors.includes(authorId)
       ? selectedAuthors.filter((id) => id !== authorId)
       : [...selectedAuthors, authorId];
 
-    setSelectedAuthors(updatedAuthors);
-
-    onAuthorsChange(updatedAuthors);
+    dispatch(setAuthors(updatedAuthors));
   };
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
+import { useSelect } from "@mui/base";
+import { useDispatch, useSelector } from "react-redux";
+import { setGenres } from "../../../features/bookFilter/bookFiltersSlice";
 
 const fetchGenre = async () => {
   const response = await axios
@@ -13,23 +16,22 @@ const fetchGenre = async () => {
   return response.data;
 };
 
-const FilterByGenre = ({ onGenresChange }) => {
+const FilterByGenre = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["genres"],
     queryFn: fetchGenre,
   });
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  const [setselectedGenres, setSelectedGenres] = useState([]);
+  const selectedGenres = useSelector((state) => state.filters.selectedGenres);
+  const dispatch = useDispatch();
 
   const handGenreChange = (genreId) => {
-    const updatedGenres = setselectedGenres.includes(genreId)
-      ? setselectedGenres.filter((id) => id !== genreId)
-      : [...setselectedGenres, genreId];
+    const updatedGenres = selectedGenres.includes(genreId)
+      ? selectedGenres.filter((id) => id !== genreId)
+      : [...selectedGenres, genreId];
 
-    setSelectedGenres(updatedGenres);
-
-    onGenresChange(updatedGenres);
+    dispatch(setGenres(updatedGenres));
   };
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -56,7 +58,7 @@ const FilterByGenre = ({ onGenresChange }) => {
                     type="checkbox"
                     id={`genre-${genre.id}`}
                     value={genre.id}
-                    checked={setselectedGenres.includes(genre.id)}
+                    checked={selectedGenres.includes(genre.id)}
                     onChange={() => handGenreChange(genre.id)}
                   />
                   <p p className="pl-4">

@@ -14,7 +14,6 @@ const BookListItem = ({ book }) => {
     }
   }
   const [isHovered, setIsHovered] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
     <div

@@ -1,31 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import React, { useState } from "react";
 import { ShoppingBasket } from "lucide-react";
-import { showToastSuccessMessage } from "../../../utils/toastUtils";
-
-const addToCart = async ({ Id, Quantity }) => {
-  const params = { Id, Quantity };
-  const response = await axios.post(
-    `https://localhost:7047/api/Baskets/add`,
-    null,
-    {
-      params,
-      withCredentials: true,
-    },
-  );
-  return response.data;
-};
+import { useAddToCart } from "../../../service/cartService";
 
 const AddToCart = ({ book }) => {
   const [basketCount, setBasketCount] = useState(1);
 
-  const { mutate } = useMutation(addToCart, {
-    onSuccess: () => {
-      showToastSuccessMessage("Item Added 🛒!");
-    },
-  });
-
+  const { mutate, isLoading } = useAddToCart();
   const handleAddToCart = (e) => {
     e.preventDefault();
     mutate({ Id: book.id, Quantity: basketCount });

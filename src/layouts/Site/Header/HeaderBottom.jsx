@@ -13,7 +13,9 @@ const HeaderBottom = () => {
             <li className="mx-14 my-10">
               <Link to="/shop">Shop</Link>
             </li>
-            <li className="mx-14 my-10">Vendor</li>
+            <li className="mx-14 my-10">
+              <Link to={"/store"}>Vendor</Link>
+            </li>
             <li className="mx-14 my-10">
               <Link to={"/author"}>Author </Link>
             </li>
