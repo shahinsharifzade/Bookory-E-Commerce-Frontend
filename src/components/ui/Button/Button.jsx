@@ -10,7 +10,7 @@ const Button = (props) => {
       >
         {props.text}
         <ChevronRight
-          className={`ml-2 translate-x-0 transform transition-transform`}
+          className={`ml-2 translate-x-0 transform transition-transform ${props.iconClasses}`}
           size={"14px"}
         />
       </a>

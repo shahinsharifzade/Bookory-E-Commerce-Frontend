@@ -32,7 +32,10 @@ const Title = (props) => {
               size={"14px"}
             />
             <li>
-              <Link className="text-primaryText" to={`/${props.lastNav}`}>
+              <Link
+                className="uppercase text-primaryText"
+                to={`/${props.lastNav}`}
+              >
                 {props.lastNav}
               </Link>
             </li>

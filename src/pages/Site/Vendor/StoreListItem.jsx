@@ -1,5 +1,6 @@
 import { ChevronRight, Star } from "lucide-react";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const StoreListItem = ({ store }) => {
   const bookRatingStars = [];
@@ -21,25 +22,34 @@ const StoreListItem = ({ store }) => {
       onMouseOver={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="rounded-3xl shadow-2xl">
+      <div className={`rounded-3xl shadow-2xl`}>
         <div
-          className={`relative flex flex-col  ${
+          style={{
+            backgroundImage: isHovered
+              ? `url("https://localhost:7047/assets/images/companies/${store.logo}")`
+              : "none",
+          }}
+          className={`relative flex flex-col rounded-t-3xl ${
             isHovered
-              ? "bg-[url('https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/11/cropped-bg_store8.jpg')] bg-cover bg-center bg-no-repeat"
+              ? `bg-cover bg-center bg-no-repeat transition-all duration-300 ease-in`
               : "bg-[#F5F5F5] "
           }  px-16  py-12`}
         >
           {isHovered && (
-            <div className="absolute inset-0 rounded-3xl bg-black opacity-60 transition-opacity duration-300 group-hover:opacity-0"></div>
+            <div className="absolute inset-0 rounded-t-3xl bg-black opacity-60 "></div>
           )}
+
           <div className="z-10">
-            <h2
-              className={`${
-                isHovered ? "text-white" : "text-black"
-              } mb-8 cursor-pointer text-[2rem]`}
-            >
-              {store.name}
-            </h2>
+            <Link to={`/store/${store.id}`}>
+              <h2
+                className={`${
+                  isHovered ? "text-white" : "text-black"
+                } mb-8 cursor-pointer text-[2rem]`}
+              >
+                {store.name}
+              </h2>
+            </Link>
+
             <div className="mb-6 flex">{bookRatingStars}</div>
             <div
               className={`text-xl font-normal ${
@@ -52,15 +62,16 @@ const StoreListItem = ({ store }) => {
 
             <div className="absolute -bottom-[32px] right-[32px] cursor-pointer">
               <img
-                src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/11/store-7.jpg"
+                // src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/11/store-7.jpg"
+                src={`https://localhost:7047/assets/images/companies/${store.logo}`}
                 className="h-[6.4rem] w-[6.4rem] rounded-3xl border-4 border-solid border-white"
               />
             </div>
           </div>
         </div>
 
-        <div className="rounded-bl-3xl rounded-br-3xl bg-white">
-          <div className=" py-6 pl-12">
+        <div className="rounded-b-3xl bg-white">
+          <div className="py-6 pl-12">
             <div className=" w-min cursor-pointer rounded-full border border-solid border-secondaryText bg-primaryText ">
               <ChevronRight size={"26px"} color="#fff" className="mx-2 my-2" />
             </div>

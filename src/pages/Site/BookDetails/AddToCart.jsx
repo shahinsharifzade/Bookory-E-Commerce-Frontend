@@ -31,7 +31,7 @@ const AddToCart = ({ book }) => {
             value={basketCount}
             onChange={(e) => setBasketCount(parseInt(e.target.value))}
             className="border-y-[1px] px-4 py-6 text-center
-                  !outline-none  [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                  !outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           />
           <div
             className="h-full cursor-pointer rounded-r-[3rem] border-[1px] border-solid border-secondaryText border-l-transparent px-8 py-6 hover:bg-primaryText  hover:text-white active:scale-95 active:shadow-xl"

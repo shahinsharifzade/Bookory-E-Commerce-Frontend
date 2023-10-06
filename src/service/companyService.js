@@ -1,4 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import axios from "axios";
 
 const getStores = async (pageNumber, pageSize, search, sortBy) => {
@@ -12,7 +17,6 @@ const getStores = async (pageNumber, pageSize, search, sortBy) => {
   const response = await axios.get(`https://localhost:7047/api/Company/paged`, {
     params: params,
   });
-  console.log(response.data);
   return response.data;
 };
 
@@ -23,11 +27,10 @@ export const useGetFilteredStores = (pageNumber, pageSize, search, sortBy) => {
   });
 };
 
-//
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const getAll = async () => {
   var response = await axios.get("https://localhost:7047/api/Company");
-  // console.log(response.data);
   return response.data;
 };
 
@@ -35,5 +38,48 @@ export const useGetAll = () => {
   return useQuery({
     queryKey: ["company"],
     queryFn: () => getAll(),
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getById = async (id) => {
+  const response = await axios.get(`https://localhost:7047/api/Company/${id}`);
+
+  return response.data;
+};
+
+export const useGetById = (id) => {
+  return useQuery({
+    queryKey: ["company", id],
+    queryFn: () => getById(id),
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const postMessage = async (data) => {
+  const formData = new FormData();
+
+  // Loop through the data object and append each key-value pair to FormData
+  for (const key in data) {
+    formData.append(key, data[key]);
+  }
+  var response = await axios.post(
+    `https://localhost:7047/api/Company/email`,
+    formData,
+  );
+  console.log(formData);
+  return response.data;
+};
+
+export const usePostmessage = () => {
+  var queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data) => postMessage(data),
+    onSuccess: () => {
+      console.log("SUCCESS");
+    },
   });
 };

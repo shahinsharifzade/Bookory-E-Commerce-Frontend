@@ -5,6 +5,7 @@ import SiteRoot from "../pages/Site/SiteRoot/SiteRoot";
 import AuthorDetails from "../pages/Site/AuthorDetails/AuthorDetails";
 import BookDetails from "../pages/Site/BookDetails/BookDetails";
 import Store from "../pages/Site/Vendor/Store";
+import VendorDetails from "../pages/Site/VendorDetails/VendorDetails";
 
 export const ROUTES = [
   {
@@ -34,6 +35,10 @@ export const ROUTES = [
       {
         path: "store",
         element: <Store />,
+      },
+      {
+        path: "store/:storeId",
+        element: <VendorDetails />,
       },
     ],
   },

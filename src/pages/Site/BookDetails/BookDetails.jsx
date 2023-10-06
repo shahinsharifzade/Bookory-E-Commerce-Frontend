@@ -30,7 +30,7 @@ const BookDetails = () => {
   if (isError) return <div>Error fetching data</div>;
 
   return (
-    <div className="container">
+    <section className="container">
       <Title
         containerClasses={"bg-[#fff] py-10"}
         titleClasses={"hidden"}
@@ -43,7 +43,7 @@ const BookDetails = () => {
       <BookDetailsContent book={book} />
       <BookDetailsDesciption book={book} />
       <RelatedBooksList selectedGenres={book.genres} />
-    </div>
+    </section>
   );
 };
 

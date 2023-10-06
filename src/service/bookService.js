@@ -10,6 +10,8 @@ const getFilteredBooks = async (
   priceRange,
   selectedRating,
   selectedSort,
+  search,
+  storeId,
 ) => {
   const minPrice =
     priceRange && priceRange.length >= 2 ? priceRange[0] : undefined;
@@ -25,6 +27,8 @@ const getFilteredBooks = async (
     "filters.MaxPrice": maxPrice,
     "filters.Rating": selectedRating,
     "filters.SortBy": selectedSort,
+    "filters.Search": search,
+    "filters.CompanyId": storeId,
   };
 
   const response = await axios.get(`https://localhost:7047/api/Books/paged`, {
@@ -45,6 +49,8 @@ export const useGetFilteredBooks = (
   priceRange,
   selectedRating,
   selectedSort,
+  search,
+  storeId,
 ) => {
   return useQuery({
     queryKey: [
@@ -56,6 +62,8 @@ export const useGetFilteredBooks = (
       priceRange,
       selectedRating,
       selectedSort,
+      search,
+      storeId,
     ],
     queryFn: () =>
       getFilteredBooks(
@@ -66,6 +74,8 @@ export const useGetFilteredBooks = (
         priceRange,
         selectedRating,
         selectedSort,
+        search,
+        storeId,
       ),
   });
 };

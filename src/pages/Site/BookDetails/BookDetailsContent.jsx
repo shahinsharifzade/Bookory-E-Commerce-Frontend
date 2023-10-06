@@ -36,11 +36,11 @@ const BookDetailsContent = ({ book }) => {
               <h3 className="text-[3.6rem] font-semibold">{book.title}</h3>
               <div>
                 {book.stockQuantity !== 0 ? (
-                  <div className="rounded-lg bg-[#82d17533] px-4 py-2 text-lg font-light text-[#82d175]">
+                  <div className="w-max rounded-lg bg-[#82d17533] px-4 py-2 text-lg font-light text-[#82d175]">
                     IN STOCK
                   </div>
                 ) : (
-                  <div className="rounded-lg bg-[#e6393933] px-4 py-2 text-lg font-light text-[#e63939]">
+                  <div className="w-max rounded-lg bg-[#e6393933] px-4 py-2 text-lg font-light text-[#e63939]">
                     OUT OF STOCK
                   </div>
                 )}

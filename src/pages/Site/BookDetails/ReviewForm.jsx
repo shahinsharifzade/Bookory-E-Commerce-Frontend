@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { Star } from "lucide-react";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { Star } from "lucide-react";
+import * as yup from "yup";
+import React from "react";
+import axios from "axios";
 
 const postReview = (data) => {
-  console.log(data);
   var response = axios.post(`https://localhost:7047/api/Comment/create`, data);
 
   return response;
@@ -37,11 +36,7 @@ const ReviewForm = ({ bookId }) => {
 
   const bookRatingStars = [];
 
-  const { mutate } = useMutation(postReview, {
-    onSuccess: () => {
-      console.log("Success");
-    },
-  });
+  const { mutate } = useMutation(postReview);
 
   for (let index = 0; index < 5; index++) {
     if (index < rating) {
@@ -76,7 +71,6 @@ const ReviewForm = ({ bookId }) => {
     data.EntityType = "book";
     data.EntityId = bookId;
     mutate(data);
-    console.log(data);
   };
 
   return (

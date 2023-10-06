@@ -62,7 +62,6 @@ const BookDetailsDesciption = ({ book }) => {
             value="3"
             className="rounded-3xl border border-solid border-secondaryText"
           >
-            {console.log(book)}
             <div className="mx-auto max-w-[85rem]">
               {book.company ? (
                 <>
