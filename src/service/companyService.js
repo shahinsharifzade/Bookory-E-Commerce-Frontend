@@ -61,7 +61,6 @@ export const useGetById = (id) => {
 const postMessage = async (data) => {
   const formData = new FormData();
 
-  // Loop through the data object and append each key-value pair to FormData
   for (const key in data) {
     formData.append(key, data[key]);
   }

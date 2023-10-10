@@ -6,6 +6,9 @@ import AuthorDetails from "../pages/Site/AuthorDetails/AuthorDetails";
 import BookDetails from "../pages/Site/BookDetails/BookDetails";
 import Store from "../pages/Site/Vendor/Store";
 import VendorDetails from "../pages/Site/VendorDetails/VendorDetails";
+import Blog from "../pages/Site/Blog/Blog";
+import BlogDetails from "../pages/Site/BlogDetails/BlogDetails";
+import Wishlist from "../pages/Site/Wishlist/Wishlist";
 
 export const ROUTES = [
   {
@@ -39,6 +42,18 @@ export const ROUTES = [
       {
         path: "store/:storeId",
         element: <VendorDetails />,
+      },
+      {
+        path: "blog",
+        element: <Blog />,
+      },
+      {
+        path: "blog/:blogId",
+        element: <BlogDetails />,
+      },
+      {
+        path: "wishlist",
+        element: <Wishlist />,
       },
     ],
   },

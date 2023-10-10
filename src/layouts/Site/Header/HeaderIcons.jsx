@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { User2, Heart, ShoppingBasket } from "lucide-react";
 import axios from "axios";
-import { useMutation, QueryClient, useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
+import { Link } from "react-router-dom";
 const queryClient = new QueryClient();
 
 const fetchWishList = async () => {
@@ -64,7 +65,10 @@ const HeaderIcons = () => {
           className="ml-2 mr-2 font-normal"
         />
       </a>
-      <a className="relative cursor-pointer border-r border-solid border-secondaryText text-black">
+      <Link
+        to={"wishlist"}
+        className="relative cursor-pointer border-r border-solid border-secondaryText text-black"
+      >
         <Heart
           size={"2rem"}
           strokeWidth={"1.2px"}
@@ -73,7 +77,7 @@ const HeaderIcons = () => {
         <span className="absolute right-2 top-[-6px] flex max-h-[11px] items-center rounded-md bg-primaryText px-[3px] text-[10px] font-semibold text-white">
           {wishlistCount}
         </span>
-      </a>
+      </Link>
       <a className="relative cursor-pointer text-black">
         <ShoppingBasket
           size={"2rem"}

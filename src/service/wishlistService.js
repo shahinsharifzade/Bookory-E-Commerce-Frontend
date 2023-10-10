@@ -76,6 +76,21 @@ export const useDeleteItem = () => {
   });
 };
 
+const getWishlsit = async () => {
+  const response = await axios.get("https://localhost:7047/api/Wishlist", {
+    withCredentials: true,
+  });
+
+  return response.data;
+};
+
+export const useGetWishlist = () => {
+  return useQuery({
+    queryKey: ["wishlist"],
+    queryFn: () => getWishlsit(),
+  });
+};
+
 //#region Another way
 
 // export const useAddToWishlist = (id) => {

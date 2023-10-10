@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ShoppingBasket } from "lucide-react";
 import { useAddToCart } from "../../../service/cartService";
 
-const AddToCart = ({ book }) => {
+const AddToCart = ({ book, displayQuantityTitle }) => {
   const [basketCount, setBasketCount] = useState(1);
 
   const { mutate, isLoading } = useAddToCart();
@@ -10,7 +10,7 @@ const AddToCart = ({ book }) => {
     e.preventDefault();
     mutate({ Id: book.id, Quantity: basketCount });
   };
-
+  console.log();
   return (
     <>
       <div className="relative">

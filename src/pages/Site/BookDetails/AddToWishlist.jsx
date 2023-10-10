@@ -6,7 +6,6 @@ import {
   useCheckItemExists,
   useDeleteItem,
 } from "../../../service/wishlistService";
-import { logDOM } from "@testing-library/react";
 
 const AddToWishlist = ({ book }) => {
   const { mutate, isLoading } = useAddToWishlist();
@@ -17,11 +16,10 @@ const AddToWishlist = ({ book }) => {
   const [isInWishlist, setIsInWishlist] = useState(false);
 
   useEffect(() => {
-    if (!isLoading && !bookIsLoading && data) {
-      console.log(data.statusCode);
+    if (!isLoading && !bookIsLoading && data && !removeItemIsLoading) {
       setIsInWishlist(data.statusCode === 200);
     }
-  }, [data, isLoading, bookIsLoading]);
+  }, [data, isLoading, bookIsLoading, removeItemIsLoading]);
 
   const handleAddToWishlist = (e) => {
     e.preventDefault();

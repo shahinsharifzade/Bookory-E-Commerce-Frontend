@@ -1,26 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { setPage } from "../../../features/header/headerSelectedPage";
 
 const HeaderBottom = () => {
+  const selectedPage = useSelector((state) => state.header.selectedPage);
+  const dispatch = useDispatch();
+
+  const pages = [
+    {
+      route: "",
+      page: "Home",
+    },
+    {
+      route: "/shop",
+      page: "Shop",
+    },
+    {
+      route: "/store",
+      page: "Vendor",
+    },
+    {
+      route: "/author",
+      page: "Author",
+    },
+    {
+      route: "/blog",
+      page: "Blog",
+    },
+    {
+      route: "/contact",
+      page: "Contact",
+    },
+  ];
+
+  const handleClick = (selectedPageValue) => {
+    dispatch(setPage(selectedPageValue));
+    console.log(selectedPage);
+  };
+
   return (
     <section className="hidden minw-lg:block">
       <div className="container">
         <nav>
           <ul className="flex items-center justify-center">
-            <li className=" mx-14 my-10">
-              <Link to={""}>Home</Link>
-            </li>
-            <li className="mx-14 my-10">
-              <Link to="/shop">Shop</Link>
-            </li>
-            <li className="mx-14 my-10">
-              <Link to={"/store"}>Vendor</Link>
-            </li>
-            <li className="mx-14 my-10">
-              <Link to={"/author"}>Author </Link>
-            </li>
-            <li className="mx-14 my-10">Blog</li>
-            <li className="mx-14 my-10">Contact</li>
+            {pages.map((item, index) => (
+              <li
+                className={`mx-14 my-10 `}
+                key={index}
+                onClick={() => handleClick(item.page)}
+              >
+                <Link
+                  to={item.route}
+                  className={
+                    selectedPage === item.page
+                      ? "text-primaryText"
+                      : "text-black"
+                  }
+                >
+                  {item.page}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

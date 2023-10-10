@@ -1,10 +1,10 @@
+import { setSort } from "../../../features/companyFilter/companyFiltersSlice.js";
+import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner.jsx";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useGetAll } from "../../../service/companyService.js";
 import { useDispatch, useSelector } from "react-redux";
 import { Search } from "lucide-react";
-import { setSort } from "../../../features/companyFilter/companyFiltersSlice.js";
-import React, { useState } from "react";
-import { useGetAll } from "../../../service/companyService.js";
-import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner.jsx";
+import React from "react";
 
 const CenterBarFilter = ({ open, setOpen }) => {
   const dispatch = useDispatch();

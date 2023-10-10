@@ -18,7 +18,7 @@ const StoreListItem = ({ store }) => {
 
   return (
     <div
-      className="my-12 w-full rounded-3xl px-6 minw-md:w-1/2 minw-lg:w-1/3"
+      className="w-full rounded-3xl px-6 py-12 minw-md:w-1/2 minw-lg:w-1/3"
       onMouseOver={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
