@@ -41,7 +41,7 @@ const AddToCart = ({ book, displayQuantityTitle }) => {
           </div>
         </div>
       </div>
-      <div className="ml-8">
+      <div>
         <form onSubmit={handleAddToCart}>
           <button
             type="submit"

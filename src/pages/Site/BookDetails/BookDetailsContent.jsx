@@ -62,7 +62,7 @@ const BookDetailsContent = ({ book }) => {
               </p>
             </div>
 
-            <div className="my-16 flex items-end border-b border-solid border-secondaryText pb-12">
+            <div className="my-16 flex items-end gap-8 border-b border-solid border-secondaryText pb-12">
               <AddToCart book={book} />
               <AddToWishlist book={book} />
             </div>

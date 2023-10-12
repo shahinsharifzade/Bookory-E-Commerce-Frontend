@@ -9,10 +9,11 @@ import {
   showToastSuccessMessage,
 } from "../utils/toastUtils";
 import axios from "axios";
+import { authApi } from "../api";
 
 const addToWishlist = async (Id) => {
   const params = { Id };
-  const response = await axios.post(
+  const response = await authApi.post(
     `https://localhost:7047/api/Wishlist`,
     null,
     {
@@ -34,8 +35,10 @@ export const useAddToWishlist = () => {
   });
 };
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 const CheckItemExists = async (Id) => {
-  const response = await axios.get(
+  const response = await authApi.get(
     `https://localhost:7047/api/Wishlist/${Id}`,
     {
       withCredentials: true,
@@ -47,14 +50,18 @@ const CheckItemExists = async (Id) => {
 
 export const useCheckItemExists = (id) => {
   return useQuery({
-    queryKey: ["wishlistitem"],
+    queryKey: ["wishlistitem", id],
     queryFn: () => CheckItemExists(id),
     retry: false,
+    onError: (error) => console.log(error.response.data.message),
+    onSuccess: () => console.log("Wishlist Item found with id : " + id),
   });
 };
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 const DeleteItem = async (Id) => {
-  const response = await axios.delete(
+  const response = await authApi.delete(
     `https://localhost:7047/api/Wishlist/${Id}`,
     {
       withCredentials: true,
@@ -76,8 +83,10 @@ export const useDeleteItem = () => {
   });
 };
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 const getWishlsit = async () => {
-  const response = await axios.get("https://localhost:7047/api/Wishlist", {
+  const response = await authApi.get("Wishlist", {
     withCredentials: true,
   });
 

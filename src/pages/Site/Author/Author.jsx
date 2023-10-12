@@ -3,9 +3,9 @@ import AuthorsList from "./AuthorsList";
 
 const Author = () => {
   return (
-    <div>
+    <section>
       <AuthorsList />
-    </div>
+    </section>
   );
 };
 

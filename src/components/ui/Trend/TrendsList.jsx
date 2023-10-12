@@ -14,7 +14,6 @@ const fetchBooks = async (search) => {
   const response = await axios
     .get(`https://localhost:7047/api/books`)
     .catch((error) => {
-      // console.log(error.response.data.message);
       return <div>{error.response.data.message}</div>;
     });
   return response.data;
@@ -66,7 +65,6 @@ const TrendsList = () => {
           className="mySwiper"
         >
           {booksData.map((item, index) => {
-            // console.log(item, index);
             return (
               <SwiperSlide key={index} className="w-full px-12">
                 <TrendItem books={item} />

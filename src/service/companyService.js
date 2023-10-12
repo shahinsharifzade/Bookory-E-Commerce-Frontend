@@ -73,8 +73,6 @@ const postMessage = async (data) => {
 };
 
 export const usePostmessage = () => {
-  var queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (data) => postMessage(data),
     onSuccess: () => {

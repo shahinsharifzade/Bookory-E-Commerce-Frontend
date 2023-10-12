@@ -1,14 +1,30 @@
+import SiteRoot from "../pages/Site/SiteRoot/SiteRoot";
+
+import AuthorDetails from "../pages/Site/AuthorDetails/AuthorDetails";
+import VendorDetails from "../pages/Site/VendorDetails/VendorDetails";
+import BookDetails from "../pages/Site/BookDetails/BookDetails";
+import BlogDetails from "../pages/Site/BlogDetails/BlogDetails";
+import LoginForm from "../components/form/Login/LoginForm";
+import Wishlist from "../pages/Site/Wishlist/Wishlist";
+import Contact from "../pages/Site/Contact/Contact";
+import Author from "../pages/Site/Author/Author";
+import Store from "../pages/Site/Vendor/Store";
 import Home from "../pages/Site/Home/Home";
 import Shop from "../pages/Site/Shop/Shop";
-import Author from "../pages/Site/Author/Author";
-import SiteRoot from "../pages/Site/SiteRoot/SiteRoot";
-import AuthorDetails from "../pages/Site/AuthorDetails/AuthorDetails";
-import BookDetails from "../pages/Site/BookDetails/BookDetails";
-import Store from "../pages/Site/Vendor/Store";
-import VendorDetails from "../pages/Site/VendorDetails/VendorDetails";
 import Blog from "../pages/Site/Blog/Blog";
-import BlogDetails from "../pages/Site/BlogDetails/BlogDetails";
-import Wishlist from "../pages/Site/Wishlist/Wishlist";
+import Cart from "../pages/Site/Cart/Cart";
+import { useSelector } from "react-redux";
+import { redirect } from "react-router-dom";
+import RegisterForm from "../components/form/Register/RegisterForm";
+
+// const checkUser = () => {
+//   const token = JSON.parse(localStorage.getItem("token"));
+//   if (token) {
+//     return null;
+//   } else {
+//     return redirect("/login");
+//   }
+// };
 
 export const ROUTES = [
   {
@@ -16,12 +32,17 @@ export const ROUTES = [
     element: <SiteRoot />,
     children: [
       {
-        path: "",
+        index: true,
         element: <Home />,
+        // loader: checkUser,
       },
       {
         path: "shop",
         element: <Shop />,
+      },
+      {
+        path: "shop/:bookId",
+        element: <BookDetails />,
       },
       {
         path: "author",
@@ -30,10 +51,6 @@ export const ROUTES = [
       {
         path: "author/:authorId",
         element: <AuthorDetails />,
-      },
-      {
-        path: "shop/:bookId",
-        element: <BookDetails />,
       },
       {
         path: "store",
@@ -54,6 +71,22 @@ export const ROUTES = [
       {
         path: "wishlist",
         element: <Wishlist />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
+      },
+      {
+        path: "login",
+        element: <LoginForm />,
+      },
+      {
+        path: "register",
+        element: <RegisterForm />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
       },
     ],
   },

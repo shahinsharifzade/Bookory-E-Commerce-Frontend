@@ -4,27 +4,28 @@ import axios from "axios";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { Link } from "react-router-dom";
+import { authApi, usePrivateApi } from "../../../api";
 const queryClient = new QueryClient();
-
-const fetchWishList = async () => {
-  const response = await axios.get(`https://localhost:7047/api/Wishlist`, {
-    withCredentials: true,
-  });
-
-  return response.data;
-};
-
-const fetchBasket = async () => {
-  const response = await axios.get(`https://localhost:7047/api/Baskets`, {
-    withCredentials: true,
-  });
-  return response.data;
-};
 
 const HeaderIcons = () => {
   const [basketCount, setBasketCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
+  const authApi = usePrivateApi(); // Use the hook to get the customized api instance with token
 
+  const fetchWishList = async () => {
+    const response = await authApi.get(`Wishlist`, {
+      withCredentials: true,
+    });
+
+    return response.data;
+  };
+
+  const fetchBasket = async () => {
+    const response = await authApi.get(`Baskets`, {
+      withCredentials: true,
+    });
+    return response.data;
+  };
   const {
     data: wishlist,
     isLoading: wishlistIsLoading,
@@ -78,7 +79,8 @@ const HeaderIcons = () => {
           {wishlistCount}
         </span>
       </Link>
-      <a className="relative cursor-pointer text-black">
+
+      <Link to={"cart"} className="relative cursor-pointer text-black">
         <ShoppingBasket
           size={"2rem"}
           strokeWidth={"1.2px"}
@@ -87,7 +89,7 @@ const HeaderIcons = () => {
         <span className="absolute right-0 top-[-6px] flex max-h-[11px] items-center rounded-md bg-primaryText px-[3px] text-[10px] font-semibold text-white">
           {basketCount}
         </span>
-      </a>
+      </Link>
     </div>
   );
 };

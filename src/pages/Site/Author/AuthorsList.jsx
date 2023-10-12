@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../../../api";
+import { authApi, usePrivateApi } from "../../../api";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import AuthorItem from "./AuthorItem";
 import AuthorFilter from "./AuthorFilter";
@@ -10,25 +10,26 @@ import Stack from "@mui/material/Stack";
 
 const PAGE_SIZE = 18;
 
-const fetchAuthor = async (pageNumber, pageSize) => {
-  const response = await axios
-    // .get(`/Authors/paged`, {
-    .get(`https://localhost:7047/api/Authors/paged`, {
-      params: {
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-      },
-    })
-    .catch((error) => {
-      return <div>{error.response.data.message}</div>;
-    });
-  const authors = response.data.authors;
-  const totalCount = response.data.totalCount;
-  return { authors, totalCount };
-};
-
 const AuthorsList = () => {
   const [pageNumber, setPageNumber] = useState(1);
+  const api = usePrivateApi(); // Use the hook to get the customized api instance with token
+
+  const fetchAuthor = async (pageNumber, pageSize) => {
+    const response = await api
+      .get(`/authors/paged`, {
+        params: {
+          pageNumber: pageNumber,
+          pageSize: pageSize,
+        },
+      })
+      .catch((error) => {
+        return <div>{error.response.data.message}</div>;
+      });
+
+    const authors = response.data.authors;
+    const totalCount = response.data.totalCount;
+    return { authors, totalCount };
+  };
 
   const {
     data: authorsData,

@@ -3,40 +3,39 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setPage } from "../../../features/header/headerSelectedPage";
 
+const pages = [
+  {
+    route: "",
+    page: "Home",
+  },
+  {
+    route: "/shop",
+    page: "Shop",
+  },
+  {
+    route: "/store",
+    page: "Vendor",
+  },
+  {
+    route: "/author",
+    page: "Author",
+  },
+  {
+    route: "/blog",
+    page: "Blog",
+  },
+  {
+    route: "/contact",
+    page: "Contact",
+  },
+];
+
 const HeaderBottom = () => {
   const selectedPage = useSelector((state) => state.header.selectedPage);
   const dispatch = useDispatch();
 
-  const pages = [
-    {
-      route: "",
-      page: "Home",
-    },
-    {
-      route: "/shop",
-      page: "Shop",
-    },
-    {
-      route: "/store",
-      page: "Vendor",
-    },
-    {
-      route: "/author",
-      page: "Author",
-    },
-    {
-      route: "/blog",
-      page: "Blog",
-    },
-    {
-      route: "/contact",
-      page: "Contact",
-    },
-  ];
-
   const handleClick = (selectedPageValue) => {
     dispatch(setPage(selectedPageValue));
-    console.log(selectedPage);
   };
 
   return (

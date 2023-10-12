@@ -8,15 +8,16 @@ import {
 } from "../../../service/wishlistService";
 
 const AddToWishlist = ({ book }) => {
-  const { mutate, isLoading } = useAddToWishlist();
+  const { data, isLoading: bookIsLoading } = useCheckItemExists(book.id);
+  const { mutate: addMutate, isLoading } = useAddToWishlist();
   const { mutate: deleteMutate, isLoading: removeItemIsLoading } =
     useDeleteItem();
 
-  const { data, isLoading: bookIsLoading } = useCheckItemExists(book.id);
   const [isInWishlist, setIsInWishlist] = useState(false);
 
+  console.log(data);
   useEffect(() => {
-    if (!isLoading && !bookIsLoading && data && !removeItemIsLoading) {
+    if (!isLoading && !bookIsLoading && !removeItemIsLoading && data) {
       setIsInWishlist(data.statusCode === 200);
     }
   }, [data, isLoading, bookIsLoading, removeItemIsLoading]);
@@ -26,7 +27,7 @@ const AddToWishlist = ({ book }) => {
     if (isInWishlist) {
       deleteMutate(book.id);
     } else {
-      mutate(book.id);
+      addMutate(book.id);
     }
     setIsInWishlist(!isInWishlist);
   };

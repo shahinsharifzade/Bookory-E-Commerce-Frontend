@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Banner from "./Banner";
 import Bestsellers from "./Bestsellers";
 import Deals from "./Deals";
@@ -10,8 +10,26 @@ import PopularAuthors from "./PopularAuthors";
 import Genre from "./Genres";
 import BooksInformation from "../../../components/ui/Information/BooksInformation";
 import Information from "./Information";
+import { useSelector } from "react-redux";
+import { usePrivateApi } from "../../../api";
+import { useQuery } from "@tanstack/react-query";
 
 const Home = () => {
+  // const token = useSelector((state) => state.auth.token);
+
+  // const api = usePrivateApi();
+
+  // const fetchBook = async () => {
+  //   const response = await api.get("/blog");
+  //   console.log(response, "asiman");
+  //   return response.data;
+  // };
+
+  // const query = useQuery({
+  //   queryFn: fetchBook,
+  //   queryKey: ["sakan"],
+  // });
+
   return (
     <>
       <Banner />

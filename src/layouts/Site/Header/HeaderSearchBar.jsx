@@ -1,6 +1,6 @@
 import React from "react";
 import { LayoutGrid, ChevronDown } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import HeaderSearchBox from "./HeaderSearchBox";
 import HeaderGenreList from "./HeaderGenreList";
 
@@ -41,6 +41,7 @@ const HeaderSearchBar = () => {
         </div>
         <HeaderGenreList isHovered={isHovered} />
       </div>
+
       <HeaderSearchBox />
     </div>
   );

@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+
 import Qs from "qs";
+import { api } from "../api";
 
 const getFilteredBooks = async (
   pageNumber,
@@ -77,5 +79,24 @@ export const useGetFilteredBooks = (
         search,
         storeId,
       ),
+    retry: false,
+  });
+};
+
+const getSearchedBooks = async (search) => {
+  const response = await api.get(`/Books`, {
+    params: {
+      search,
+    },
+  });
+
+  return response.data;
+};
+
+export const useGetSearchedBooks = (search) => {
+  return useQuery({
+    queryKey: ["book", search],
+    queryFn: () => getSearchedBooks(search),
+    retry: false,
   });
 };

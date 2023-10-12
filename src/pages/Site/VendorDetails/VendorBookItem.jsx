@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const VendorBookItem = (props) => {
-  console.log(props);
   const filledStars = [];
   const emptyStars = [];
 

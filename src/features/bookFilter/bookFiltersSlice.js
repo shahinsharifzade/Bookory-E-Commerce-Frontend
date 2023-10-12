@@ -9,6 +9,7 @@ const filtersSlice = createSlice({
     selectedRating: null,
     selectedSort: "averageRating",
     pageSize: 20,
+    search: "",
   },
   reducers: {
     setAuthors: (state, action) => {
@@ -29,6 +30,9 @@ const filtersSlice = createSlice({
     setPageSize: (state, action) => {
       state.pageSize = action.payload;
     },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
   },
 });
 
@@ -39,6 +43,7 @@ export const {
   setRating,
   setSort,
   setPageSize,
+  setSearch,
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

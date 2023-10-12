@@ -1,29 +1,15 @@
 import React, { useState } from "react";
-import { useGetFilteredBooks } from "../../../service/bookService";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
-import { useSelector } from "react-redux";
 import VendorBookItem from "./VendorBookItem";
 import { Pagination, Stack } from "@mui/material";
+import { useGetById } from "../../../service/companyService";
 
 const PAGE_SIZE = 10;
 
 const VendorBooksList = ({ storeId }) => {
   const [pageNumber, setPageNumber] = useState(1);
 
-  const search = useSelector((state) => state.companyBookFilters.search);
-  const sortBy = useSelector((state) => state.companyBookFilters.selectedSort);
-
-  const { data, isLoading, isError } = useGetFilteredBooks(
-    pageNumber,
-    PAGE_SIZE,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    sortBy,
-    search,
-    storeId,
-  );
+  const { data, isLoading, isError } = useGetById(storeId);
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   if (isError) return <div>Error fetching data</div>;

@@ -1,20 +1,9 @@
 import React, { useState } from "react";
-import { Star, Heart, ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
+import Rating from "../../../components/ui/Rating/Rating";
 
 const ShopBookItem = (props) => {
-  const filledStars = [];
-  const emptyStars = [];
-
-  for (let index = 0; index < props.book.rating; index++) {
-    filledStars.push(
-      <Star key={index} color="#f65d4e" fill="#f65d4e" size={"14px"} />,
-    );
-  }
-  for (let index = 0; index < 5 - props.book.rating; index++) {
-    emptyStars.push(<Star key={index} color="#f65d4e" size={"14px"} />);
-  }
-
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -67,8 +56,7 @@ const ShopBookItem = (props) => {
           </p>
 
           <div className="mb-4 flex">
-            {filledStars}
-            {emptyStars}
+            <Rating rating={props.book.rating} />
           </div>
 
           <p className="mb-4 cursor-pointer text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText ">

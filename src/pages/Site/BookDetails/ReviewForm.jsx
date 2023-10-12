@@ -4,13 +4,7 @@ import { useForm } from "react-hook-form";
 import { Star } from "lucide-react";
 import * as yup from "yup";
 import React from "react";
-import axios from "axios";
-
-const postReview = (data) => {
-  var response = axios.post(`https://localhost:7047/api/Comment/create`, data);
-
-  return response;
-};
+import { usePrivateApi } from "../../../api";
 
 const ReviewForm = ({ bookId }) => {
   const schema = yup.object().shape({
@@ -35,6 +29,13 @@ const ReviewForm = ({ bookId }) => {
   const rating = watch("Rating");
 
   const bookRatingStars = [];
+  const authApi = usePrivateApi();
+
+  const postReview = (data) => {
+    var response = authApi.post(`Comment/create`, data);
+
+    return response;
+  };
 
   const { mutate } = useMutation(postReview);
 
