@@ -29,6 +29,8 @@ const ShopBooksList = () => {
     selectedSort,
   );
 
+  console.log(booksData);
+
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
   if (isError) return <div>Error fetching data</div>;
@@ -44,7 +46,7 @@ const ShopBooksList = () => {
       <div className="flex items-center justify-center pb-8">
         <Stack spacing={3}>
           <Pagination
-            count={booksData.totalPage}
+            count={booksData.totalCount}
             page={pageNumber}
             onChange={(_, page) => setPageNumber(page)}
           />

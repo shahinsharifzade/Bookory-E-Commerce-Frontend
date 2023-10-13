@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ShoppingBasket } from "lucide-react";
 import { useAddToCart } from "../../../service/cartService";
+import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 
 const AddToCart = ({ book, displayQuantityTitle }) => {
   const [basketCount, setBasketCount] = useState(1);
@@ -10,7 +11,9 @@ const AddToCart = ({ book, displayQuantityTitle }) => {
     e.preventDefault();
     mutate({ Id: book.id, Quantity: basketCount });
   };
-  console.log();
+
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+
   return (
     <>
       <div className="relative">

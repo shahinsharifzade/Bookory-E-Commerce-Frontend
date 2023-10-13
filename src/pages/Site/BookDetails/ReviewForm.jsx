@@ -1,12 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Star } from "lucide-react";
 import * as yup from "yup";
-import React from "react";
-import { usePrivateApi } from "../../../api";
+import React, { useState } from "react";
+import { usePostReview } from "../../../service/reviewService";
+import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 
 const ReviewForm = ({ bookId }) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const schema = yup.object().shape({
     Content: yup.string().required().max(200),
     Rating: yup
@@ -25,19 +27,11 @@ const ReviewForm = ({ bookId }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
   const rating = watch("Rating");
 
+  const { mutate, isLoading } = usePostReview();
+
   const bookRatingStars = [];
-  const authApi = usePrivateApi();
-
-  const postReview = (data) => {
-    var response = authApi.post(`Comment/create`, data);
-
-    return response;
-  };
-
-  const { mutate } = useMutation(postReview);
 
   for (let index = 0; index < 5; index++) {
     if (index < rating) {
@@ -71,8 +65,18 @@ const ReviewForm = ({ bookId }) => {
   const onFormSubmit = (data) => {
     data.EntityType = "book";
     data.EntityId = bookId;
-    mutate(data);
+    mutate(data, {
+      onSuccess: () => {
+        setErrorMessage("");
+      },
+      onError: (error) => {
+        error.response.data.statusCode === 401 &&
+          setErrorMessage(error.response.data.message);
+      },
+    });
   };
+
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
   return (
     <>
@@ -96,10 +100,10 @@ const ReviewForm = ({ bookId }) => {
           ></textarea>
         </div>
         <p> {errors.Content?.message}</p>
-
+        <p>{errorMessage}</p>
         <button
           type="submit"
-          className="mt-5 rounded-[3rem] border-none bg-primaryText px-12 py-6 text-white"
+          className="mt-5 rounded-[3rem] border-none bg-primaryText px-12 py-6 text-white active:scale-95 active:shadow-xl"
         >
           Submit
         </button>

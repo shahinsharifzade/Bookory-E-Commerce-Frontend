@@ -1,14 +1,8 @@
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   showToastInfoMessage,
   showToastSuccessMessage,
 } from "../utils/toastUtils";
-import axios from "axios";
 import { authApi } from "../api";
 
 const addToWishlist = async (Id) => {
@@ -89,6 +83,10 @@ const getWishlsit = async () => {
   const response = await authApi.get("Wishlist", {
     withCredentials: true,
   });
+  console.log(
+    "🚀 ~ file: wishlistService.js:92 ~ getWishlsit ~ response:",
+    response.data,
+  );
 
   return response.data;
 };
@@ -97,6 +95,7 @@ export const useGetWishlist = () => {
   return useQuery({
     queryKey: ["wishlist"],
     queryFn: () => getWishlsit(),
+    retry: false,
   });
 };
 

@@ -16,6 +16,7 @@ const VendorDetailsBanner = ({ store }) => {
           <div className="mb-8 h-[6.4rem] w-[6.4rem]">
             <img
               src={`https://localhost:7047/assets/images/companies/${store.logo}`}
+              alt={`${store.name} logo`}
               className="h-full w-full rounded-3xl border-4 border-solid border-white"
             />
           </div>

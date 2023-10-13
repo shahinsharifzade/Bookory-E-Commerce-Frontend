@@ -53,11 +53,17 @@ const LoginForm = () => {
               Sign In
             </button>
 
-            <div className="flex justify-between font-medium underline">
-              <div className="cursor-pointer">Forgot Your Password?</div>
+            <div className="flex justify-between font-medium ">
+              <div className="cursor-pointer">
+                <Link to={"/forgotpassword"} className="underline">
+                  Forgot Your Password?
+                </Link>
+              </div>
 
               <div className="cursor-pointer">
-                <Link to={"/register"}>Create Account</Link>
+                <Link to={"/register"} className="underline">
+                  Create Account
+                </Link>
               </div>
             </div>
           </div>

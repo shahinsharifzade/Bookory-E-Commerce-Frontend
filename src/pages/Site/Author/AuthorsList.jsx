@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { authApi, usePrivateApi } from "../../../api";
+import { usePrivateApi } from "../../../api";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import AuthorItem from "./AuthorItem";
 import AuthorFilter from "./AuthorFilter";

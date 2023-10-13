@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const AuthorItem = (props) => {
-  const [authorBooks, setAuthorBooks] = useState(props.author.books.length);
+  const [authorBooks] = useState(props.author.books.length);
 
   return (
     <div className="mb-12 px-6  minw-md:w-1/4 minw-md:w-1/5 minw-lg:w-1/6">

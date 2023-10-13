@@ -62,8 +62,8 @@ const StoreListItem = ({ store }) => {
 
             <div className="absolute -bottom-[32px] right-[32px] cursor-pointer">
               <img
-                // src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/11/store-7.jpg"
                 src={`https://localhost:7047/assets/images/companies/${store.logo}`}
+                alt={`${store.name} logo`}
                 className="h-[6.4rem] w-[6.4rem] rounded-3xl border-4 border-solid border-white"
               />
             </div>

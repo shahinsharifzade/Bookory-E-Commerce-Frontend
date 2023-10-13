@@ -16,6 +16,8 @@ import Cart from "../pages/Site/Cart/Cart";
 import { useSelector } from "react-redux";
 import { redirect } from "react-router-dom";
 import RegisterForm from "../components/form/Register/RegisterForm";
+import ForgotPassword from "../components/form/ForgotPassword/ForgotPassword";
+import ResetPassword from "../components/form/ResetPassword/ResetPassword";
 
 // const checkUser = () => {
 //   const token = JSON.parse(localStorage.getItem("token"));
@@ -87,6 +89,14 @@ export const ROUTES = [
       {
         path: "contact",
         element: <Contact />,
+      },
+      {
+        path: "forgotpassword",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "api/Auth/ChangePassword",
+        element: <ResetPassword />,
       },
     ],
   },

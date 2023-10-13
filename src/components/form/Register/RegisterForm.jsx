@@ -1,26 +1,54 @@
 import LoadingSpinner from "../../ui/Loading/LoadingSpinner";
-import { useForm } from "react-hook-form";
-import React, { useEffect } from "react";
-import Vendor from "../../../assets/images/vendor.png";
+import { useRegister } from "../../../service/userService";
 import Customer from "../../../assets/images/customer.png";
+import Vendor from "../../../assets/images/vendor.png";
+import { useForm } from "react-hook-form";
 import Title from "../../ui/Title/Title";
+import React, { useEffect } from "react";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from "react-router-dom";
 
 const RegisterForm = () => {
-  const { handleSubmit, register, watch, setValue } = useForm();
+  const schema = yup.object().shape({
+    username: yup.string().required().max(50),
+    fullname: yup.string().required(),
+    email: yup.string().required().email(),
+    password: yup
+      .string()
+      .required()
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character",
+      ),
+    passwordconfirm: yup
+      .string()
+      .required()
+      .oneOf([yup.ref("password")], "Passwords do not match"),
+  });
+
+  const {
+    handleSubmit,
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const vendor = watch("isVendor");
 
   useEffect(() => {
     setValue("isVendor", false);
   }, []);
 
+  const { mutate, isLoading } = useRegister();
+
   const onSubmit = (formData) => {
-    console.log(
-      "🚀 ~ file: RegisterForm.jsx:12 ~ onSubmit ~ formData:",
-      formData,
-    );
+    mutate(formData);
   };
 
-  //   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
   return (
     <>
@@ -79,6 +107,7 @@ const RegisterForm = () => {
               placeholder="username"
               className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
             />
+            <p>{errors.username?.message}</p>
 
             <input
               {...register("fullname")}
@@ -86,6 +115,7 @@ const RegisterForm = () => {
               placeholder="fullname"
               className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
             />
+            <p>{errors.fullname?.message}</p>
 
             <input
               {...register("email")}
@@ -93,6 +123,7 @@ const RegisterForm = () => {
               placeholder="email"
               className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
             />
+            <p>{errors.email?.message}</p>
 
             <input
               {...register("password")}
@@ -100,13 +131,15 @@ const RegisterForm = () => {
               placeholder="password"
               className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
             />
+            <p>{errors.password?.message}</p>
 
             <input
-              {...register("confirmpassword")}
+              {...register("passwordconfirm")}
               type="password"
-              placeholder="confirmpassword"
+              placeholder="passwordconfirm"
               className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
             />
+            <p>{errors.passwordconfirm?.message}</p>
 
             <button
               className="mx-auto my-8 flex items-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"
@@ -114,6 +147,12 @@ const RegisterForm = () => {
             >
               Sign Up
             </button>
+            <div className="font-normal">
+              Alreadt have an account ?{" "}
+              <Link to={"/login"} className=" text-primaryText underline ">
+                Sign In
+              </Link>
+            </div>
           </div>
         </form>
       </div>

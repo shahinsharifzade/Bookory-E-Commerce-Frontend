@@ -14,8 +14,16 @@ import {
 
 const WishlistItems = () => {
   const { data: wishlist, isLoading, isError } = useGetWishlist();
+  console.log(
+    "🚀 ~ file: WishlistItems.jsx:17 ~ WishlistItems ~ wishlist:",
+    wishlist,
+  );
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+
+  if (isError) {
+    <div>ERROR</div>;
+  }
 
   return (
     <div className="container mb-16 mt-24 overflow-x-hidden">
@@ -41,9 +49,10 @@ const WishlistItems = () => {
           </TableHead>
 
           <TableBody>
-            {wishlist.books.map((book, index) => (
-              <WishlistItem book={book} key={index} />
-            ))}
+            {wishlist !== undefined &&
+              wishlist.books.map((book, index) => (
+                <WishlistItem book={book} key={index} />
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

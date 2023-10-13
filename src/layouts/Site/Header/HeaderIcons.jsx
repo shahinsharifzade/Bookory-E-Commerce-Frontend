@@ -26,6 +26,7 @@ const HeaderIcons = () => {
     });
     return response.data;
   };
+
   const {
     data: wishlist,
     isLoading: wishlistIsLoading,
@@ -33,6 +34,7 @@ const HeaderIcons = () => {
   } = useQuery({
     queryKey: ["wishlist"],
     queryFn: fetchWishList,
+    retry: false,
     onSuccess: (data) => {
       setWishlistCount(data.books.length);
     },
@@ -45,6 +47,7 @@ const HeaderIcons = () => {
   } = useQuery({
     queryKey: ["basket"],
     queryFn: fetchBasket,
+    retry: false,
     onSuccess: (data) => {
       setBasketCount(data.length);
     },
@@ -55,17 +58,18 @@ const HeaderIcons = () => {
   if (wishlistIsLoading)
     return <LoadingSpinner isLoading={wishlistIsLoading} />;
 
-  if (basketIsError || wishlistIsError) return <div>Error fetching data</div>;
-
   return (
     <div className="flex items-center font-normal">
-      <a className="cursor-pointer border-r border-solid border-secondaryText text-black">
+      <Link
+        to={"login"}
+        className="cursor-pointer border-r border-solid border-secondaryText text-black"
+      >
         <User2
           size={"2rem"}
           strokeWidth={"1.2px"}
           className="ml-2 mr-2 font-normal"
         />
-      </a>
+      </Link>
       <Link
         to={"wishlist"}
         className="relative cursor-pointer border-r border-solid border-secondaryText text-black"

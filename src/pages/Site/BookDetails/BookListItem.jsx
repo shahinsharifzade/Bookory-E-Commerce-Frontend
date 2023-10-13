@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Star, Heart, ShoppingCart, Eye } from "lucide-react";
+import { Star, Heart, ShoppingCart } from "lucide-react";
 
 const BookListItem = ({ book }) => {
   const bookRatingStars = [];
