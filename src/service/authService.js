@@ -18,7 +18,7 @@ export const useLogin = () => {
     mutationFn: login,
     onSuccess: (res) => {
       localStorage.setItem("token", JSON.stringify(res));
-      navigate("/");
+      // navigate("/");
     },
     onError: (res) => {},
   });

@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { api } from "../api";
-import { ClickAwayListener } from "@mui/material";
 
 const getStores = async (pageNumber, pageSize, search, sortBy) => {
   const params = {

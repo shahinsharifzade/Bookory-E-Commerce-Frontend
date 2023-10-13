@@ -1,20 +1,39 @@
 import LoadingSpinner from "../../ui/Loading/LoadingSpinner";
 import { useLogin } from "../../../service/authService";
 import { useForm } from "react-hook-form";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Title from "../../ui/Title/Title";
 
 const LoginForm = () => {
-  const { mutate, isLoading } = useLogin();
+  const [loading, setLoading] = useState(false);
+  const { mutate, isLoading, isSuccess } = useLogin();
+  const navigate = useNavigate();
 
   const { handleSubmit, register } = useForm();
 
   const onSubmit = (formData) => {
-    mutate(formData);
+    setLoading(true);
+    mutate(formData, {
+      onSuccess: () => {},
+    });
   };
 
-  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+  useEffect(() => {
+    if (loading && isSuccess) {
+      setTimeout(() => {
+        setLoading(false);
+        navigate("/");
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+  }, [loading]);
+
+  if (isLoading || loading)
+    return <LoadingSpinner isLoading={isLoading || loading} />;
 
   return (
     <>

@@ -1,7 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { usePostMessage } from "../../../service/contactService";
+import LoadingSpinner from "../../ui/Loading/LoadingSpinner";
+import { setResponseErrorMessage } from "../../../utils/setResponseErrorMessages";
+import ResponseErrorMessage from "../../ResponseMessage/ResponseErrorMessage";
 
 const ContactForm = () => {
   const schema = yup.object().shape({
@@ -9,6 +13,8 @@ const ContactForm = () => {
     email: yup.string().required().email(),
     message: yup.string().required().max(500),
   });
+
+  const [responseErrors, setResponseErrors] = useState({});
 
   const {
     handleSubmit,
@@ -18,16 +24,20 @@ const ContactForm = () => {
     resolver: yupResolver(schema),
   });
 
-  //   const { mutate, isLoading } = useRegister();
+  const { mutate, isLoading } = usePostMessage();
 
   const onSubmit = (formData) => {
-    console.log(
-      "🚀 ~ file: ContactForm.jsx:29 ~ onSubmit ~ formData:",
-      formData,
-    );
+    mutate(formData, {
+      onError: (res) => {
+        if (res.response.data.errors) {
+          const errorsData = setResponseErrorMessage(res.response.data.errors);
+          setResponseErrors(errorsData);
+        }
+      },
+    });
   };
 
-  //   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
   return (
     <>
@@ -53,7 +63,8 @@ const ContactForm = () => {
               placeholder="Name*"
               className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
             />
-            <p>{errors.name?.message}</p>
+            <ResponseErrorMessage message={errors.name?.message} />
+            <ResponseErrorMessage message={responseErrors.Name} />
 
             <input
               {...register("email")}
@@ -61,7 +72,8 @@ const ContactForm = () => {
               placeholder="Email*"
               className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
             />
-            <p>{errors.email?.message}</p>
+            <ResponseErrorMessage message={errors.email?.message} />
+            <ResponseErrorMessage message={responseErrors.Email} />
 
             <input
               {...register("message")}
@@ -69,7 +81,8 @@ const ContactForm = () => {
               placeholder="Message*"
               className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
             />
-            <p>{errors.message?.message}</p>
+            <ResponseErrorMessage message={errors.message?.message} />
+            <ResponseErrorMessage message={responseErrors.Message} />
 
             <button
               className="mx-auto my-8 flex items-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"
