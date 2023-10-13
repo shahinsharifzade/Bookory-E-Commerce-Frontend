@@ -18,6 +18,7 @@ import { redirect } from "react-router-dom";
 import RegisterForm from "../components/form/Register/RegisterForm";
 import ForgotPassword from "../components/form/ForgotPassword/ForgotPassword";
 import ResetPassword from "../components/form/ResetPassword/ResetPassword";
+import CompanyRegisterForm from "../components/form/CompanyRegisterForm/CompanyRegisterForm";
 
 // const checkUser = () => {
 //   const token = JSON.parse(localStorage.getItem("token"));
@@ -97,6 +98,10 @@ export const ROUTES = [
       {
         path: "api/Auth/ChangePassword",
         element: <ResetPassword />,
+      },
+      {
+        path: "companyregister",
+        element: <CompanyRegisterForm />,
       },
     ],
   },

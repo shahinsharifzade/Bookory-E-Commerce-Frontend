@@ -7,9 +7,14 @@ import Title from "../../ui/Title/Title";
 import React, { useEffect } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "react-router-dom";
+import { Link, unstable_HistoryRouter, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUsername } from "../../../features/register/vendorRegisterSlice";
 
 const RegisterForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const schema = yup.object().shape({
     username: yup.string().required().max(50),
     fullname: yup.string().required(),
@@ -36,16 +41,25 @@ const RegisterForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const vendor = watch("isVendor");
+  const vendor = watch("RegisterAsVendor");
 
   useEffect(() => {
-    setValue("isVendor", false);
+    setValue("RegisterAsVendor", false);
   }, []);
 
   const { mutate, isLoading } = useRegister();
 
   const onSubmit = (formData) => {
-    mutate(formData);
+    mutate(formData, {
+      onSuccess: () => {
+        if (vendor) {
+          console.log(vendor);
+
+          dispatch(setUsername(formData.username));
+          navigate("companyregister");
+        }
+      },
+    });
   };
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
@@ -74,7 +88,7 @@ const RegisterForm = () => {
                     ? "border-primaryText"
                     : "border-secondaryText"
                 }`}
-                onClick={() => setValue("isVendor", false)}
+                onClick={() => setValue("RegisterAsVendor", false)}
               >
                 <div className="m-4 w-[6rem]">
                   <img
@@ -84,12 +98,11 @@ const RegisterForm = () => {
                   />
                 </div>
               </div>
-              {console.log(vendor)}
               <div
                 className={`rounded-3xl border-[3px] border-solid active:scale-95 ${
                   vendor == true ? "border-primaryText" : "border-secondaryText"
                 }`}
-                onClick={() => setValue("isVendor", true)}
+                onClick={() => setValue("RegisterAsVendor", true)}
               >
                 <div className="m-4 w-[6rem]">
                   <img
@@ -148,7 +161,7 @@ const RegisterForm = () => {
               Sign Up
             </button>
             <div className="font-normal">
-              Alreadt have an account ?{" "}
+              Already have an account ?{" "}
               <Link to={"/login"} className=" text-primaryText underline ">
                 Sign In
               </Link>

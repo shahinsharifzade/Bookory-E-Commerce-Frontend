@@ -6,7 +6,7 @@ const VendorDetailsBanner = ({ store }) => {
     <div
       className="flex h-[350px]  flex-col rounded-3xl bg-cover bg-center bg-no-repeat "
       style={{
-        backgroundImage: `url("https://localhost:7047/assets/images/companies/${store.logo}")`,
+        backgroundImage: `url("https://localhost:7047/assets/images/companies/banner/${store.bannerImage}")`,
       }}
     >
       <div className="relative flex h-full max-w-[36rem]">
@@ -15,7 +15,7 @@ const VendorDetailsBanner = ({ store }) => {
         <div className="z-10 flex flex-col px-[4rem] py-[3rem] text-2xl font-normal text-white">
           <div className="mb-8 h-[6.4rem] w-[6.4rem]">
             <img
-              src={`https://localhost:7047/assets/images/companies/${store.logo}`}
+              src={`https://localhost:7047/assets/images/companies/logo/${store.logo}`}
               alt={`${store.name} logo`}
               className="h-full w-full rounded-3xl border-4 border-solid border-white"
             />

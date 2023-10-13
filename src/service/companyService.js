@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { api } from "../api";
+import { ClickAwayListener } from "@mui/material";
 
 const getStores = async (pageNumber, pageSize, search, sortBy) => {
   const params = {
@@ -70,6 +72,32 @@ const postMessage = async (data) => {
 export const usePostmessage = () => {
   return useMutation({
     mutationFn: (data) => postMessage(data),
+    onSuccess: () => {
+      console.log("SUCCESS");
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const createCompany = async (data) => {
+  data.bannerimage = data.bannerimage[0];
+  data.logo = data.logo[0];
+
+  const formData = new FormData();
+
+  for (const key in data) {
+    formData.append(key, data[key]);
+  }
+
+  console.log("🚀 ~ file: companyService.js:84 ~ createCompany ~ data:", data);
+  const response = await api.post("company", formData);
+  return response.data;
+};
+
+export const useCreateCompany = () => {
+  return useMutation({
+    mutationFn: (data) => createCompany(data),
     onSuccess: () => {
       console.log("SUCCESS");
     },

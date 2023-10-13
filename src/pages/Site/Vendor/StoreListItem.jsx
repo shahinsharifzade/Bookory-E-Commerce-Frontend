@@ -26,7 +26,7 @@ const StoreListItem = ({ store }) => {
         <div
           style={{
             backgroundImage: isHovered
-              ? `url("https://localhost:7047/assets/images/companies/${store.logo}")`
+              ? `url("https://localhost:7047/assets/images/companies/banner/${store.bannerImage}")`
               : "none",
           }}
           className={`relative flex flex-col rounded-t-3xl ${
@@ -62,7 +62,7 @@ const StoreListItem = ({ store }) => {
 
             <div className="absolute -bottom-[32px] right-[32px] cursor-pointer">
               <img
-                src={`https://localhost:7047/assets/images/companies/${store.logo}`}
+                src={`https://localhost:7047/assets/images/companies/logo/${store.logo}`}
                 alt={`${store.name} logo`}
                 className="h-[6.4rem] w-[6.4rem] rounded-3xl border-4 border-solid border-white"
               />

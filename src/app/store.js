@@ -5,6 +5,7 @@ import companyBookFiltersReducers from "../features/companyBookFilter/companyBoo
 import headerReducers from "../features/header/headerSelectedPage";
 import blogFiltersReducers from "../features/blogFilter/blogFiltersSlice";
 import authSlice from "../features/auth/authSlice";
+import vendorRegisterSlice from "../features/register/vendorRegisterSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     header: headerReducers,
     blogFilters: blogFiltersReducers,
     auth: authSlice,
+    vendorRegistration: vendorRegisterSlice,
   },
 });
