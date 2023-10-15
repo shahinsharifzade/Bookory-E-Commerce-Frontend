@@ -4,15 +4,21 @@ import Customer from "../../../assets/images/customer.png";
 import Vendor from "../../../assets/images/vendor.png";
 import { useForm } from "react-hook-form";
 import Title from "../../ui/Title/Title";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import { useCreateCompany } from "../../../service/companyService";
 import { useSelector } from "react-redux";
+import Input from "../../ui/FormInput/Input";
+import { setResponseErrorMessage } from "../../../utils/setResponseErrorMessages";
+import ResponseErrorMessage from "../../ResponseMessage/ResponseErrorMessage";
 
 const CompanyRegisterForm = () => {
   const username = useSelector((state) => state.vendorRegistration.username);
+
+  const [responseErrors, setResponseErrors] = useState({});
+  const [responseException, setResponseException] = useState();
 
   const schema = yup.object().shape({
     name: yup.string().required().max(50),
@@ -37,7 +43,20 @@ const CompanyRegisterForm = () => {
 
   const onSubmit = (formData) => {
     formData.username = username;
-    mutate(formData);
+    mutate(formData, {
+      onError: (res) => {
+        if (res.response.data.errors) {
+          const errorsData = setResponseErrorMessage(res.response.data.errors);
+          setResponseErrors(errorsData);
+        }
+        if (
+          res.response.data.statusCode === 400 ||
+          res.response.data.statusCode === 404
+        ) {
+          setResponseException(res.response.data.message);
+        }
+      },
+    });
   };
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
@@ -59,63 +78,69 @@ const CompanyRegisterForm = () => {
           className="flex flex-col space-y-[20px]"
         >
           <div>
-            <input
-              {...register("name")}
-              type="text"
+            <Input
+              name="name"
+              register={register}
               placeholder="name"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
-            />
-            <p>{errors.name?.message}</p>
-
-            <input
-              {...register("description")}
               type="text"
+              error={errors.name}
+              responseError={responseErrors.Name}
+            />
+
+            <Input
+              name="description"
+              register={register}
               placeholder="description"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
-            />
-            <p>{errors.description?.message}</p>
-
-            <input
-              {...register("contactemail")}
               type="text"
-              placeholder="contactemail"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
+              error={errors.description}
+              responseError={responseErrors.Description}
             />
-            <p>{errors.contactemail?.message}</p>
 
-            <input
-              {...register("contactphone")}
-              type="tel"
-              placeholder="contactphone"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
-            />
-            <p>{errors.contactphone?.message}</p>
-
-            <input
-              {...register("address")}
+            <Input
+              name="contactemail"
+              register={register}
+              placeholder="contact email"
               type="text"
+              error={errors.contactemail}
+              responseError={responseErrors.ContactEmail}
+            />
+
+            <Input
+              name="contactphone"
+              register={register}
+              placeholder="contact phone"
+              type="text"
+              error={errors.contactphone}
+              responseError={responseErrors.ContactPhone}
+            />
+
+            <Input
+              name="address"
+              register={register}
               placeholder="address"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
+              type="text"
+              error={errors.address}
+              responseError={responseErrors.Address}
             />
-            <p>{errors.address?.message}</p>
 
-            <input
-              {...register("bannerimage")}
-              type="file"
-              accept="image/*"
-              placeholder="Banner Image"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
+            <Input
+              name="bannerimage"
+              register={register}
+              placeholder="banner image"
+              type="text"
+              error={errors.bannerimage}
+              responseError={responseErrors.BannerImage}
             />
-            <p>{errors.bannerimage?.message}</p>
 
-            <input
-              {...register("logo")}
-              type="file"
-              accept="image/*"
-              placeholder="Logo Image"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
+            <Input
+              name="logo"
+              register={register}
+              placeholder="logo"
+              type="text"
+              error={errors.logo}
+              responseError={responseErrors.Logo}
             />
-            <p>{errors.logo?.message}</p>
+            <ResponseErrorMessage message={responseException} />
 
             <button
               className="mx-auto my-8 flex items-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"

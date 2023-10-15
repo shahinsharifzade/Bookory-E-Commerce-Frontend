@@ -1,23 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGetFilteredBlogs } from "../../../service/blogService";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const BlogRecentPost = () => {
   const sortBy = useSelector((state) => state.blogFilters.sortBy);
+  const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useGetFilteredBlogs(
+  const { data, isLoading, isError, error } = useGetFilteredBlogs(
     1,
     5,
     undefined,
     sortBy,
   );
 
-  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-  if (isError) return <div></div>;
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [isError]);
 
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   return (
     <div className="mt-12  max-w-[360px] rounded-[3rem] border border-solid border-secondaryText px-16 pb-16 pt-10">
       <p className="mx-[-40px] mb-12 border-b border-solid border-secondaryText px-16 pb-6 font-semibold">

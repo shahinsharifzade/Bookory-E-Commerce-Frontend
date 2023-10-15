@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BlogItem from "./BlogItem";
 import { useGetFilteredBlogs } from "../../../service/blogService";
 import { Pagination, Stack } from "@mui/material";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const BlogItemsList = () => {
   const [pageNumber, setPageNumber] = useState(1);
+  const navigate = useNavigate();
+
   const search = useSelector((state) => state.blogFilters.search);
   const category = useSelector((state) => state.blogFilters.category);
 
-  const { data, isLoading, isError } = useGetFilteredBlogs(
+  const { data, isLoading, isError, error } = useGetFilteredBlogs(
     pageNumber,
     3,
     category,
@@ -18,9 +21,13 @@ const BlogItemsList = () => {
     search,
   );
 
-  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-  if (isError) return <div></div>;
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [isError]);
 
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   return (
     <div className="flex flex-col">
       <div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { usePrivateApi } from "../../../api";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
@@ -6,12 +6,14 @@ import AuthorItem from "./AuthorItem";
 import AuthorFilter from "./AuthorFilter";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
 
 const PAGE_SIZE = 18;
 
 const AuthorsList = () => {
   const [pageNumber, setPageNumber] = useState(1);
-  const api = usePrivateApi(); // Use the hook to get the customized api instance with token
+  const api = usePrivateApi();
+  const navigate = useNavigate();
 
   const fetchAuthor = async (pageNumber, pageSize) => {
     const response = await api
@@ -34,6 +36,7 @@ const AuthorsList = () => {
     data: authorsData,
     isLoading,
     isError,
+    error,
   } = useQuery(
     {
       queryKey: ["authors", pageNumber, PAGE_SIZE],
@@ -51,10 +54,13 @@ const AuthorsList = () => {
     setPageNumber(1);
   };
 
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [isError]);
+
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-
-  if (isError) return <div>Error fetching data</div>;
-
   const filteredAuthors =
     selectedLetter === "ALL"
       ? authorsData.authors

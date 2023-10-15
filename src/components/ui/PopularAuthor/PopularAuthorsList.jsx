@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import PopularAuthorItem from "./PopularAuthorItem";
 import LoadingSpinner from "../Loading/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 const fetchAuthor = async () => {
   const response = await axios
@@ -15,23 +16,25 @@ const fetchAuthor = async () => {
 };
 
 const PopularAuthorsList = () => {
+  const navigate = useNavigate();
+
   const {
     data: authorsData,
     isLoading,
     isError,
+    error,
   } = useQuery({
     queryKey: ["authors"],
     queryFn: fetchAuthor,
   });
 
-  if (isLoading) {
-    return <LoadingSpinner isLoading={isLoading} />;
-  }
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [isError]);
 
-  if (isError) {
-    return <div>Error fetching data</div>;
-  }
-
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   const limitedAuthorsData = authorsData.slice(0, 8);
 
   return (

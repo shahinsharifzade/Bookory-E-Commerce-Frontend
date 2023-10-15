@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,6 +8,7 @@ import "swiper/css/bundle";
 import { Autoplay } from "swiper/modules";
 import TrendItem from "./TrendItem";
 import LoadingSpinner from "../Loading/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 //API
 const fetchBooks = async (search) => {
@@ -21,22 +22,24 @@ const fetchBooks = async (search) => {
 //API
 
 const TrendsList = () => {
+  const navigate = useNavigate();
+
   // API
   const {
     data: booksData,
     isLoading: bookIsLoading,
     isError: booksError,
+    error,
   } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
 
-  if (bookIsLoading) {
-    return <LoadingSpinner isLoading={bookIsLoading} />;
-  }
-
-  if (booksError) {
-    return <div>Error fetching data</div>;
-  }
+  useEffect(() => {
+    if (booksError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [booksError]);
   //API
 
+  if (bookIsLoading) return <LoadingSpinner isLoading={bookIsLoading} />;
   return (
     <section>
       <div>

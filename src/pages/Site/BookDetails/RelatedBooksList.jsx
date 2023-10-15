@@ -1,23 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGetFilteredBooks } from "../../../service/bookService";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import BookListItem from "./BookListItem";
+import { useNavigate } from "react-router-dom";
 
 const PAGE_NUMBER = 1;
 const PAGE_SIZE = 6;
 
 const RelatedBooksList = ({ selectedGenres }) => {
+  const navigate = useNavigate();
+
   const genres = selectedGenres.map((genre) => genre.id);
 
-  const { data, isLoading } = useGetFilteredBooks(
+  const { data, isLoading, isError, error } = useGetFilteredBooks(
     PAGE_NUMBER,
     PAGE_SIZE,
     undefined,
     genres,
   );
 
-  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+      console.log(error?.response.data.statusCode === 404);
+    }
+  }, [isError]);
 
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   return (
     <div>
       <div className="mb-16 flex  items-center gap-8">

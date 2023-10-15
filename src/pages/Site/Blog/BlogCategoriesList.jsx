@@ -1,16 +1,22 @@
 import { ChevronRight } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useGetCategories } from "../../../service/categoryService";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategory } from "../../../features/blogFilter/blogFiltersSlice";
+import { useNavigate } from "react-router-dom";
 
 const BlogCategoriesList = () => {
-  const { data, isLoading } = useGetCategories();
+  const { data, isLoading, isError, error } = useGetCategories();
   const category = useSelector((state) => state.blogFilters.category);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [isError]);
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const handleCategoryChange = (id) => {
@@ -22,6 +28,7 @@ const BlogCategoriesList = () => {
   };
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   return (
     <div>
       <div className="rounded-[3rem] border border-solid border-secondaryText px-16 pb-16 pt-10">

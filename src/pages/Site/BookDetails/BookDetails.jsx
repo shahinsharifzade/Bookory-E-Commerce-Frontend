@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import Title from "../../../components/ui/Title/Title";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import BookDetailsContent from "./BookDetailsContent";
 import BookDetailsDesciption from "./BookDetailsDesciption";
@@ -15,20 +15,25 @@ const fetchBook = async (bookId) => {
 
 const BookDetails = () => {
   const { bookId } = useParams();
+  const navigate = useNavigate();
 
   const {
     data: book,
     isError,
     isLoading,
+    error,
   } = useQuery({
     queryKey: ["bookdetails", bookId],
     queryFn: () => fetchBook(bookId),
   });
 
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [isError]);
+
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-
-  if (isError) return <div>Error fetching data</div>;
-
   return (
     <section className="container">
       <Title

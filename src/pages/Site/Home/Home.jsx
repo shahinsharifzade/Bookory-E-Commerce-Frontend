@@ -15,7 +15,8 @@ import { usePrivateApi } from "../../../api";
 import { useQuery } from "@tanstack/react-query";
 
 const Home = () => {
-  // const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state) => state.auth.token);
+  console.log(token);
 
   // const api = usePrivateApi();
 

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 const fetchData = async () => {
   const response = await axios.get("https://localhost:7047/api/genres");
@@ -9,19 +10,20 @@ const fetchData = async () => {
 };
 
 const HeaderGenreList = ({ isHovered }) => {
-  const { data, isLoading, isError } = useQuery({
+  const navigate = useNavigate();
+
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["genres"],
     queryFn: fetchData,
   });
 
-  if (isLoading) {
-    return <LoadingSpinner isLoading={isLoading} />;
-  }
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [isError]);
 
-  if (isError) {
-    return <div>Error fetching data</div>;
-  }
-
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   return (
     <div
       className={`absolute left-0 top-full w-full  bg-white ${

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import { useSelect } from "@mui/base";
 import { useDispatch, useSelector } from "react-redux";
 import { setGenres } from "../../../features/bookFilter/bookFiltersSlice";
+import { useNavigate } from "react-router-dom";
 
 const fetchGenre = async () => {
   const response = await axios
@@ -17,7 +18,7 @@ const fetchGenre = async () => {
 };
 
 const FilterByGenre = () => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["genres"],
     queryFn: fetchGenre,
   });
@@ -25,6 +26,7 @@ const FilterByGenre = () => {
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const selectedGenres = useSelector((state) => state.filters.selectedGenres);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handGenreChange = (genreId) => {
     const updatedGenres = selectedGenres.includes(genreId)
@@ -35,10 +37,14 @@ const FilterByGenre = () => {
   };
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+      console.log(error?.response.data.statusCode === 404);
+    }
+  }, [isError]);
+
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-
-  if (isError) return <div>Error fetching data</div>;
-
   return (
     <div>
       <div>

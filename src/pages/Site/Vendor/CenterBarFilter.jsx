@@ -4,16 +4,24 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useGetAll } from "../../../service/companyService.js";
 import { useDispatch, useSelector } from "react-redux";
 import { Search } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CenterBarFilter = ({ open, setOpen }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const sortBy = useSelector((state) => state.companyFilters.sortBy);
-  const { data, isLoading } = useGetAll();
+  const { data, isLoading, isError, error } = useGetAll();
+
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+      console.log(error?.response.data.statusCode === 404);
+    }
+  }, [isError]);
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-
   const sortArray = [
     {
       value: "newest",

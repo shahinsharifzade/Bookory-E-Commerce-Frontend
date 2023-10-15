@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import PopularBookItem from "./PopularBookItem";
 import LoadingSpinner from "../Loading/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 const fetchBooks = async () => {
   const response = await axios
@@ -15,20 +16,22 @@ const fetchBooks = async () => {
 };
 
 const PopularBooksList = () => {
+  const navigate = useNavigate();
+
   const {
     data: booksData,
     isLoading: bookIsLoading,
     isError: booksError,
+    error,
   } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
 
-  if (bookIsLoading) {
-    return <LoadingSpinner isLoading={bookIsLoading} />;
-  }
+  useEffect(() => {
+    if (booksError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [booksError]);
 
-  if (booksError) {
-    return <div>Error fetching data</div>;
-  }
-
+  if (bookIsLoading) return <LoadingSpinner isLoading={bookIsLoading} />;
   const limitedBooksData = booksData.slice(0, 8);
 
   return (

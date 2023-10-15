@@ -1,24 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../../../components/ui/Title/Title";
 import { useGetBlogById } from "../../../service/blogService";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import BlogDetailsContent from "./BlogDetailsContent";
 
 const BlogDetails = () => {
+  const navigate = useNavigate();
   const blogId = useParams();
-  console.log("🚀 ~ file: BlogDetails.jsx:8 ~ BlogDetails ~ blogId:", blogId);
-  const { data: blog, isLoading, isError } = useGetBlogById(blogId);
+  const { data: blog, isLoading, isError, error } = useGetBlogById(blogId);
 
-  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-  if (isError) return <div></div>;
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [isError]);
 
   const categoryNames = blog.categories
     .map((category) => category.name)
     .join(" & ");
 
-  console.log("🚀 ~ file: BlogDetails.jsx:11 ~ BlogDetails ~ blog:", blog);
-
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   return (
     <section>
       <Title

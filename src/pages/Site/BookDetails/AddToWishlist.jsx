@@ -15,7 +15,6 @@ const AddToWishlist = ({ book }) => {
 
   const [isInWishlist, setIsInWishlist] = useState(false);
 
-  // console.log(data);
   useEffect(() => {
     if (!isLoading && !bookIsLoading && !removeItemIsLoading && data) {
       setIsInWishlist(data.statusCode === 200);

@@ -1,7 +1,7 @@
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useGetWishlist } from "../../../service/wishlistService";
 import WishlistItem from "./WishlistItem";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Paper,
   Table,
@@ -11,19 +11,20 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const WishlistItems = () => {
-  const { data: wishlist, isLoading, isError } = useGetWishlist();
-  console.log(
-    "🚀 ~ file: WishlistItems.jsx:17 ~ WishlistItems ~ wishlist:",
-    wishlist,
-  );
+  const { data: wishlist, isLoading, isError, error } = useGetWishlist();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+      console.log(error?.response.data.statusCode === 404);
+    }
+  }, [isError]);
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-
-  if (isError) {
-    <div>ERROR</div>;
-  }
 
   return (
     <div className="container mb-16 mt-24 overflow-x-hidden">

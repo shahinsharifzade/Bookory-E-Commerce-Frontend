@@ -19,6 +19,11 @@ import RegisterForm from "../components/form/Register/RegisterForm";
 import ForgotPassword from "../components/form/ForgotPassword/ForgotPassword";
 import ResetPassword from "../components/form/ResetPassword/ResetPassword";
 import CompanyRegisterForm from "../components/form/CompanyRegisterForm/CompanyRegisterForm";
+import EmailConfirmation from "../pages/Site/EmailConfirmation/EmailConfirmation";
+import NotFoundPage from "../pages/Site/ExceptionPages/NotFoundPage";
+import AdminRoot from "../pages/Admin/AdminRoot/AdminRoot";
+import PrivateRoute from "../pages/Admin/PrivateRoute/PrivateRoute";
+import Dashboard from "../pages/Admin/Dashboard/Dashboard";
 
 // const checkUser = () => {
 //   const token = JSON.parse(localStorage.getItem("token"));
@@ -100,8 +105,34 @@ export const ROUTES = [
         element: <ResetPassword />,
       },
       {
+        path: "api/Auth/Verify",
+        element: <EmailConfirmation />,
+      },
+      {
         path: "companyregister",
         element: <CompanyRegisterForm />,
+      },
+      {
+        path: "notfound",
+        element: <NotFoundPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
+    ],
+  },
+  {
+    path: "admin",
+    element: (
+      <PrivateRoute roles={["Admin", "Moderator"]}>
+        <AdminRoot />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "",
+        element: <Dashboard />,
       },
     ],
   },

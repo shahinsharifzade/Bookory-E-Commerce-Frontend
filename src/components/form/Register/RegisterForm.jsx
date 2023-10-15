@@ -4,16 +4,22 @@ import Customer from "../../../assets/images/customer.png";
 import Vendor from "../../../assets/images/vendor.png";
 import { useForm } from "react-hook-form";
 import Title from "../../ui/Title/Title";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link, unstable_HistoryRouter, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUsername } from "../../../features/register/vendorRegisterSlice";
+import ResponseErrorMessage from "../../ResponseMessage/ResponseErrorMessage";
+import { setResponseErrorMessage } from "../../../utils/setResponseErrorMessages";
+import Input from "../../ui/FormInput/Input";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [responseErrors, setResponseErrors] = useState({});
+  const [responseException, setResponseException] = useState();
 
   const schema = yup.object().shape({
     username: yup.string().required().max(50),
@@ -41,6 +47,7 @@ const RegisterForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   const vendor = watch("RegisterAsVendor");
 
   useEffect(() => {
@@ -50,13 +57,25 @@ const RegisterForm = () => {
   const { mutate, isLoading } = useRegister();
 
   const onSubmit = (formData) => {
+    setResponseErrors({});
+
     mutate(formData, {
       onSuccess: () => {
         if (vendor) {
-          console.log(vendor);
-
           dispatch(setUsername(formData.username));
           navigate("companyregister");
+        }
+      },
+      onError: (res) => {
+        if (res.response.data.errors) {
+          const errorsData = setResponseErrorMessage(res.response.data.errors);
+          setResponseErrors(errorsData);
+        }
+        if (
+          res.response.data.statusCode === 400 ||
+          res.response.data.statusCode === 409
+        ) {
+          setResponseException(res.response.data.message);
         }
       },
     });
@@ -114,45 +133,52 @@ const RegisterForm = () => {
               </div>
             </div>
 
-            <input
-              {...register("username")}
-              type="text"
+            <Input
+              name="username"
+              register={register}
               placeholder="username"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
-            />
-            <p>{errors.username?.message}</p>
-
-            <input
-              {...register("fullname")}
               type="text"
+              error={errors.username}
+              responseError={responseErrors.UserName}
+            />
+
+            <Input
+              name="fullname"
+              register={register}
               placeholder="fullname"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
-            />
-            <p>{errors.fullname?.message}</p>
-
-            <input
-              {...register("email")}
               type="text"
+              error={errors.fullname}
+              responseError={responseErrors.FullName}
+            />
+
+            <Input
+              name="email"
+              register={register}
               placeholder="email"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
+              type="text"
+              error={errors.email}
+              responseError={responseErrors.Email}
             />
-            <p>{errors.email?.message}</p>
 
-            <input
-              {...register("password")}
-              type="password"
+            <Input
+              name="password"
+              register={register}
               placeholder="password"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
-            />
-            <p>{errors.password?.message}</p>
-
-            <input
-              {...register("passwordconfirm")}
               type="password"
-              placeholder="passwordconfirm"
-              className="my-4 mb-4 w-full rounded-[3rem] border-2 border-solid border-secondaryText px-8 py-6 text-xl font-normal transition-all duration-200 ease-out focus:border-secondartTextBold focus:outline-none"
+              error={errors.password}
+              responseError={responseErrors.Password}
             />
-            <p>{errors.passwordconfirm?.message}</p>
+
+            <Input
+              name="passwordconfirm"
+              register={register}
+              placeholder="passwordconfirm"
+              type="password"
+              error={errors.passwordconfirm}
+              responseError={responseErrors.PasswordConfirm}
+            />
+
+            <ResponseErrorMessage message={responseException} />
 
             <button
               className="mx-auto my-8 flex items-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"

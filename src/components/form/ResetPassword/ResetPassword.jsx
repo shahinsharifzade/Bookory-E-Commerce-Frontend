@@ -1,10 +1,10 @@
 import LoadingSpinner from "../../ui/Loading/LoadingSpinner";
 import { useForm } from "react-hook-form";
 import Title from "../../ui/Title/Title";
-import React, { useEffect } from "react";
+import React from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useResetPassword } from "../../../service/authService";
 
 const ResetPassword = () => {

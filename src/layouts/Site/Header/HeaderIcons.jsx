@@ -4,7 +4,7 @@ import axios from "axios";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { Link } from "react-router-dom";
-import { authApi, usePrivateApi } from "../../../api";
+import { usePrivateApi } from "../../../api";
 const queryClient = new QueryClient();
 
 const HeaderIcons = () => {

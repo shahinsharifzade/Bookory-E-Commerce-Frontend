@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../../../components/ui/Title/Title";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetById } from "../../../service/companyService";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import VendorDetailsContent from "./VendorDetailsContent";
 
 const VendorDetails = () => {
   const { storeId } = useParams();
-  const { data: store, isLoading } = useGetById(storeId);
+  const navigate = useNavigate();
+
+  const { data: store, isLoading, isError, error } = useGetById(storeId);
+
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+      console.log(error?.response.data.statusCode === 404);
+    }
+  }, [isError]);
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-
-  console.log(store);
-
   return (
     <section>
       <div>

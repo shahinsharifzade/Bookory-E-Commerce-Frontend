@@ -32,7 +32,10 @@ const Title = (props) => {
               </Link>
             </li>
 
-            <ArrowRight className="mx-4" size={"14px"} />
+            <ArrowRight
+              className={`${props.mainNavDisplay} mx-4`}
+              size={"14px"}
+            />
             <li className="">
               <Link
                 className="uppercase text-primaryText"

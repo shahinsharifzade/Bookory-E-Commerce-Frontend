@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import VendorBookItem from "./VendorBookItem";
 import { Pagination, Stack } from "@mui/material";
 import { useGetById } from "../../../service/companyService";
+import { useNavigate } from "react-router-dom";
 
 const PAGE_SIZE = 10;
 
 const VendorBooksList = ({ storeId }) => {
   const [pageNumber, setPageNumber] = useState(1);
+  const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useGetById(storeId);
+  const { data, isLoading, isError, error } = useGetById(storeId);
+
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+      console.log(error?.response.data.statusCode === 404);
+    }
+  }, [isError]);
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-  if (isError) return <div>Error fetching data</div>;
-
   return (
     <div className="flex flex-col">
       <div className="flex flex-wrap">

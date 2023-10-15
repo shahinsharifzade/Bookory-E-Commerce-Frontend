@@ -1,12 +1,14 @@
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { Pagination, Stack } from "@mui/material";
 import ShopBookItem from "./ShopBookItem";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetFilteredBooks } from "../../../service/bookService";
+import { useNavigate } from "react-router-dom";
 
 const ShopBooksList = () => {
   const [pageNumber, setPageNumber] = useState(1);
+  const navigate = useNavigate();
 
   const selectedAuthors = useSelector((state) => state.filters.selectedAuthors);
   const selectedGenres = useSelector((state) => state.filters.selectedGenres);
@@ -19,6 +21,7 @@ const ShopBooksList = () => {
     data: booksData,
     isLoading,
     isError,
+    error,
   } = useGetFilteredBooks(
     pageNumber,
     pageSize,
@@ -29,12 +32,14 @@ const ShopBooksList = () => {
     selectedSort,
   );
 
-  console.log(booksData);
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+      console.log(error?.response.data.statusCode === 404);
+    }
+  }, [isError]);
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-
-  if (isError) return <div>Error fetching data</div>;
-
   return (
     <div className="container ">
       <div className="flex flex-wrap">

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthors } from "../../../features/bookFilter/bookFiltersSlice";
+import { useNavigate } from "react-router-dom";
 
 const fetchAuthor = async () => {
   const response = await axios
@@ -20,12 +21,15 @@ const FilterByAuthor = () => {
     data: authorsData,
     isLoading: auhtorsLoading,
     isError: auhtorsError,
+    error,
   } = useQuery({
     queryKey: ["authors"],
     queryFn: fetchAuthor,
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const selectedAuthors = useSelector((state) => state.filters.selectedAuthors);
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -38,10 +42,14 @@ const FilterByAuthor = () => {
   };
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+  useEffect(() => {
+    if (auhtorsError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+      console.log(error?.response.data.statusCode === 404);
+    }
+  }, [auhtorsError]);
+
   if (auhtorsLoading) return <LoadingSpinner isLoading={auhtorsLoading} />;
-
-  if (auhtorsError) return <div>Error fetching data</div>;
-
   return (
     <div>
       <div>
