@@ -1,6 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { authApi } from "../api";
+import { ArrowUpAZ } from "lucide-react";
 
 const register = async (body) => {
   console.log("🚀 ~ file: userService.js:6 ~ register ~ body:", body);
@@ -19,3 +20,20 @@ export const useRegister = () => {
     },
   });
 };
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getActiveUser = async () => {
+  const response = await authApi.get("Users/active");
+
+  return response.data;
+};
+
+export const useGetActiveUser = () => {
+  return useQuery({
+    queryKey: ["user"],
+    queryFn: getActiveUser,
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

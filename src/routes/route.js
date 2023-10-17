@@ -24,6 +24,8 @@ import NotFoundPage from "../pages/Site/ExceptionPages/NotFoundPage";
 import AdminRoot from "../pages/Admin/AdminRoot/AdminRoot";
 import PrivateRoute from "../pages/Admin/PrivateRoute/PrivateRoute";
 import Dashboard from "../pages/Admin/Dashboard/Dashboard";
+import StripePayment from "../components/ui/StripePayment/StripePayment";
+import Address from "../pages/Site/Address/Address";
 
 // const checkUser = () => {
 //   const token = JSON.parse(localStorage.getItem("token"));
@@ -119,6 +121,14 @@ export const ROUTES = [
       {
         path: "*",
         element: <NotFoundPage />,
+      },
+      {
+        path: "checkout",
+        element: <StripePayment />,
+      },
+      {
+        path: "address",
+        element: <Address />,
       },
     ],
   },

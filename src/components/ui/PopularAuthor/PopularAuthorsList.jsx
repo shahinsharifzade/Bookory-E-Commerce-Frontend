@@ -9,7 +9,7 @@ const fetchAuthor = async () => {
   const response = await axios
     .get(`https://localhost:7047/api/Authors`)
     .catch((error) => {
-      return <div>{error.response.data.message}</div>;
+      return <div>{error.response?.data?.message}</div>;
     });
 
   return response.data;

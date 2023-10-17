@@ -17,7 +17,7 @@ const fetchBooks = async (search) => {
     .get(`https://localhost:7047/api/books`)
     .catch((error) => {
       // console.log(error.response.data.message);
-      return <div>{error.response.data.message}</div>;
+      return <div>{error.response?.data?.message}</div>;
     });
   return response.data;
 };
@@ -31,15 +31,8 @@ const BestsellersList = () => {
     isError: booksError,
   } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
 
-  if (bookIsLoading) {
-    return <LoadingSpinner isLoading={bookIsLoading} />;
-  }
-
-  if (booksError) {
-    return <div>Error fetching data</div>;
-  }
-  //API
-
+  if (booksError) return <div>Error fetching data</div>;
+  if (bookIsLoading) return <LoadingSpinner isLoading={bookIsLoading} />;
   return (
     <section className="mb-32">
       <div>

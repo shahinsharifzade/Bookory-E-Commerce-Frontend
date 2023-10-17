@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { usePostMessage } from "../../../service/contactService";
 import LoadingSpinner from "../../ui/Loading/LoadingSpinner";
 import { setResponseErrorMessage } from "../../../utils/setResponseErrorMessages";
-import ResponseErrorMessage from "../../ResponseMessage/ResponseErrorMessage";
+import ResponseErrorMessage from "../../ui/ResponseMessage/ResponseErrorMessage";
 
 const ContactForm = () => {
   const schema = yup.object().shape({

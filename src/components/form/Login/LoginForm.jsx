@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Title from "../../ui/Title/Title";
 import { setResponseErrorMessage } from "../../../utils/setResponseErrorMessages";
-import ResponseErrorMessage from "../../ResponseMessage/ResponseErrorMessage";
+import ResponseErrorMessage from "../../ui/ResponseMessage/ResponseErrorMessage";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);

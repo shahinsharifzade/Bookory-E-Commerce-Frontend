@@ -83,10 +83,6 @@ const getWishlsit = async () => {
   const response = await authApi.get("Wishlist", {
     withCredentials: true,
   });
-  console.log(
-    "🚀 ~ file: wishlistService.js:92 ~ getWishlsit ~ response:",
-    response.data,
-  );
 
   return response.data;
 };

@@ -20,7 +20,6 @@ const WishlistItems = () => {
   useEffect(() => {
     if (isError) {
       if (error?.response.data.statusCode === 404) navigate("notfound");
-      console.log(error?.response.data.statusCode === 404);
     }
   }, [isError]);
 

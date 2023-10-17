@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUsername } from "../../../features/register/vendorRegisterSlice";
-import ResponseErrorMessage from "../../ResponseMessage/ResponseErrorMessage";
+import ResponseErrorMessage from "../../ui/ResponseMessage/ResponseErrorMessage";
 import { setResponseErrorMessage } from "../../../utils/setResponseErrorMessages";
 import Input from "../../ui/FormInput/Input";
 

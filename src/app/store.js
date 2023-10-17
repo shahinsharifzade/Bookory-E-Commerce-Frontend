@@ -6,6 +6,7 @@ import headerReducers from "../features/header/headerSelectedPage";
 import blogFiltersReducers from "../features/blogFilter/blogFiltersSlice";
 import authSlice from "../features/auth/authSlice";
 import vendorRegisterSlice from "../features/register/vendorRegisterSlice";
+import cartSlice from "../features/cart/cartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     blogFilters: blogFiltersReducers,
     auth: authSlice,
     vendorRegistration: vendorRegisterSlice,
+    cart: cartSlice,
   },
 });

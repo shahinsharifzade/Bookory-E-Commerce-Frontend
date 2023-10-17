@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { User2, Heart, ShoppingBasket } from "lucide-react";
-import axios from "axios";
-import { QueryClient, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { Link } from "react-router-dom";
 import { usePrivateApi } from "../../../api";
-const queryClient = new QueryClient();
+import { useGetActiveUser } from "../../../service/userService";
 
 const HeaderIcons = () => {
   const [basketCount, setBasketCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
   const authApi = usePrivateApi(); // Use the hook to get the customized api instance with token
+
+  const { data: activeUser, isActiveUserrLoading } = useGetActiveUser();
+  console.log(
+    "🚀 ~ file: HeaderIcons.jsx:15 ~ HeaderIcons ~ activeUser:",
+    activeUser,
+  );
 
   const fetchWishList = async () => {
     const response = await authApi.get(`Wishlist`, {
@@ -53,16 +58,20 @@ const HeaderIcons = () => {
     },
   });
 
-  if (basketIsLoading) return <LoadingSpinner isLoading={basketIsLoading} />;
-
-  if (wishlistIsLoading)
-    return <LoadingSpinner isLoading={wishlistIsLoading} />;
+  if (wishlistIsLoading || isActiveUserrLoading || basketIsLoading)
+    return (
+      <LoadingSpinner
+        isLoading={wishlistIsLoading || isActiveUserrLoading || basketIsLoading}
+      />
+    );
 
   return (
     <div className="flex items-center font-normal">
       <Link
         to={"login"}
-        className="cursor-pointer border-r border-solid border-secondaryText text-black"
+        className={`cursor-pointer border-r border-solid border-secondaryText text-black ${
+          activeUser ? "hidden" : ""
+        }`}
       >
         <User2
           size={"2rem"}
@@ -70,6 +79,7 @@ const HeaderIcons = () => {
           className="ml-2 mr-2 font-normal"
         />
       </Link>
+
       <Link
         to={"wishlist"}
         className="relative cursor-pointer border-r border-solid border-secondaryText text-black"

@@ -1,5 +1,5 @@
 import React from "react";
-import ResponseErrorMessage from "../../ResponseMessage/ResponseErrorMessage";
+import ResponseErrorMessage from "../../ui/ResponseMessage/ResponseErrorMessage";
 
 const Input = ({
   name,

@@ -12,7 +12,7 @@ import { useCreateCompany } from "../../../service/companyService";
 import { useSelector } from "react-redux";
 import Input from "../../ui/FormInput/Input";
 import { setResponseErrorMessage } from "../../../utils/setResponseErrorMessages";
-import ResponseErrorMessage from "../../ResponseMessage/ResponseErrorMessage";
+import ResponseErrorMessage from "../../ui/ResponseMessage/ResponseErrorMessage";
 
 const CompanyRegisterForm = () => {
   const username = useSelector((state) => state.vendorRegistration.username);

@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { api, authApi } from "../api";
 import { showToastSuccessMessage } from "../utils/toastUtils";
 
