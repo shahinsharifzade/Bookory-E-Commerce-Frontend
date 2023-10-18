@@ -34,7 +34,7 @@ const CartItem = ({ basketItem }) => {
       }}
     >
       <TableCell>
-        <div className="flex items-center">
+        <div className="flex items-center tracking-wider">
           <Link to={`/shop/${book.id}`}>
             <div className="w-[7rem] shrink-0 rounded-[1rem] minw-lg:w-[10rem]">
               <img
@@ -50,7 +50,21 @@ const CartItem = ({ basketItem }) => {
               <h3 className="overflow-hiddentext-lg line-clamp-1 font-semibold transition-all duration-200 ease-linear hover:text-primaryText minw-md:text-2xl">
                 {book.title}
               </h3>
-              <p className="mt-4 font-medium text-primaryText">{book.price}$</p>
+
+              <div className="flex gap-2">
+                <p className="mt-4 text-[18px] font-medium text-primaryText">
+                  {book &&
+                    book.price - (book.price * book.discountPercentage) / 100}
+                  $
+                </p>
+                <p
+                  className={`self-end text-xl font-medium line-through ${
+                    book.discountPercentage === 0 ? "hidden" : ""
+                  }`}
+                >
+                  {book.discountPercentage && book.price}$
+                </p>
+              </div>
             </div>
           </Link>
         </div>
@@ -90,7 +104,14 @@ const CartItem = ({ basketItem }) => {
         </div>
       </TableCell>
 
-      <TableCell>{book.price * basketCount}$</TableCell>
+      <TableCell>
+        {book &&
+          (
+            (book.price - (book.price * book.discountPercentage) / 100) *
+            basketCount
+          ).toFixed(2)}{" "}
+        $
+      </TableCell>
 
       <TableCell
         component="th"

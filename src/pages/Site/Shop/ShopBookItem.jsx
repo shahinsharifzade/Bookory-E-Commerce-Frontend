@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import Rating from "../../../components/ui/Rating/Rating";
+import DiscountPercentage from "../../../components/ui/DiscountPercentage/DiscountPercentage";
 
 const ShopBookItem = (props) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -9,10 +10,12 @@ const ShopBookItem = (props) => {
   return (
     <div
       className="flex w-[50%] flex-col items-center justify-start rounded-[2rem] p-12 text-center min-[800px]:w-1/3 min-[1080px]:w-1/4 min-[1360px]:w-1/5 "
-      onMouseEnter={() => {
+      onMouseEnter={(e) => {
+        e.stopPropagation();
         setIsHovered(true);
       }}
-      onMouseLeave={() => {
+      onMouseLeave={(e) => {
+        e.stopPropagation();
         setIsHovered(false);
       }}
     >
@@ -22,6 +25,10 @@ const ShopBookItem = (props) => {
             src={`https://localhost:7047/assets/images/books/${props.book.mainImage}`}
             className="aspect-[2.4/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
             alt="book cover"
+          />
+
+          <DiscountPercentage
+            discountPercentage={props.book.discountPercentage}
           />
 
           <div

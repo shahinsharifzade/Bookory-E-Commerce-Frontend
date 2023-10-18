@@ -1,9 +1,10 @@
 import { ChevronRight } from "lucide-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const PopularAuthorItem = (props) => {
   return (
-    <div>
+    <Link to={`/author/${props.author.id}`}>
       <div className="mb-12 flex w-full  items-center">
         <div className="mr-6 w-[6rem] shrink-0 rounded-2xl">
           <img
@@ -19,7 +20,7 @@ const PopularAuthorItem = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

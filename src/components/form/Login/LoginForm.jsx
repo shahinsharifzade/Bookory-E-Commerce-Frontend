@@ -40,6 +40,7 @@ const LoginForm = () => {
       setTimeout(() => {
         setLoading(false);
         navigate("/");
+        window.location.reload();
       }, 2000);
     } else {
       setTimeout(() => {

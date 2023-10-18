@@ -1,11 +1,10 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { authApi } from "../../../api";
 import LoadingSpinner from "../Loading/LoadingSpinner";
 import logo from "../../../assets/icons/logo.svg";
-import { useGetAllAddress } from "../../../service/addressService";
-import { add } from "date-fns";
+import ResponseErrorMessage from "../ResponseMessage/ResponseErrorMessage";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -28,14 +27,8 @@ const CARD_OPTIONS = {
 };
 
 const StripePayment = ({ email, addressId }) => {
-  console.log(
-    "🚀 ~ file: StripePayment.jsx:30 ~ StripePayment ~ addressId:",
-    addressId,
-  );
-  console.log(
-    "🚀 ~ file: StripePayment.jsx:30 ~ StripePayment ~ email:",
-    email,
-  );
+  const [responseErrors, setResponseErrors] = useState({});
+
   const stripe = useStripe();
   const elements = useElements();
   const queryClient = useQueryClient();
@@ -54,7 +47,8 @@ const StripePayment = ({ email, addressId }) => {
       type: "card",
       card: cardElement,
     });
-    console.log(error);
+    setResponseErrors(error);
+
     if (!error) {
       const { id } = paymentMethod;
       try {
@@ -88,6 +82,8 @@ const StripePayment = ({ email, addressId }) => {
             <CardElement options={CARD_OPTIONS} />
           </div>
         </fieldset>
+
+        <ResponseErrorMessage message={responseErrors?.message} />
 
         <button
           className="mx-auto mt-16 flex items-center rounded-[2rem] border border-solid border-secondaryText bg-white px-16 py-6 text-xl text-primaryText active:scale-95 active:shadow-xl"

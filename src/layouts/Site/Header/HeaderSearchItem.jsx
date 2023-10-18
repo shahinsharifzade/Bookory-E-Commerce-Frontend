@@ -1,13 +1,13 @@
-import { setSearch } from "../../../features/bookFilter/bookFiltersSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import React from "react";
+import { setBookSearch } from "../../../features/bookFilter/bookFiltersSlice";
 
 const HeaderSearchItem = ({ book }) => {
   const dispatch = useDispatch();
 
   return (
-    <li key={book.id} onClick={() => dispatch(setSearch(""))}>
+    <li key={book.id} onClick={() => dispatch(setBookSearch(""))}>
       <Link to={`shop/${book.id}`} className="flex items-center px-4 py-4">
         <div>
           <img

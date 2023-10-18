@@ -3,7 +3,7 @@ import { SearchOutlined } from "@mui/icons-material";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import HeaderSearchItemsList from "./HeaderSearchItemsList";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearch } from "../../../features/bookFilter/bookFiltersSlice";
+import { setBookSearch } from "../../../features/bookFilter/bookFiltersSlice";
 
 const HeaderSearchBox = () => {
   const search = useSelector((state) => state.filters.search);
@@ -17,7 +17,7 @@ const HeaderSearchBox = () => {
         searchInputRef.current &&
         !searchInputRef.current.contains(event.target)
       ) {
-        dispatch(setSearch(""));
+        dispatch(setBookSearch(""));
       }
     };
 
@@ -53,7 +53,7 @@ const HeaderSearchBox = () => {
           placeholder="Search products..."
           inputProps={{ "aria-label": "search" }}
           value={search}
-          onChange={(e) => dispatch(setSearch(e.target.value))}
+          onChange={(e) => dispatch(setBookSearch(e.target.value))}
         />
         <IconButton type="submit">
           <SearchOutlined sx={{ color: "black" }} />

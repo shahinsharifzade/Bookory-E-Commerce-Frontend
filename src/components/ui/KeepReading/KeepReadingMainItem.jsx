@@ -1,21 +1,14 @@
 import React from "react";
 import { Star } from "lucide-react";
+import Rating from "../Rating/Rating";
+import { Link } from "react-router-dom";
 
 const KeepReadingMainItem = (props) => {
-  const filledStars = [];
-  const emptyStars = [];
-
-  for (let index = 0; index < props.books.rating; index++) {
-    filledStars.push(
-      <Star key={index} color="#f65d4e" fill="#f65d4e" size={"14px"} />,
-    );
-  }
-
-  for (let index = 0; index < 5 - props.books.rating; index++) {
-    emptyStars.push(<Star key={index} color="#f65d4e" size={"14px"} />);
-  }
   return (
-    <div className="flex flex-col items-start justify-start  py-8 text-center minw-xsm:flex-row">
+    <Link
+      to={`/shop/${props.books.id}`}
+      className="flex flex-col items-start justify-start  py-8 text-center minw-xsm:flex-row"
+    >
       <div className="w-[26rem] shrink-0 minw-xsm:w-[18rem]">
         <img
           src={`https://localhost:7047/assets/images/books/${props.books.mainImage}`}
@@ -30,8 +23,7 @@ const KeepReadingMainItem = (props) => {
         </p>
 
         <div className="mb-4 flex">
-          {filledStars}
-          {emptyStars}
+          <Rating rating={props.books.rating} />
         </div>
 
         <p className="mb-4 cursor-pointer text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText">
@@ -44,7 +36,7 @@ const KeepReadingMainItem = (props) => {
           ${props.books.price}
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 

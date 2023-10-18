@@ -89,7 +89,6 @@ const createCompany = async (data) => {
     formData.append(key, data[key]);
   }
 
-  console.log("🚀 ~ file: companyService.js:84 ~ createCompany ~ data:", data);
   const response = await api.post("company", formData);
   return response.data;
 };

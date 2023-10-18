@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
-import { Star, UserCircle2 } from "lucide-react";
+import { UserCircle2 } from "lucide-react";
 import ReviewForm from "./ReviewForm";
 import Rating from "../../../components/ui/Rating/Rating";
 import { api } from "../../../api";
@@ -31,10 +31,13 @@ const BookReviews = ({ id }) => {
   } = useQuery({
     queryKey: ["reviews"],
     queryFn: () => fetchReview(id),
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
   });
 
   const fetchUserForReview = async (userId) => {
     const userData = await fetchUser(userId);
+
     return userData;
   };
 
@@ -53,28 +56,34 @@ const BookReviews = ({ id }) => {
     isError: isErrorUser,
     error: errorUser,
   } = useQuery({
-    queryKey: ["user"],
+    queryKey: ["reviewuser"],
     queryFn: getUserDataForReviews,
     enabled: !!reviewsData,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
   });
+  console.log(
+    "🚀 ~ file: BookReviews.jsx:67 ~ BookReviews ~ userData:",
+    userData,
+  );
 
-  useEffect(() => {
-    if (isError || isErrorUser) {
-      if (
-        error?.response.data.statusCode === 404 ||
-        errorUser?.response.data.statusCode === 404
-      )
-        navigate("notfound");
-    }
-  }, [isError, isErrorUser]);
+  // useEffect(() => {
+  //   if (isError || isErrorUser) {
+  //     if (
+  //       error?.response.data.statusCode === 404 ||
+  //       errorUser?.response.data.statusCode === 404
+  //     )
+  //       navigate("notfound");
+  //   }
+  // }, [isError, isErrorUser]);
 
-  if (isLoading || isLoadingUser || !reviewsData || !userData) {
+  if (isLoading || isLoadingUser || !reviewsData || !userData)
     return (
       <LoadingSpinner
         isLoading={isLoading || isLoadingUser || !reviewsData || !userData}
       />
     );
-  }
+
   return (
     <>
       <div className="mx-auto max-w-[85rem] ">
@@ -85,7 +94,7 @@ const BookReviews = ({ id }) => {
             </div>
             <div>
               <p className="mb-4 pt-2 capitalize">
-                {userData[index]?.user.userName}
+                {userData[index]?.user?.userName}
               </p>
               <div className="mb-4">
                 <Rating rating={review.rating} />

@@ -9,37 +9,26 @@ import { Autoplay } from "swiper/modules";
 import TrendItem from "./TrendItem";
 import LoadingSpinner from "../Loading/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
-
-//API
-const fetchBooks = async (search) => {
-  const response = await axios
-    .get(`https://localhost:7047/api/books`)
-    .catch((error) => {
-      return <div>{error.response.data.message}</div>;
-    });
-  return response.data;
-};
-//API
+import { useGetFilteredBooks } from "../../../service/bookService";
 
 const TrendsList = () => {
   const navigate = useNavigate();
 
-  // API
   const {
     data: booksData,
     isLoading: bookIsLoading,
     isError: booksError,
     error,
-  } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
+  } = useGetFilteredBooks(1, 30);
 
   useEffect(() => {
     if (booksError) {
       if (error?.response.data.statusCode === 404) navigate("notfound");
     }
   }, [booksError]);
-  //API
 
   if (bookIsLoading) return <LoadingSpinner isLoading={bookIsLoading} />;
+
   return (
     <section>
       <div>
@@ -67,7 +56,7 @@ const TrendsList = () => {
           modules={[Autoplay]}
           className="mySwiper"
         >
-          {booksData.map((item, index) => {
+          {booksData.books.map((item, index) => {
             return (
               <SwiperSlide key={index} className="w-full px-12">
                 <TrendItem books={item} />

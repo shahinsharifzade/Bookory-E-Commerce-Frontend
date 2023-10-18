@@ -38,7 +38,7 @@ export const useForgotPassword = () => {
 //-------------------------------------------------------------
 
 const resetPassword = async ({ token, email, formData }) => {
-  const response = await api.put(`Auth/ChangePassword`, formData, {
+  const response = await authApi.put(`Auth/ChangePassword`, formData, {
     params: {
       email: email,
       token: token,

@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 import Qs from "qs";
 import { api } from "../api";
@@ -33,7 +32,7 @@ const getFilteredBooks = async (
     "filters.CompanyId": storeId,
   };
 
-  const response = await axios.get(`https://localhost:7047/api/Books/paged`, {
+  const response = await api.get(`Books/paged`, {
     params: params,
     paramsSerializer: (params) => {
       return Qs.stringify(params, { arrayFormat: "repeat" });

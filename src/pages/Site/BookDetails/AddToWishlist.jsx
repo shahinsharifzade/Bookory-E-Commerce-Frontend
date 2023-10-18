@@ -1,40 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Heart } from "lucide-react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
-import {
-  useAddToWishlist,
-  useCheckItemExists,
-  useDeleteItem,
-} from "../../../service/wishlistService";
+import useWishlistItem from "../../../hooks/useWishlistItem";
+import React from "react";
+import { Heart } from "lucide-react";
 
 const AddToWishlist = ({ book }) => {
-  const { data, isLoading: bookIsLoading } = useCheckItemExists(book.id);
-  const { mutate: addMutate, isLoading } = useAddToWishlist();
-  const { mutate: deleteMutate, isLoading: removeItemIsLoading } =
-    useDeleteItem();
+  const {
+    isInWishlist,
+    handleAddToWishlist,
+    bookIsLoading,
+    addItemIsLoading,
+    removeItemIsLoading,
+  } = useWishlistItem(book);
 
-  const [isInWishlist, setIsInWishlist] = useState(false);
-
-  useEffect(() => {
-    if (!isLoading && !bookIsLoading && !removeItemIsLoading && data) {
-      setIsInWishlist(data.statusCode === 200);
-    }
-  }, [data, isLoading, bookIsLoading, removeItemIsLoading]);
-
-  const handleAddToWishlist = (e) => {
-    e.preventDefault();
-    if (isInWishlist) {
-      deleteMutate(book.id);
-    } else {
-      addMutate(book.id);
-    }
-    setIsInWishlist(!isInWishlist);
-  };
-
-  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-  if (bookIsLoading) return <LoadingSpinner isLoading={bookIsLoading} />;
-  if (removeItemIsLoading)
-    return <LoadingSpinner isLoading={removeItemIsLoading} />;
+  if (addItemIsLoading || bookIsLoading || removeItemIsLoading)
+    return (
+      <LoadingSpinner
+        isLoading={addItemIsLoading || bookIsLoading || removeItemIsLoading}
+      />
+    );
 
   return (
     <>

@@ -16,6 +16,8 @@ const BlogDetails = () => {
     }
   }, [isError]);
 
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+
   const categoryNames = blog.categories
     .map((category) => category.name)
     .join(" & ");

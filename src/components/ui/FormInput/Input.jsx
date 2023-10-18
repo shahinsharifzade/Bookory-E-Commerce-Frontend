@@ -7,8 +7,8 @@ const Input = ({
   placeholder,
   type,
   error,
-  errorMessage,
   responseError,
+  initalValue,
 }) => {
   return (
     <div>

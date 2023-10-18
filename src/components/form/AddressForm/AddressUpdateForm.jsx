@@ -6,9 +6,13 @@ import { useForm } from "react-hook-form";
 import ResponseErrorMessage from "../../ui/ResponseMessage/ResponseErrorMessage";
 import { setResponseErrorMessage } from "../../../utils/setResponseErrorMessages";
 import Input from "../../ui/FormInput/Input";
-import { useAddAddress } from "../../../service/addressService";
+import {
+  useDeleteAddress,
+  useUpdateAddress,
+} from "../../../service/addressService";
+import { Trash2 } from "lucide-react";
 
-const AddressForm = ({ handleClose }) => {
+const AddressUpdateForm = ({ handleClose, address }) => {
   const [responseErrors, setResponseErrors] = useState({});
   const [responseException, setResponseException] = useState();
 
@@ -28,12 +32,29 @@ const AddressForm = ({ handleClose }) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      addressline1: address.addressLine1,
+      addressline2: address.addressLine2,
+      country: address.country,
+      city: address.city,
+      telephone: address.telephone,
+      mobile: address.mobile,
+      postalCode: address.postalCode,
+    },
   });
 
-  const { mutate, isLoading } = useAddAddress();
+  const { mutate, isLoading } = useUpdateAddress();
+  const { mutate: deleteMutate, isLoading: deleteIsLoading } =
+    useDeleteAddress();
 
   const onSubmit = (formData) => {
     setResponseErrors({});
+    formData.id = address.id;
+
+    console.log(
+      "🚀 ~ file: AddressUpdateForm.jsx:36 ~ onSubmit ~ formData:",
+      formData,
+    );
 
     mutate(formData, {
       onSuccess: () => {
@@ -54,23 +75,29 @@ const AddressForm = ({ handleClose }) => {
     });
   };
 
-  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+  const handleDelete = () => {
+    deleteMutate(address.id);
+    handleClose();
+  };
+
+  if (isLoading || deleteIsLoading)
+    return <LoadingSpinner isLoading={isLoading || deleteIsLoading} />;
 
   return (
     <>
       <div className="container z-10 mb-16 mt-32 max-w-[600px] rounded-[3rem] bg-white py-8">
         <h2 className="pb-8 text-center text-[4rem] text-black">
-          Add Shipping Address
+          Update Shipping Address
         </h2>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col space-y-[20px]"
         >
-          <div>
+          <div className="flex flex-col">
             <Input
-              name="addressline1"
               register={register}
+              name="addressline1"
               placeholder="Address Line 1"
               type="text"
               error={errors.addressline1}
@@ -78,8 +105,8 @@ const AddressForm = ({ handleClose }) => {
             />
 
             <Input
-              name="addressline2"
               register={register}
+              name="addressline2"
               placeholder="Address Line 2"
               type="text"
               error={errors.addressline2}
@@ -87,8 +114,8 @@ const AddressForm = ({ handleClose }) => {
             />
 
             <Input
-              name="country"
               register={register}
+              name="country"
               placeholder="Country"
               type="text"
               error={errors.country}
@@ -96,8 +123,8 @@ const AddressForm = ({ handleClose }) => {
             />
 
             <Input
-              name="city"
               register={register}
+              name="city"
               placeholder="City"
               type="text"
               error={errors.city}
@@ -105,8 +132,8 @@ const AddressForm = ({ handleClose }) => {
             />
 
             <Input
-              name="telephone"
               register={register}
+              name="telephone"
               placeholder="Telephone"
               type="text"
               error={errors.telephone}
@@ -114,17 +141,18 @@ const AddressForm = ({ handleClose }) => {
             />
 
             <Input
-              name="mobile"
               register={register}
+              name="mobile"
               placeholder="Mobile"
               type="text"
+              initalValue={address.mobile}
               error={errors.mobile}
               responseError={responseErrors.Mobile}
             />
 
             <Input
-              name="postalCode"
               register={register}
+              name="postalCode"
               placeholder="Postal Code"
               type="text"
               error={errors.postalCode}
@@ -137,8 +165,16 @@ const AddressForm = ({ handleClose }) => {
               className="mx-auto my-8 flex items-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"
               type="submit"
             >
-              Add Address
+              Update Address
             </button>
+
+            <div
+              className="mr-4 flex cursor-pointer items-center gap-8 self-end"
+              onClick={() => handleDelete()}
+            >
+              <p className="text-[18px] font-semibold">Delete Address </p>
+              <Trash2 size={20} color="#f65d4e" />
+            </div>
           </div>
         </form>
       </div>
@@ -146,4 +182,4 @@ const AddressForm = ({ handleClose }) => {
   );
 };
 
-export default AddressForm;
+export default AddressUpdateForm;

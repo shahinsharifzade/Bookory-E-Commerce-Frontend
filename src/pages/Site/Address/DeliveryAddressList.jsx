@@ -39,20 +39,21 @@ const DeliveryAddress = ({ selectedAddress, setSelectedAddress }) => {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <AddressForm />
+              <AddressForm handleClose={handleClose} />
             </Modal>
           </div>
 
-          {address.map((item, index) => {
-            return (
-              <DeliveryAddressItem
-                setSelectedAddress={setSelectedAddress}
-                selectedAddress={selectedAddress}
-                address={item}
-                key={index}
-              />
-            );
-          })}
+          {address &&
+            address.map((item, index) => {
+              return (
+                <DeliveryAddressItem
+                  setSelectedAddress={setSelectedAddress}
+                  selectedAddress={selectedAddress}
+                  address={item}
+                  key={index}
+                />
+              );
+            })}
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import BlogRecentPost from "./BlogRecentPost";
 
 const BlogSideBar = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col max-minw-md:max-w-[220px]">
       <BlogSearch />
       <BlogCategoriesList />
       <BlogRecentPost />

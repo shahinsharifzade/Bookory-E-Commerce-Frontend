@@ -15,15 +15,22 @@ import { useNavigate } from "react-router-dom";
 
 const WishlistItems = () => {
   const { data: wishlist, isLoading, isError, error } = useGetWishlist();
-
   const navigate = useNavigate();
-  useEffect(() => {
-    if (isError) {
-      if (error?.response.data.statusCode === 404) navigate("notfound");
-    }
-  }, [isError]);
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
+
+  if (!wishlist || wishlist.length === 0)
+    return (
+      <div className="container flex flex-col items-center justify-center py-[15rem] text-[3rem] font-semibold text-secondartTextBold">
+        <div>Your Wishlist is Empty</div>
+        <button
+          className="mx-auto my-12 flex items-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"
+          onClick={() => navigate("/shop")}
+        >
+          Back to Shop page
+        </button>
+      </div>
+    );
 
   return (
     <div className="container mb-16 mt-24 overflow-x-hidden">
@@ -49,7 +56,7 @@ const WishlistItems = () => {
           </TableHead>
 
           <TableBody>
-            {wishlist !== undefined &&
+            {wishlist &&
               wishlist.books.map((book, index) => (
                 <WishlistItem book={book} key={index} />
               ))}

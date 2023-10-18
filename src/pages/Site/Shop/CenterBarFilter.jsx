@@ -78,7 +78,7 @@ const CenterBarFilter = ({ setMuiDrawer }) => {
           className="flex cursor-pointer items-center gap-4"
           onClick={() => setMuiDrawer(true)}
         >
-          <Sliders size={"18px"} />
+          <Sliders size={18} />
           <p className="text-xl font-semibold">Filter</p>
         </div>
 

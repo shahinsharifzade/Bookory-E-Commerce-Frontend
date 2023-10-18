@@ -1,38 +1,39 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useEffect } from "react";
 
 import "swiper/css";
 import "swiper/css/bundle";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+
 import BestsellerItem from "./BestsellerItem";
-
 import LoadingSpinner from "../Loading/LoadingSpinner";
-
-//API
-const fetchBooks = async (search) => {
-  const response = await axios
-    .get(`https://localhost:7047/api/books`)
-    .catch((error) => {
-      // console.log(error.response.data.message);
-      return <div>{error.response?.data?.message}</div>;
-    });
-  return response.data;
-};
-//API
+import { useGetFilteredBooks } from "../../../service/bookService";
+import { useNavigate } from "react-router-dom";
 
 const BestsellersList = () => {
-  //API
+  const navigate = useNavigate();
   const {
     data: booksData,
     isLoading: bookIsLoading,
     isError: booksError,
-  } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
+    error,
+  } = useGetFilteredBooks(
+    1,
+    15,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    "popularity",
+  );
 
-  if (booksError) return <div>Error fetching data</div>;
+  useEffect(() => {
+    if (booksError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [booksError]);
   if (bookIsLoading) return <LoadingSpinner isLoading={bookIsLoading} />;
+
   return (
     <section className="mb-32">
       <div>
@@ -72,8 +73,7 @@ const BestsellersList = () => {
           modules={[Pagination, Autoplay]}
           className="mySwiper"
         >
-          {booksData.map((item, index) => {
-            // console.log(item);
+          {booksData.books.map((item, index) => {
             return (
               <SwiperSlide key={index}>
                 <BestsellerItem books={item} />

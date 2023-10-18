@@ -8,7 +8,7 @@ const filterSlice = createSlice({
     sortBy: "newest",
   },
   reducers: {
-    setSearch: (state, action) => {
+    setBlogSearch: (state, action) => {
       state.search = action.payload;
     },
     setCategory: (state, action) => {
@@ -20,6 +20,6 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setSearch, setCategory, setSort } = filterSlice.actions;
+export const { setBlogSearch, setCategory, setSort } = filterSlice.actions;
 
 export default filterSlice.reducer;

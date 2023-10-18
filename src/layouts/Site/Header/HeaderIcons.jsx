@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { User2, Heart, ShoppingBasket } from "lucide-react";
+import { User2, Heart, ShoppingBasket, LogOut } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { Link } from "react-router-dom";
@@ -12,10 +12,6 @@ const HeaderIcons = () => {
   const authApi = usePrivateApi(); // Use the hook to get the customized api instance with token
 
   const { data: activeUser, isActiveUserrLoading } = useGetActiveUser();
-  console.log(
-    "🚀 ~ file: HeaderIcons.jsx:15 ~ HeaderIcons ~ activeUser:",
-    activeUser,
-  );
 
   const fetchWishList = async () => {
     const response = await authApi.get(`Wishlist`, {
@@ -57,6 +53,12 @@ const HeaderIcons = () => {
       setBasketCount(data.length);
     },
   });
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+
+    window.location.reload();
+  };
 
   if (wishlistIsLoading || isActiveUserrLoading || basketIsLoading)
     return (
@@ -104,6 +106,19 @@ const HeaderIcons = () => {
           {basketCount}
         </span>
       </Link>
+
+      <div
+        className={`${
+          activeUser ? "" : "hidden"
+        } cursor-pointer border-l border-solid border-secondaryText`}
+        onClick={handleLogout}
+      >
+        <LogOut
+          size={"2rem"}
+          strokeWidth={"1.2px"}
+          className="ml-2 mr-2 font-normal"
+        />
+      </div>
     </div>
   );
 };

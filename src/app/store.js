@@ -4,9 +4,9 @@ import companyFilterReducers from "../features/companyFilter/companyFiltersSlice
 import companyBookFiltersReducers from "../features/companyBookFilter/companyBookFiltersSlice";
 import headerReducers from "../features/header/headerSelectedPage";
 import blogFiltersReducers from "../features/blogFilter/blogFiltersSlice";
-import authSlice from "../features/auth/authSlice";
-import vendorRegisterSlice from "../features/register/vendorRegisterSlice";
-import cartSlice from "../features/cart/cartSlice";
+import authReducers from "../features/auth/authSlice";
+import vendorRegisterReducers from "../features/register/vendorRegisterSlice";
+import cartReducers from "../features/cart/cartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,8 +15,8 @@ export const store = configureStore({
     companyBookFilters: companyBookFiltersReducers,
     header: headerReducers,
     blogFilters: blogFiltersReducers,
-    auth: authSlice,
-    vendorRegistration: vendorRegisterSlice,
-    cart: cartSlice,
+    auth: authReducers,
+    vendorRegistration: vendorRegisterReducers,
+    cart: cartReducers,
   },
 });

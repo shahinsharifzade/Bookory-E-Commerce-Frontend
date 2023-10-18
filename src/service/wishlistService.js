@@ -21,7 +21,7 @@ const addToWishlist = async (Id) => {
 export const useAddToWishlist = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id) => addToWishlist(id),
+    mutationFn: addToWishlist,
     onSuccess: () => {
       showToastSuccessMessage("Item added ✅");
       queryClient.invalidateQueries(["wishlist"]);
@@ -47,8 +47,6 @@ export const useCheckItemExists = (id) => {
     queryKey: ["wishlistitem", id],
     queryFn: () => CheckItemExists(id),
     retry: false,
-    onError: (error) => console.log(error.response.data.message),
-    onSuccess: () => console.log("Wishlist Item found with id : " + id),
   });
 };
 

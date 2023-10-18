@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import React from "react";
 
 const BlogDetailsContent = ({ blog }) => {
+  console.log(blog);
   const blogCategories = blog.categories.map((item) => item.name).join(" & ");
   const blogCreatedDate = format(new Date(blog.createdAt), "d MMMM yyyy");
 

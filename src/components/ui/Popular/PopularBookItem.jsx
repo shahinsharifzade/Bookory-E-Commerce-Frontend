@@ -1,25 +1,17 @@
 import React, { useState } from "react";
-import { Star, Heart, ShoppingCart, Eye } from "lucide-react";
+import { Heart, ShoppingCart, Eye } from "lucide-react";
 import BookModalSlider from "../Slider/BookModalSlider";
+import Rating from "../Rating/Rating";
+import { Link } from "react-router-dom";
+import DiscountPercentage from "../DiscountPercentage/DiscountPercentage";
 
 const PopularBookItem = (props) => {
-  const filledStars = [];
-  const emptyStars = [];
-
-  for (let index = 0; index < props.book.rating; index++) {
-    filledStars.push(
-      <Star key={index} color="#f65d4e" fill="#f65d4e" size={"14px"} />,
-    );
-  }
-  for (let index = 0; index < 5 - props.book.rating; index++) {
-    emptyStars.push(<Star key={index} color="#f65d4e" size={"14px"} />);
-  }
-
   const [isHovered, setIsHovered] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
-    <div
+    <Link
+      to={`/shop/${props.book.id}`}
       className="flex w-[50%] flex-col items-start justify-start rounded-[2rem] p-12 text-center minw-md:w-[34%] minw-lg:w-[33%] min-[1200px]:w-1/4 "
       onMouseEnter={(e) => {
         e.stopPropagation();
@@ -35,6 +27,10 @@ const PopularBookItem = (props) => {
           src={`https://localhost:7047/assets/images/books/${props.book.mainImage}`}
           className="aspect-[2.2/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
           alt="book cover"
+        />
+
+        <DiscountPercentage
+          discountPercentage={props.book.discountPercentage}
         />
 
         <div
@@ -74,8 +70,7 @@ const PopularBookItem = (props) => {
         </p>
 
         <div className="mb-4 flex">
-          {filledStars}
-          {emptyStars}
+          <Rating rating={props.book.rating} />
         </div>
 
         <p className="mb-4 cursor-pointer text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText ">
@@ -94,7 +89,7 @@ const PopularBookItem = (props) => {
           setModalIsOpened={setModalIsOpen}
         />
       ) : null}
-    </div>
+    </Link>
   );
 };
 

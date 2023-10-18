@@ -1,7 +1,7 @@
 import { Collapse } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearch } from "../../../features/companyFilter/companyFiltersSlice";
+import { setStoreSearch } from "../../../features/companyFilter/companyFiltersSlice";
 
 const SearchStore = ({ open }) => {
   const search = useSelector((state) => state.companyFilters.search);
@@ -22,7 +22,7 @@ const SearchStore = ({ open }) => {
             className="flex flex-col"
             onSubmit={(e) => {
               e.preventDefault();
-              dispatch(setSearch(searchValue));
+              dispatch(setStoreSearch(searchValue));
             }}
           >
             <div className="">

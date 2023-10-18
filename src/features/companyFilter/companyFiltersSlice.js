@@ -12,7 +12,7 @@ const filtersSlice = createSlice({
     setPageNumber: (state, action) => {
       state.pageNumber = action.payload;
     },
-    setSearch: (state, action) => {
+    setStoreSearch: (state, action) => {
       state.search = action.payload;
     },
     setSort: (state, action) => {
@@ -21,6 +21,6 @@ const filtersSlice = createSlice({
   },
 });
 
-export const { setPageNumber, setSearch, setSort } = filtersSlice.actions;
+export const { setPageNumber, setStoreSearch, setSort } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

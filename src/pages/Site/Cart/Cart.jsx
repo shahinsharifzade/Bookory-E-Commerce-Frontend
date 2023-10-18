@@ -8,16 +8,38 @@ import { useSelector } from "react-redux";
 
 const Cart = () => {
   const navigate = useNavigate();
+  const [total, setTotal] = useState(0);
 
   const totalPrice = useSelector((state) => state.cart.totalPrice);
-  const { data: basket, isLoading, isError, error } = useGetBasketItems();
-  console.log("🚀 ~ file: Cart.jsx:14 ~ Cart ~ basket:", basket);
+  const {
+    data: basket,
+    isLoading,
+    isError,
+    isSuccess,
+    error,
+  } = useGetBasketItems();
 
   useEffect(() => {
     if (isError) {
       if (error?.response.data.statusCode === 404) navigate("notfound");
     }
   }, [isError]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      const newTotal = basket.reduce((prevTotal, basketItem) => {
+        return (
+          prevTotal +
+          parseFloat(basketItem.quantity) *
+            ((parseFloat(basketItem.price) *
+              parseFloat(basketItem.basketBook.discountPercentage)) /
+              100)
+        );
+      }, 0);
+      const roundedTotal = newTotal.toFixed(2);
+      setTotal(roundedTotal);
+    }
+  }, [basket, isSuccess]);
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
@@ -50,8 +72,18 @@ const Cart = () => {
             Order Summary
           </h1>
           <div className="flex gap-4 py-8 text-secondartTextBold">
-            <p>Total : </p>
+            <p>Subtotal : </p>
             <span className="text-primaryText">{totalPrice} $</span>
+          </div>
+
+          <div className="flex gap-4 py-8 text-secondartTextBold">
+            <p>Discount Price : </p>
+            <span className="text-primaryText">{total} $</span>
+          </div>
+
+          <div className="flex gap-4 py-8 text-secondartTextBold">
+            <p>Total : </p>
+            <span className="text-primaryText">{totalPrice - total} $</span>
           </div>
 
           <button

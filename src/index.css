@@ -16,13 +16,31 @@
       font-size: 9px; /* Set the font size below 768px */
     }
   }
-  
+
   @media (max-width: 400px) {
     html {
       font-size: 8px; /* Set the font size below 768px */
     }
   }
 }
+
+/* ::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f65d4e;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f65d4e;
+} */
 
 html,
 body,

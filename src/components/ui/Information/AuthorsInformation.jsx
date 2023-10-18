@@ -1,28 +1,10 @@
 import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../Loading/LoadingSpinner";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import icons from "../../../assets/icons/index";
-
-const fetchAuthor = async () => {
-  const response = await axios
-    .get(`https://localhost:7047/api/Authors`)
-    .catch((error) => {
-      return <div>{error.response.data.message}</div>;
-    });
-
-  return response.data;
-};
+import { useGetAllAuthors } from "../../../service/authorService";
 
 const AuthorsInformation = () => {
-  const {
-    data: authorsData,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["authors"],
-    queryFn: fetchAuthor,
-  });
+  const { data: authorsData, isLoading, isError } = useGetAllAuthors();
 
   const [numbersOfAuthors, setNumberOfAuthors] = useState(0);
 
@@ -32,13 +14,13 @@ const AuthorsInformation = () => {
     }
   }, [authorsData]);
 
-  if (isLoading) {
-    return <LoadingSpinner isLoading={isLoading} />;
-  }
+  if (isError) return <div>Error fetching data</div>;
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
-  if (isError) {
-    return <div>Error fetching data</div>;
-  }
+  console.log(
+    "🚀 ~ file: AuthorsInformation.jsx:20 ~ AuthorsInformation ~ authorsData:",
+    authorsData,
+  );
 
   return (
     <div className="flex w-full">

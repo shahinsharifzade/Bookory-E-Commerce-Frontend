@@ -1,7 +1,7 @@
 import { Search } from "lucide-react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearch } from "../../../features/blogFilter/blogFiltersSlice";
+import { setBlogSearch } from "../../../features/blogFilter/blogFiltersSlice";
 
 const BlogSearch = () => {
   const search = useSelector((state) => state.blogFilters.search);
@@ -20,8 +20,9 @@ const BlogSearch = () => {
             placeholder="Search..."
             type="text"
             defaultValue={search}
+            aria-label="blog-search"
             onChange={(e) => {
-              dispatch(setSearch(e.target.value));
+              dispatch(setBlogSearch(e.target.value));
             }}
           />
           <Search />

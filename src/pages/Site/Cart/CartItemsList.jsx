@@ -57,7 +57,7 @@ const CartItemsList = ({ basket }) => {
           </TableHead>
 
           <TableBody>
-            {basket !== undefined &&
+            {basket &&
               basket.map((basketItem, index) => (
                 <CartItem basketItem={basketItem} key={index} />
               ))}

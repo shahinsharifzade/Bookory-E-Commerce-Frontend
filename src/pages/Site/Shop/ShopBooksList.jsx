@@ -17,12 +17,7 @@ const ShopBooksList = () => {
   const selectedRating = useSelector((state) => state.filters.selectedRating);
   const pageSize = useSelector((state) => state.filters.pageSize);
 
-  const {
-    data: booksData,
-    isLoading,
-    isError,
-    error,
-  } = useGetFilteredBooks(
+  const { data: booksData, isLoading } = useGetFilteredBooks(
     pageNumber,
     pageSize,
     selectedAuthors,
@@ -32,31 +27,32 @@ const ShopBooksList = () => {
     selectedSort,
   );
 
-  useEffect(() => {
-    if (isError) {
-      if (error?.response.data.statusCode === 404) navigate("notfound");
-      console.log(error?.response.data.statusCode === 404);
-    }
-  }, [isError]);
-
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   return (
-    <div className="container ">
-      <div className="flex flex-wrap">
-        {booksData.books.map((book, index) => (
-          <ShopBookItem key={index} book={book} />
-        ))}
-        <div className="flex justify-center pb-24"></div>
-      </div>
-      <div className="flex items-center justify-center pb-8">
-        <Stack spacing={3}>
-          <Pagination
-            count={booksData.totalCount}
-            page={pageNumber}
-            onChange={(_, page) => setPageNumber(page)}
-          />
-        </Stack>
-      </div>
+    <div>
+      {booksData ? (
+        <div className="container ">
+          <div className="flex flex-wrap">
+            {booksData.books.map((book, index) => (
+              <ShopBookItem key={index} book={book} />
+            ))}
+            <div className="flex justify-center pb-24"></div>
+          </div>
+          <div className={`flex items-center justify-center pb-8 `}>
+            <Stack spacing={3}>
+              <Pagination
+                count={booksData.totalCount}
+                page={pageNumber}
+                onChange={(_, page) => setPageNumber(page)}
+              />
+            </Stack>
+          </div>
+        </div>
+      ) : (
+        <div className="container flex flex-col items-center justify-center py-[15rem] text-[3rem] font-semibold text-secondartTextBold">
+          <div>No books were found matching the provided criteria</div>
+        </div>
+      )}
     </div>
   );
 };
