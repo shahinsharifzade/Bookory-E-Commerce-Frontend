@@ -15,6 +15,11 @@ const PrivateRoute = ({ roles, children }) => {
         "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
       ];
 
+    let currentDate = new Date();
+    if (decodedToken.exp * 1000 < currentDate.getTime()) {
+      return <Navigate to="/login" />;
+    }
+
     if (roles.includes(userRole)) return children;
     else return <Navigate to="/notfound" />;
   }

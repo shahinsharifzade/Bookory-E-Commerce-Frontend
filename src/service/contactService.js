@@ -1,6 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
-import { api } from "../api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { api, authApi } from "../api";
 import { showToastSuccessMessage } from "../utils/toastUtils";
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const postMessage = async (data) => {
   const response = await api.post("contact", data);
@@ -22,3 +24,54 @@ export const usePostMessage = () => {
     },
   });
 };
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getAllContacts = async () => {
+  const response = await authApi.get("contact");
+
+  return response.data;
+};
+
+export const useGetAllContacts = () => {
+  return useQuery({
+    queryKey: ["contacts"],
+    queryFn: () => getAllContacts(),
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getById = async (id) => {
+  const response = await authApi.get(`contact/${id}`);
+
+  return response.data;
+};
+
+export const useGetContactById = (id) => {
+  return useQuery({
+    queryKey: ["contacts", id],
+    queryFn: () => getById(id),
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const deleteContact = async (id) => {
+  const response = await authApi.delete(`contact/${id}`);
+
+  return response.data;
+};
+
+export const useDeleteContact = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteContact,
+    onSuccess: () => {
+      showToastSuccessMessage("Contact Message successfully deleted");
+      queryClient.invalidateQueries("contacts");
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

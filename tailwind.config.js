@@ -21,15 +21,6 @@ module.exports = {
       "2xl": "1.6rem",
     },
 
-    // screens: {
-    //   "minw-xsm": { raw: "(min-width: 300px)" },
-    //   "minw-sm": { raw: "(min-width: 640px)" },
-    //   "minw-md": { raw: "(min-width: 768px)" },
-    //   "minw-lg": { raw: "(min-width: 992px)" },
-    //   "minw-xl": { raw: "(min-width: 1320px)" },
-
-    //   "minw-1000": { raw: "(min-width: 1000px)" },
-    // },
     screens: {
       "minw-xsm": "576px",
       "minw-sm": "640px",

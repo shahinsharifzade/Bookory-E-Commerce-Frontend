@@ -1,14 +1,12 @@
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { Pagination, Stack } from "@mui/material";
 import ShopBookItem from "./ShopBookItem";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetFilteredBooks } from "../../../service/bookService";
-import { useNavigate } from "react-router-dom";
 
 const ShopBooksList = () => {
   const [pageNumber, setPageNumber] = useState(1);
-  const navigate = useNavigate();
 
   const selectedAuthors = useSelector((state) => state.filters.selectedAuthors);
   const selectedGenres = useSelector((state) => state.filters.selectedGenres);

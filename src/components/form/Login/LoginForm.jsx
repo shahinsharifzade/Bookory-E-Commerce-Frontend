@@ -25,10 +25,11 @@ const LoginForm = () => {
     mutate(formData, {
       onError: (res) => {
         if (res.response.data.errors) {
+          console.log("ah");
           const errorsData = setResponseErrorMessage(res.response.data.errors);
           setResponseErrors(errorsData);
-        }
-        if (res.response.data.statusCode === 400) {
+        } else if (res.response.data.status === 400) {
+          console.log("uh");
           setResponseException(res.response.data.message);
         }
       },

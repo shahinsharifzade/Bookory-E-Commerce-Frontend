@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Sliders } from "lucide-react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,6 +41,10 @@ const CenterBarFilter = ({ setMuiDrawer }) => {
     {
       value: "popularity",
       name: "Popularity",
+    },
+    {
+      value: "onSale",
+      name: "On Sale",
     },
   ];
 

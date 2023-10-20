@@ -26,6 +26,19 @@ import PrivateRoute from "../pages/Admin/PrivateRoute/PrivateRoute";
 import Dashboard from "../pages/Admin/Dashboard/Dashboard";
 import StripePayment from "../components/ui/StripePayment/StripePayment";
 import Address from "../pages/Site/Address/Address";
+import Books from "../pages/Admin/Books/Books";
+import Authors from "../pages/Admin/Authors/Authors";
+import AuthorDetailsView from "../pages/Admin/Authors/AuthorDetailsView";
+import Genres from "../pages/Admin/Genres/Genres";
+import GenreDetailsView from "../pages/Admin/Genres/GenreDetailsView";
+import Categories from "../pages/Admin/Categories/Categories";
+import CategoryDetails from "../pages/Admin/Categories/CategoryDetails";
+import Orders from "../pages/Admin/Orders/Orders";
+import OrderDetails from "../pages/Admin/Orders/OrderDetails";
+import Users from "../pages/Admin/Users/Users";
+import UserDetails from "../pages/Admin/Users/UserDetails";
+import Contacts from "../pages/Admin/Contact/Contacts";
+import ContactDetails from "../pages/Admin/Contact/ContactDetails";
 
 // const checkUser = () => {
 //   const token = JSON.parse(localStorage.getItem("token"));
@@ -118,10 +131,7 @@ export const ROUTES = [
         path: "notfound",
         element: <NotFoundPage />,
       },
-      {
-        path: "*",
-        element: <NotFoundPage />,
-      },
+
       {
         path: "checkout",
         element: <StripePayment />,
@@ -129,6 +139,10 @@ export const ROUTES = [
       {
         path: "address",
         element: <Address />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },
@@ -143,6 +157,58 @@ export const ROUTES = [
       {
         path: "",
         element: <Dashboard />,
+      },
+      {
+        path: "books",
+        element: <Books />,
+      },
+      {
+        path: "authors",
+        element: <Authors />,
+      },
+      {
+        path: "authors/:authorId",
+        element: <AuthorDetailsView />,
+      },
+      {
+        path: "genres",
+        element: <Genres />,
+      },
+      {
+        path: "genres/:genreId",
+        element: <GenreDetailsView />,
+      },
+      {
+        path: "categories",
+        element: <Categories />,
+      },
+      {
+        path: "categories/:categoryId",
+        element: <CategoryDetails />,
+      },
+      {
+        path: "orders",
+        element: <Orders />,
+      },
+      {
+        path: "orders/:orderId",
+        element: <OrderDetails />,
+      },
+      {
+        path: "users",
+        element: <Users />,
+      },
+      {
+        path: "users/:userId",
+        element: <UserDetails />,
+      },
+      {
+        path: "contacts",
+        element: <Contacts />,
+      },
+      {
+        path: "contacts/:contactId",
+        element: <ContactDetails />,
       },
     ],
   },

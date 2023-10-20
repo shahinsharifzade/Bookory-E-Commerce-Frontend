@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { authApi } from "../api";
-import { ClickAwayListener } from "@mui/material";
-import { ArrowUpAZ } from "lucide-react";
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const getAllAddress = async () => {
   const response = await authApi.get("UserAddress");
@@ -40,10 +40,6 @@ export const useAddAddress = () => {
 
 const putAddress = async (data) => {
   const response = await authApi.put("UserAddress/Update", data);
-  console.log(
-    "🚀 ~ file: addressService.js:38 ~ putAddress ~ response:",
-    response,
-  );
 
   return response.data;
 };
@@ -78,3 +74,5 @@ export const useDeleteAddress = () => {
     },
   });
 };
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

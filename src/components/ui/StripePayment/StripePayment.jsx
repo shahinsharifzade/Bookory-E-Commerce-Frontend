@@ -5,6 +5,7 @@ import { authApi } from "../../../api";
 import LoadingSpinner from "../Loading/LoadingSpinner";
 import logo from "../../../assets/icons/logo.svg";
 import ResponseErrorMessage from "../ResponseMessage/ResponseErrorMessage";
+import { showToastSuccessMessage } from "../../../utils/toastUtils";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -36,6 +37,7 @@ const StripePayment = ({ email, addressId }) => {
   const checkout = useMutation((data) => authApi.post("order", data), {
     onSuccess: () => {
       queryClient.invalidateQueries("payment");
+      showToastSuccessMessage("Success");
     },
   });
 

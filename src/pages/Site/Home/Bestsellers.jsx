@@ -10,9 +10,10 @@ const Bestsellers = () => {
           <h2 className="shrink-0 pr-12 text-[3.5rem] tracking-tighter">
             Bestselling books
           </h2>
+
           <div className="mx-4 hidden h-[1px] grow bg-[#e6e6e6] minw-md:block"></div>
         </div>
-        <Button text="View All" className="w-[200px]" />
+        <Button text="View All" className="w-[200px]" route={`/shop`} />
       </div>
 
       <BestsellerList />

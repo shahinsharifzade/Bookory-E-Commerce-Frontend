@@ -13,7 +13,7 @@ const Deals = () => {
           </h2>
           <div className="mx-4 hidden h-[1px] grow bg-[#e6e6e6] minw-md:block"></div>
         </div>
-        <Button text="View All" className="w-[200px]" />
+        <Button text="View All" className="w-[200px]" route={`/shop`} />
       </div>
 
       <div className="container flex flex-col minw-md:flex minw-md:flex-row  ">

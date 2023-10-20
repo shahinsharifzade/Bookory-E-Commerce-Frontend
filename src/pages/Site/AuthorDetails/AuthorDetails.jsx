@@ -6,13 +6,7 @@ import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import AuthorDetailsTop from "./AuthorDetailsTop";
 import AuthorDetailsContent from "./AuthorDetailsContent";
 import AuthorBooksList from "./AuthorBooksList";
-
-const fetchAuthor = async (authorId) => {
-  var response = await axios.get(
-    `https://localhost:7047/api/Authors/${authorId}`,
-  );
-  return response.data;
-};
+import { useGetAuthorById } from "../../../service/authorService";
 
 const AuthorDetails = () => {
   const { authorId } = useParams();
@@ -23,10 +17,7 @@ const AuthorDetails = () => {
     isError,
     isLoading,
     error,
-  } = useQuery({
-    queryKey: ["authordetails", authorId],
-    queryFn: () => fetchAuthor(authorId),
-  });
+  } = useGetAuthorById(authorId);
 
   useEffect(() => {
     if (isError) {

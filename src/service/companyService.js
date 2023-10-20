@@ -64,7 +64,7 @@ const postMessage = async (data) => {
     `https://localhost:7047/api/Company/email`,
     formData,
   );
-  console.log(formData);
+
   return response.data;
 };
 

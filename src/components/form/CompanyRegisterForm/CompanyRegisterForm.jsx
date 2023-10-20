@@ -127,7 +127,7 @@ const CompanyRegisterForm = () => {
               name="bannerimage"
               register={register}
               placeholder="banner image"
-              type="text"
+              type="file"
               error={errors.bannerimage}
               responseError={responseErrors.BannerImage}
             />
@@ -136,7 +136,7 @@ const CompanyRegisterForm = () => {
               name="logo"
               register={register}
               placeholder="logo"
-              type="text"
+              type="file"
               error={errors.logo}
               responseError={responseErrors.Logo}
             />
