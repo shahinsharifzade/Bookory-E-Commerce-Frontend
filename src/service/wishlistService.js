@@ -15,6 +15,10 @@ const addToWishlist = async (Id) => {
       withCredentials: true,
     },
   );
+  console.log(
+    "🚀 ~ file: wishlistService.js:18 ~ addToWishlist ~ response:",
+    response.data,
+  );
   return response.data;
 };
 

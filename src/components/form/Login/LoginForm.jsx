@@ -28,7 +28,11 @@ const LoginForm = () => {
           console.log("ah");
           const errorsData = setResponseErrorMessage(res.response.data.errors);
           setResponseErrors(errorsData);
-        } else if (res.response.data.status === 400) {
+        } else if (
+          res.response.data.statusCode === 400 ||
+          res.response.data.statusCode === 403 ||
+          res.response.data.statusCode === 404
+        ) {
           console.log("uh");
           setResponseException(res.response.data.message);
         }

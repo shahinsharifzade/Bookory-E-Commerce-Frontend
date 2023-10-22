@@ -24,30 +24,38 @@ const StoreList = () => {
     sortBy,
   );
 
-  useEffect(() => {
-    if (isError) {
-      if (error?.response.data.statusCode === 404) navigate("notfound");
-      console.log(error?.response.data.statusCode === 404);
-    }
-  }, [isError]);
+  // useEffect(() => {
+  //   if (isError) {
+  //     if (error?.response.data.statusCode === 404) navigate("notfound");
+  //     console.log(error?.response.data.statusCode === 404);
+  //   }
+  // }, [isError]);
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   return (
     <div className="container">
       <div className="flex">
-        {data.companies.map((store, index) => (
-          <StoreListItem store={store} key={index} />
-        ))}
+        {data ? (
+          data.companies.map((store, index) => (
+            <StoreListItem store={store} key={index} />
+          ))
+        ) : (
+          <div className="container flex flex-col items-center justify-center py-[15rem] text-[3rem] font-semibold text-secondartTextBold">
+            <div>No store were found matching the provided criteria</div>
+          </div>
+        )}
       </div>
 
       <div className="flex items-center justify-center pb-8">
-        <Stack spacing={3}>
-          <Pagination
-            count={data.totalCount}
-            page={pageNumber}
-            onChange={(_, page) => dispatch(setPageNumber(page))}
-          />
-        </Stack>
+        {data && (
+          <Stack spacing={3}>
+            <Pagination
+              count={data.totalCount}
+              page={pageNumber}
+              onChange={(_, page) => dispatch(setPageNumber(page))}
+            />
+          </Stack>
+        )}
       </div>
     </div>
   );

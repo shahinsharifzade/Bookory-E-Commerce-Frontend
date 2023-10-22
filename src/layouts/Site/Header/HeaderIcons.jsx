@@ -5,6 +5,7 @@ import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { Link } from "react-router-dom";
 import { usePrivateApi } from "../../../api";
 import { useGetActiveUser } from "../../../service/userService";
+import Admin from "../../../assets/images/user-gear.png";
 
 const HeaderIcons = () => {
   const [basketCount, setBasketCount] = useState(0);
@@ -77,18 +78,33 @@ const HeaderIcons = () => {
         }`}
       >
         <User2
-          size={"2rem"}
+          size={"2.4rem"}
           strokeWidth={"1.2px"}
           className="ml-2 mr-2 font-normal"
         />
       </Link>
+
+      {activeUser && (
+        <Link
+          to={"/admin"}
+          className={`cursor-pointer border-r border-solid border-secondaryText text-black ${
+            activeUser.role === "Admin" || activeUser.role === "Moderator"
+              ? ""
+              : "hidden"
+          }`}
+        >
+          <div className="mx-4 h-[26px] w-[26px]">
+            <img src={Admin} className="h-full w-full object-contain" />
+          </div>
+        </Link>
+      )}
 
       <Link
         to={"wishlist"}
         className="relative cursor-pointer border-r border-solid border-secondaryText text-black"
       >
         <Heart
-          size={"2rem"}
+          size={"2.4rem"}
           strokeWidth={"1.2px"}
           className="mx-4 font-normal"
         />
@@ -99,7 +115,7 @@ const HeaderIcons = () => {
 
       <Link to={"cart"} className="relative cursor-pointer text-black">
         <ShoppingBasket
-          size={"2rem"}
+          size={"2.4rem"}
           strokeWidth={"1.2px"}
           className="ml-2 mr-2 font-normal"
         />
@@ -115,7 +131,7 @@ const HeaderIcons = () => {
         onClick={handleLogout}
       >
         <LogOut
-          size={"2rem"}
+          size={"2.4rem"}
           strokeWidth={"1.2px"}
           className="ml-2 mr-2 font-normal"
         />

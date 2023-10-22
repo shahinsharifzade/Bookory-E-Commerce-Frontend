@@ -61,6 +61,7 @@ const UpdateBookForm = ({ book, handleClose }) => {
 
       if (response.status === 200) {
         // Process the image data
+        console.log("Res" + response);
         const blob = new Blob([response.data], { type: "image/jpeg" });
 
         // Convert Blob to File

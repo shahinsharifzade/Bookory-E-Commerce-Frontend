@@ -27,6 +27,7 @@ export const useGetFilteredStores = (pageNumber, pageSize, search, sortBy) => {
   return useQuery({
     queryKey: ["companies", pageNumber, pageSize, search, sortBy],
     queryFn: () => getStores(pageNumber, pageSize, search, sortBy),
+    retry: false,
   });
 };
 

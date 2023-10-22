@@ -7,6 +7,7 @@ const login = async (body) => {
   const response = await authApi.post("/auth/login", body, {
     withCredentials: true,
   });
+  console.log("🚀 ~ file: authService.js:10 ~ login ~ response:", response);
   return response.data;
 };
 

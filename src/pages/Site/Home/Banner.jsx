@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import "animate.css";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const [iconHovered, setIconHovered] = useState(false);
@@ -37,8 +38,8 @@ const Banner = () => {
             onMouseEnter={handleIconHover}
             onMouseLeave={handleIconUnhover}
           >
-            <a
-              href="#"
+            <Link
+              to={`/shop`}
               className="mt-6 flex items-center rounded-[4rem] bg-white px-12 py-6 text-xl text-black hover:bg-black hover:text-white"
             >
               Shop Now
@@ -48,7 +49,7 @@ const Banner = () => {
                 } `}
                 size={"14px"}
               />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

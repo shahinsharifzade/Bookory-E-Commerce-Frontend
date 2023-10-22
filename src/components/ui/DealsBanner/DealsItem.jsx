@@ -24,7 +24,7 @@ const DealsItem = (props) => {
           <Rating rating={props.books.rating} />
         </div>
 
-        <p className="mb-4 cursor-pointer text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText">
+        <p className="mb-4 cursor-pointer text-lg text-left font-semibold tracking-widest text-secondaryText hover:text-primaryText">
           {props.books.author.name}
         </p>
         <span className="text-[2rem] tracking-widest text-primaryText">

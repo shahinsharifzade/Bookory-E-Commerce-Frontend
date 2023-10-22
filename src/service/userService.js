@@ -28,6 +28,7 @@ export const useGetActiveUser = () => {
   return useQuery({
     queryKey: ["activeuser"],
     queryFn: getActiveUser,
+    retry: false,
   });
 };
 

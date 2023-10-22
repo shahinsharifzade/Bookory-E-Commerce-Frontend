@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
-import { useSelect } from "@mui/base";
 import { useDispatch, useSelector } from "react-redux";
 import { setGenres } from "../../../features/bookFilter/bookFiltersSlice";
 import { useNavigate } from "react-router-dom";

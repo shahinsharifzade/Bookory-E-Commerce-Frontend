@@ -57,13 +57,14 @@ const OnSaleBooks = () => {
         modules={[Pagination, Autoplay]}
         className="mySwiper"
       >
-        {booksData.books.map((item, index) => {
-          return (
-            <SwiperSlide key={index}>
-              <OnSaleItem books={item} />
-            </SwiperSlide>
-          );
-        })}
+        {booksData &&
+          booksData.books.map((item, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <OnSaleItem books={item} />
+              </SwiperSlide>
+            );
+          })}
       </Swiper>
     </div>
   );

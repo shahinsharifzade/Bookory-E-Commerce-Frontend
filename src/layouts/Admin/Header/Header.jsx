@@ -19,11 +19,16 @@ const Header = ({ MuiDrawer, setMuiDrawer }) => {
           <PanelLeftOpen size={22} color="#f65d4e" />
         </div>
 
-        <div className="mr-8 flex gap-8">
-          <User2 />
-          <span className="text-[18px] font-medium capitalize">
-            {user.userName}
-          </span>
+        <div className="mr-12 flex items-center gap-8">
+          <User2 size={20} />
+          <div className="flex flex-col">
+            <span className="text-[18px] font-medium capitalize">
+              {user.user.userName}
+            </span>
+            <span className="text-[12px] font-normal capitalize">
+              Role : {user.role}
+            </span>
+          </div>
         </div>
       </div>
     </header>

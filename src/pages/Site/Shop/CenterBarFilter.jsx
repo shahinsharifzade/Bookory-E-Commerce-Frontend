@@ -118,7 +118,13 @@ const CenterBarFilter = ({ setMuiDrawer }) => {
                 onChange={(e) => handleSortType(e.target.value)}
               >
                 {sortArray.map((menuItem, index) => (
-                  <MenuItem key={index} value={menuItem.value}>
+                  <MenuItem
+                    key={index}
+                    value={menuItem.value}
+                    sx={{
+                      fontSize: "13px",
+                    }}
+                  >
                     {menuItem.name}
                   </MenuItem>
                 ))}
@@ -156,7 +162,13 @@ const CenterBarFilter = ({ setMuiDrawer }) => {
                 onChange={(e) => handlePageSize(e.target.value)}
               >
                 {pageSizes.map((menuItem, index) => (
-                  <MenuItem key={index} value={menuItem.value}>
+                  <MenuItem
+                    key={index}
+                    value={menuItem.value}
+                    sx={{
+                      fontSize: "13px",
+                    }}
+                  >
                     {menuItem.name}
                   </MenuItem>
                 ))}

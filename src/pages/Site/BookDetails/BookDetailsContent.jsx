@@ -3,20 +3,9 @@ import { Link } from "react-router-dom";
 import AddToCart from "./AddToCart";
 import { Star } from "lucide-react";
 import AddToWishlist from "./AddToWishlist";
+import Rating from "../../../components/ui/Rating/Rating";
 
 const BookDetailsContent = ({ book }) => {
-  const bookRatingStars = [];
-
-  for (let index = 0; index < 5; index++) {
-    if (index < book.rating) {
-      bookRatingStars.push(
-        <Star key={index} color="#f65d4e" fill="#f65d4e" size={"14px"} />,
-      );
-    } else {
-      bookRatingStars.push(<Star key={index} color="#f65d4e" size={"14px"} />);
-    }
-  }
-
   return (
     <div>
       <div className="flex max-minw-1000:flex-col max-minw-1000:justify-center">
@@ -52,7 +41,9 @@ const BookDetailsContent = ({ book }) => {
                 <span className="text-secondartTextBold">Author : </span>
                 <Link to={`/author/${book.author.id}`}>{book.author.name}</Link>
               </div>
-              <div className="flex">{bookRatingStars}</div>
+              <div className="flex">
+                <Rating rating={book.rating} />
+              </div>
             </div>
 
             <div className="mb-12 border-b border-solid border-secondaryText pb-4">
