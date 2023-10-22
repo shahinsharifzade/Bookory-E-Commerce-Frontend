@@ -1,5 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { authApi } from "../api";
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -57,8 +56,69 @@ const getById = async (id) => {
 
 export const useGetUserById = (id) => {
   return useQuery({
-    queryKey: ["users", id],
+    queryKey: ["user", id],
     queryFn: () => getById(id),
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const changeActiveStatus = async (id) => {
+  const response = await authApi.put(`users/changeActiveStatus/${id}`);
+
+  return response.data;
+};
+
+export const useChangeActiveStatus = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: changeActiveStatus,
+    onSuccess: () => {
+      queryClient.invalidateQueries("users");
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getAllRoles = async () => {
+  const response = await authApi.get("roles");
+
+  return response.data;
+};
+
+export const useGetAllRoles = () => {
+  return useQuery({
+    queryKey: ["roles"],
+    queryFn: () => getAllRoles(),
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const changeRole = async ({ userId, roleId }) => {
+  console.log(
+    "🚀 ~ file: userService.js:101 ~ changeRole ~ userId, roleId:",
+    userId,
+    roleId,
+  );
+  const params = { userId, roleId };
+  const response = await authApi.put(`users/changerole`, null, {
+    params: params,
+  });
+
+  return response.data;
+};
+
+export const useChangeRole = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (userId, roleId) => changeRole(userId, roleId),
+    onSuccess: () => {
+      queryClient.invalidateQueries("users");
+    },
   });
 };
 

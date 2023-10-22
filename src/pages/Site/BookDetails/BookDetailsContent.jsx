@@ -19,8 +19,8 @@ const BookDetailsContent = ({ book }) => {
 
   return (
     <div>
-      <div className="flex">
-        <div className="mr-8 w-1/2 rounded-3xl border border-solid border-secondaryText">
+      <div className="flex max-minw-1000:flex-col max-minw-1000:justify-center">
+        <div className="mr-8 w-1/2 rounded-3xl border border-solid border-secondaryText max-minw-1000:mx-auto ">
           <div className="cursor-pointer p-12">
             <img
               src={`https://localhost:7047/assets/images/books/${book.mainImage}`}
@@ -30,7 +30,7 @@ const BookDetailsContent = ({ book }) => {
           </div>
         </div>
 
-        <div className="ml-8 h-min w-1/2 rounded-3xl border border-solid border-secondaryText">
+        <div className="ml-8 h-min w-1/2 rounded-3xl border border-solid border-secondaryText max-minw-1000:ml-0 max-minw-1000:w-full">
           <div className="p-12">
             <div className="mb-4 flex items-center justify-between">
               <h3 className="text-[3.6rem] font-semibold">{book.title}</h3>

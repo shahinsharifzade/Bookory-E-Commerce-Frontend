@@ -19,6 +19,7 @@ const Users = () => {
   const handleClose = () => setOpen(false);
 
   const { data, isLoading } = useGetAllUsers();
+  console.log("🚀 ~ file: Users.jsx:22 ~ Users ~ data:", data);
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
   return (
@@ -45,7 +46,9 @@ const Users = () => {
 
           <TableBody>
             {data &&
-              data.map((user, index) => <UserItem user={user} key={index} />)}
+              data.map((user, index) => (
+                <UserItem userValue={user} key={index} />
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

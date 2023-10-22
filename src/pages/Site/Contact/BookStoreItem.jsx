@@ -2,9 +2,9 @@ import React from "react";
 
 const BookStoreItem = () => {
   return (
-    <div className="w-1/3">
+    <div className="mb-8 minw-md:w-1/3">
       <div>
-        <div className="mb-8 w-[400px]">
+        <div className="mb-8 max-w-[400px]">
           <img
             src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/02/contact_pic_2.png"
             alt=""

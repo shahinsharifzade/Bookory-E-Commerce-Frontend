@@ -16,10 +16,6 @@ const UserDetails = () => {
 
   const { data: orderDetails, isLoading: orderDetailIsLoading } =
     useGetOrderByUserId(userId);
-  console.log(
-    "🚀 ~ file: UserDetails.jsx:13 ~ UserDetails ~ user:",
-    orderDetails,
-  );
 
   const formatDate = (date) => {
     const formattedDate = format(new Date(date), "d MMMM yyyy");
