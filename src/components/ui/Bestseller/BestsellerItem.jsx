@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import DiscountPercentage from "../DiscountPercentage/DiscountPercentage";
 
 const BestsellerItem = (props) => {
-  console.log(props.books);
   return (
     <Link
       to={`/shop/${props.books.id}`}

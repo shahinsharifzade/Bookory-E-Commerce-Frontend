@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import * as yup from "yup";
 import { showToastInfoMessage } from "../../../utils/toastUtils";
+import { api } from "../../../api";
 
 const UpdateAuthorForm = ({ author, handleClose }) => {
   const [responseErrors, setResponseErrors] = useState({});
@@ -60,20 +61,27 @@ const UpdateAuthorForm = ({ author, handleClose }) => {
     setAuthorImages(updatedAuthorImages);
   };
 
-  //Convert ImagePath to File
-  const convertImagePathToFile = async (image) => {
-    //Fetch image from server
-    const response = await fetch(
-      `https://localhost:7047/assets/images/authors/${image}`,
-      {
-        mode: "cors",
-      },
-    );
+  const convertImagePathToFile = async (imagePath) => {
+    try {
+      const path = `assets/images/authors/${imagePath}`;
+      const response = await api.get(`/images?path=${path}`, {
+        responseType: "arraybuffer",
+      });
 
-    //Binary Large Object - hold multimedia objects
-    const blob = await response.blob();
-    const file = new File([blob], image, { type: blob.type });
-    return file;
+      if (response.status === 200) {
+        // Process the image data
+        const blob = new Blob([response.data], { type: "image/jpeg" });
+
+        // Convert Blob to File
+        const file = new File([blob], imagePath, { type: blob.type });
+
+        return file;
+      } else {
+        console.error("Image not found");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const onSubmit = async (formData) => {
@@ -85,6 +93,7 @@ const UpdateAuthorForm = ({ author, handleClose }) => {
         return await convertImagePathToFile(imageObject.image);
       }),
     );
+    console.log("imageFiles:", imageFiles);
 
     // Set images
     formData.prevImages = imageFiles;

@@ -81,7 +81,6 @@ export const useDeleteAuthor = () => {
 
 const addAuthor = async (data) => {
   const formData = new FormData();
-
   for (const key in data) {
     console.log(data[key]);
 

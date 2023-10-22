@@ -7,15 +7,17 @@ import Title from "../../ui/Title/Title";
 import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCreateCompany } from "../../../service/companyService";
 import { useSelector } from "react-redux";
 import Input from "../../ui/FormInput/Input";
 import { setResponseErrorMessage } from "../../../utils/setResponseErrorMessages";
 import ResponseErrorMessage from "../../ui/ResponseMessage/ResponseErrorMessage";
+import SuccessMessage from "../../ui/SuccessPage/SuccessMessage";
 
 const CompanyRegisterForm = () => {
-  const username = useSelector((state) => state.vendorRegistration.username);
+  const navigate = useNavigate();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [responseErrors, setResponseErrors] = useState({});
   const [responseException, setResponseException] = useState();
@@ -42,6 +44,7 @@ const CompanyRegisterForm = () => {
   const { mutate, isLoading } = useCreateCompany();
 
   const onSubmit = (formData) => {
+    const username = localStorage.getItem("username");
     formData.username = username;
     mutate(formData, {
       onError: (res) => {
@@ -55,6 +58,10 @@ const CompanyRegisterForm = () => {
         ) {
           setResponseException(res.response.data.message);
         }
+      },
+
+      onSuccess: () => {
+        setShowSuccessModal(true);
       },
     });
   };
@@ -150,6 +157,15 @@ const CompanyRegisterForm = () => {
             </button>
           </div>
         </form>
+        {showSuccessModal && (
+          <SuccessMessage
+            message={
+              "Welcome, dear vendor! 🛍️ We're thrilled to have you join the Bookory family. As you embark on this exciting journey with us, your products will find a home among book lovers worldwide. We're here to support your business every step of the way.But before you dive in, please check your email for a confirmation link. Once your email is confirmed, we'll review the company details you provided. Our goal is to maintain a vibrant and trusted marketplace. If everything checks out and aligns with our standards, your account will be accepted, and you can start uploading your products for sale. "
+            }
+            navigation="/"
+            navigationTitle="Home"
+          />
+        )}
       </div>
     </>
   );

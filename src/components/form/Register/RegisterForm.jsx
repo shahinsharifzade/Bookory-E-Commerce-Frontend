@@ -13,14 +13,15 @@ import { setUsername } from "../../../features/register/vendorRegisterSlice";
 import ResponseErrorMessage from "../../ui/ResponseMessage/ResponseErrorMessage";
 import { setResponseErrorMessage } from "../../../utils/setResponseErrorMessages";
 import Input from "../../ui/FormInput/Input";
+import SuccessMessage from "../../ui/SuccessPage/SuccessMessage";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [responseErrors, setResponseErrors] = useState({});
   const [responseException, setResponseException] = useState();
-
   const schema = yup.object().shape({
     username: yup.string().required().max(50),
     fullname: yup.string().required(),
@@ -63,7 +64,10 @@ const RegisterForm = () => {
       onSuccess: () => {
         if (vendor) {
           dispatch(setUsername(formData.username));
+          localStorage.setItem("username", formData.username);
           navigate("companyregister");
+        } else if (!vendor) {
+          setShowSuccessModal(true); // Open the success modal
         }
       },
       onError: (res) => {
@@ -194,6 +198,15 @@ const RegisterForm = () => {
             </div>
           </div>
         </form>
+        {showSuccessModal && (
+          <SuccessMessage
+            message={
+              "Congratulations! 🎉 Welcome to Bookory, your gateway to a world of endless literary treasures. We're thrilled to have you as part of our growing community of book enthusiasts. Your registration has been completed successfully, and the doors to a universe of books, knowledge, and adventure have swung wide open for you. Before you embark on your literary journey with Bookory, please check your email for a confirmation link. "
+            }
+            navigation="/login"
+            navigationTitle="Login"
+          />
+        )}
       </div>
     </>
   );

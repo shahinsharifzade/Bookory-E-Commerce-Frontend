@@ -14,7 +14,7 @@ export const showToastSuccessMessage = (message) => {
 };
 
 export const showToastInfoMessage = (message) => {
-  toast.info(`${message}`, {
+  toast.error(`${message}`, {
     position: "bottom-right",
     autoClose: 2000,
     hideProgressBar: false,

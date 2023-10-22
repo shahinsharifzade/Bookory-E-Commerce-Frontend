@@ -1,6 +1,13 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { api } from "../api";
+import { api, authApi } from "../api";
+import {
+  showToastInfoMessage,
+  showToastSuccessMessage,
+} from "../utils/toastUtils";
+import { useNavigate } from "react-router-dom";
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const getStores = async (pageNumber, pageSize, search, sortBy) => {
   const params = {
@@ -18,7 +25,7 @@ const getStores = async (pageNumber, pageSize, search, sortBy) => {
 
 export const useGetFilteredStores = (pageNumber, pageSize, search, sortBy) => {
   return useQuery({
-    queryKey: ["company", pageNumber, pageSize, search, sortBy],
+    queryKey: ["companies", pageNumber, pageSize, search, sortBy],
     queryFn: () => getStores(pageNumber, pageSize, search, sortBy),
   });
 };
@@ -32,7 +39,7 @@ const getAll = async () => {
 
 export const useGetAll = () => {
   return useQuery({
-    queryKey: ["company"],
+    queryKey: ["companies"],
     queryFn: () => getAll(),
   });
 };
@@ -94,10 +101,133 @@ const createCompany = async (data) => {
 };
 
 export const useCreateCompany = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (data) => createCompany(data),
     onSuccess: () => {
+      queryClient.invalidateQueries(["companies"]);
       console.log("SUCCESS");
     },
   });
 };
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const updateCompany = async (data) => {
+  const formData = new FormData();
+
+  for (const key in data) {
+    formData.append(key, data[key]);
+  }
+
+  const response = await authApi.put("company", formData);
+  return response.data;
+};
+
+export const useUpdateCompany = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data) => updateCompany(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["companies"]);
+      showToastSuccessMessage("Company successfully updated");
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getPendingOrRejectedCompanies = async () => {
+  var response = await authApi.get("company/pending-or-rejected");
+
+  return response.data;
+};
+
+export const useGetPendingOrRejectedCompanies = () => {
+  return useQuery({
+    queryKey: ["companies"],
+    queryFn: () => getPendingOrRejectedCompanies(),
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const approveCompany = async (id) => {
+  var response = await authApi.post(`Company/${id}/approve`);
+
+  return response;
+};
+
+export const useApproveCompany = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: (id) => approveCompany(id),
+    onSuccess: () => {
+      showToastSuccessMessage("Company approved");
+      queryClient.invalidateQueries(["companies"]);
+      navigate("/admin/stores");
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const rejectCompany = async (id) => {
+  var response = await authApi.post(`Company/${id}/reject`);
+
+  return response;
+};
+
+export const useRejectCompany = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: (id) => rejectCompany(id),
+    onSuccess: () => {
+      showToastInfoMessage("Company rejeceted");
+      queryClient.invalidateQueries(["companies"]);
+      navigate("/admin/stores");
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getByUsername = async (username) => {
+  const response = await authApi.get(`Company/byusername`, {
+    params: {
+      userName: username,
+    },
+  });
+
+  return response.data;
+};
+
+export const useGetByUsername = (username) => {
+  return useQuery({
+    queryKey: ["company", username],
+    queryFn: () => getByUsername(username),
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getByActiveVendor = async () => {
+  const response = await authApi.get(`Company/byactive`);
+
+  return response.data;
+};
+
+export const useGetByActiveVendor = () => {
+  return useQuery({
+    queryKey: ["company"],
+    queryFn: getByActiveVendor,
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

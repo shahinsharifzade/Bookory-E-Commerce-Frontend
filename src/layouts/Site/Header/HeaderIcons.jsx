@@ -9,9 +9,10 @@ import { useGetActiveUser } from "../../../service/userService";
 const HeaderIcons = () => {
   const [basketCount, setBasketCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
-  const authApi = usePrivateApi(); // Use the hook to get the customized api instance with token
+  const authApi = usePrivateApi();
 
-  const { data: activeUser, isActiveUserrLoading } = useGetActiveUser();
+  const { data: activeUser, isLoading: isActiveUserLoading } =
+    useGetActiveUser();
 
   const fetchWishList = async () => {
     const response = await authApi.get(`Wishlist`, {
@@ -60,10 +61,10 @@ const HeaderIcons = () => {
     window.location.reload();
   };
 
-  if (wishlistIsLoading || isActiveUserrLoading || basketIsLoading)
+  if (wishlistIsLoading || isActiveUserLoading || basketIsLoading)
     return (
       <LoadingSpinner
-        isLoading={wishlistIsLoading || isActiveUserrLoading || basketIsLoading}
+        isLoading={wishlistIsLoading || isActiveUserLoading || basketIsLoading}
       />
     );
 

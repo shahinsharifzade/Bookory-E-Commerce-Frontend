@@ -13,8 +13,10 @@ import {
   User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { usePrivateApi } from "../../../api";
 
-const Sidebar = ({ MuiDrawer, setMuiDrawer }) => {
+const Sidebar = ({ MuiDrawer }) => {
+  const authApi = usePrivateApi();
   const sideBar = [
     {
       icon: <BookOpen size={20} />,
@@ -22,44 +24,9 @@ const Sidebar = ({ MuiDrawer, setMuiDrawer }) => {
       route: "books",
     },
     {
-      icon: <PenLine size={20} />,
-      title: "Authors",
-      route: "authors",
-    },
-    {
-      icon: <BookCopy size={20} />,
-      title: "Blogs",
-      route: "blogs",
-    },
-    {
-      icon: <Component size={20} />,
-      title: "Genres",
-      route: "genres",
-    },
-    {
-      icon: <FileSpreadsheet size={20} />,
-      title: "Categories",
-      route: "categories",
-    },
-    {
-      icon: <Store size={20} />,
-      title: "Stores",
-      route: "stores",
-    },
-    {
-      icon: <Contact size={20} />,
-      title: "Contact",
-      route: "contacts",
-    },
-    {
-      icon: <Package size={20} />,
-      title: "Orders",
-      route: "orders",
-    },
-    {
-      icon: <User size={20} />,
-      title: "Users",
-      route: "users",
+      icon: <BookOpen size={20} />,
+      title: "Store Details",
+      route: "storedetails",
     },
   ];
 

@@ -1,7 +1,10 @@
 import { PanelLeftOpen } from "lucide-react";
 import React from "react";
+import { usePrivateApi } from "../../../api";
 
 const Header = ({ MuiDrawer, setMuiDrawer }) => {
+  const authApi = usePrivateApi();
+
   return (
     <header>
       <div className="h-24 w-full rounded-3xl border border-solid border-secondaryText shadow-2xl">

@@ -39,6 +39,18 @@ import Users from "../pages/Admin/Users/Users";
 import UserDetails from "../pages/Admin/Users/UserDetails";
 import Contacts from "../pages/Admin/Contact/Contacts";
 import ContactDetails from "../pages/Admin/Contact/ContactDetails";
+import StoreDetails from "../pages/Admin/Stores/StoreDetails";
+import Stores from "../pages/Admin/Stores/Stores";
+import BookDetailsView from "../pages/Admin/Books/BookDetailsView";
+import Aboutus from "../pages/Site/AboutUs/Aboutus";
+import Blogs from "../pages/Admin/Blogs/Blogs";
+import BlogDetailsView from "../pages/Admin/Blogs/BlogDetailsView";
+import VendorRoot from "../pages/Vendor/VendorRoot/VendorRoot";
+import VendorBooks from "../pages/Vendor/VendorBooks";
+import VendorBookDetails from "../pages/Vendor/VendorBookDetails";
+import VendorStoreDetails from "../pages/Vendor/StoreDetails";
+import UpdateCompanyForm from "../pages/Vendor/UpdateCompanyForm";
+import SuccessMessage from "../components/ui/SuccessPage/SuccessMessage";
 
 // const checkUser = () => {
 //   const token = JSON.parse(localStorage.getItem("token"));
@@ -124,7 +136,7 @@ export const ROUTES = [
         element: <EmailConfirmation />,
       },
       {
-        path: "companyregister",
+        path: "register/companyregister",
         element: <CompanyRegisterForm />,
       },
       {
@@ -141,8 +153,16 @@ export const ROUTES = [
         element: <Address />,
       },
       {
+        path: "aboutus",
+        element: <Aboutus />,
+      },
+      {
         path: "*",
         element: <NotFoundPage />,
+      },
+      {
+        path: "successmessage",
+        element: <SuccessMessage />,
       },
     ],
   },
@@ -161,6 +181,10 @@ export const ROUTES = [
       {
         path: "books",
         element: <Books />,
+      },
+      {
+        path: "books/:bookId",
+        element: <BookDetailsView />,
       },
       {
         path: "authors",
@@ -209,6 +233,48 @@ export const ROUTES = [
       {
         path: "contacts/:contactId",
         element: <ContactDetails />,
+      },
+      {
+        path: "stores",
+        element: <Stores />,
+      },
+      {
+        path: "stores/:storeId",
+        element: <StoreDetails />,
+      },
+      {
+        path: "blogs",
+        element: <Blogs />,
+      },
+      {
+        path: "blogs/:blogId",
+        element: <BlogDetailsView />,
+      },
+    ],
+  },
+  {
+    path: "vendor",
+    element: (
+      <PrivateRoute roles={["Admin", "Moderator", "Vendor"]}>
+        <VendorRoot />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "",
+        element: <Dashboard />,
+      },
+      {
+        path: "books",
+        element: <VendorBooks />,
+      },
+      {
+        path: "books/:bookId",
+        element: <VendorBookDetails />,
+      },
+      {
+        path: "storedetails",
+        element: <VendorStoreDetails />,
       },
     ],
   },

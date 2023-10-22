@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { api, authApi } from "../api";
 import { showToastSuccessMessage } from "../utils/toastUtils";
+import { useNavigate } from "react-router-dom";
 
 const login = async (body) => {
   const response = await authApi.post("/auth/login", body, {
@@ -70,13 +71,9 @@ const verifyAccount = async ({ token, email }) => {
 };
 
 export const useVerifyAccount = () => {
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: verifyAccount,
-    onSuccess: () => {
-      showToastSuccessMessage(
-        "Great! Email confirmation completed successfully",
-      );
-    },
   });
 };
 

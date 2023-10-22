@@ -12,13 +12,8 @@ const register = async (body) => {
 };
 
 export const useRegister = () => {
-  const navigate = useNavigate();
-
   return useMutation({
     mutationFn: register,
-    onSuccess: () => {
-      navigate("/");
-    },
   });
 };
 

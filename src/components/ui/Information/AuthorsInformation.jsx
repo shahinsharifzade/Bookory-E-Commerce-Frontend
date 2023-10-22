@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../Loading/LoadingSpinner";
 import icons from "../../../assets/icons/index";
 import { useGetAllAuthors } from "../../../service/authorService";
+import { useNavigate } from "react-router-dom";
 
 const AuthorsInformation = () => {
-  const { data: authorsData, isLoading, isError } = useGetAllAuthors();
+  const navigate = useNavigate();
+  const { data: authorsData, isLoading, isError, error } = useGetAllAuthors();
 
   const [numbersOfAuthors, setNumberOfAuthors] = useState(0);
+
+  useEffect(() => {
+    if (isError) {
+      if (error?.response.data.statusCode === 404) navigate("notfound");
+    }
+  }, [isError]);
 
   useEffect(() => {
     if (authorsData) {
@@ -16,11 +24,6 @@ const AuthorsInformation = () => {
 
   if (isError) return <div>Error fetching data</div>;
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
-
-  console.log(
-    "🚀 ~ file: AuthorsInformation.jsx:20 ~ AuthorsInformation ~ authorsData:",
-    authorsData,
-  );
 
   return (
     <div className="flex w-full">

@@ -81,7 +81,7 @@ const Cart = () => {
             <span className="text-primaryText">{total} $</span>
           </div>
 
-          <div className="flex gap-4 py-8 text-secondartTextBold">
+          <div className="flex gap-4 border-t border-solid border-white py-8 text-secondartTextBold">
             <p>Total : </p>
             <span className="text-primaryText">{totalPrice - total} $</span>
           </div>

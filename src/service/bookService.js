@@ -1,7 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Qs from "qs";
-import { api } from "../api";
+import { api, authApi } from "../api";
+import { useNavigate } from "react-router-dom";
+import {
+  showToastInfoMessage,
+  showToastSuccessMessage,
+} from "../utils/toastUtils";
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const getFilteredBooks = async (
   pageNumber,
@@ -56,6 +62,7 @@ export const useGetFilteredBooks = (
   return useQuery({
     queryKey: [
       "books",
+      "approved",
       pageNumber,
       pageSize,
       selectedAuthors?.join(","),
@@ -82,6 +89,10 @@ export const useGetFilteredBooks = (
   });
 };
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//
+
 const getSearchedBooks = async (search) => {
   const response = await api.get(`/Books`, {
     params: {
@@ -94,8 +105,180 @@ const getSearchedBooks = async (search) => {
 
 export const useGetSearchedBooks = (search) => {
   return useQuery({
-    queryKey: ["book", search],
+    queryKey: ["book", "approved", search],
     queryFn: () => getSearchedBooks(search),
     retry: false,
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getPendingOrRejectedBooks = async () => {
+  var response = await authApi.get("books/pending-or-rejected");
+
+  return response.data;
+};
+
+export const useGetPendingOrRejectedBooks = () => {
+  return useQuery({
+    queryKey: ["books", "pendingorrejected"],
+    queryFn: () => getPendingOrRejectedBooks(),
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const approveBook = async (id) => {
+  var response = await authApi.post(`books/${id}/approve`);
+
+  return response;
+};
+
+export const useApproveBook = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: (id) => approveBook(id),
+    onSuccess: () => {
+      showToastSuccessMessage("Book approved");
+      queryClient.invalidateQueries("books");
+      queryClient.invalidateQueries("approved");
+      navigate("/admin/books");
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const rejectBook = async (id) => {
+  var response = await authApi.post(`books/${id}/reject`);
+
+  return response;
+};
+
+export const useRejectBook = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: (id) => rejectBook(id),
+    onSuccess: () => {
+      showToastInfoMessage("Book rejeceted");
+      queryClient.invalidateQueries("books");
+      queryClient.invalidateQueries("pendingorrejected");
+      navigate("/admin/books");
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const deleteBook = async (id) => {
+  const response = await authApi.delete(`books/${id}`);
+
+  return response.data;
+};
+
+export const useDeleteBook = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteBook,
+    onSuccess: () => {
+      showToastSuccessMessage("Book successfully deleted");
+      queryClient.invalidateQueries(["books", "approved"]);
+      queryClient.invalidateQueries(["books", "pending"]);
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const addBook = async (data) => {
+  const formData = new FormData();
+
+  for (const key in data) {
+    if (data[key] instanceof FileList || data[key] instanceof Array) {
+      Array.from(data[key]).forEach((image) => formData.append(key, image));
+    } else {
+      formData.append(key, data[key]);
+    }
+  }
+
+  const response = authApi.post("books", formData);
+
+  return response.data;
+};
+
+export const useAddBook = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data) => addBook(data),
+    onSuccess: () => {
+      showToastSuccessMessage("Book successfully added");
+      queryClient.invalidateQueries(["books", "approved", "pendingorrejected"]);
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const updateBook = async (data) => {
+  console.log("🚀 ~ file: bookService.js:229 ~ updateBook ~ data:", data);
+  const formData = new FormData();
+
+  for (const key in data) {
+    if (data[key] instanceof FileList || data[key] instanceof Array) {
+      Array.from(data[key]).forEach((image) => formData.append(key, image));
+    } else {
+      formData.append(key, data[key]);
+    }
+  }
+
+  const response = authApi.put("books", formData);
+
+  return response.data;
+};
+
+export const useUpdateBook = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data) => updateBook(data),
+    onSuccess: () => {
+      showToastSuccessMessage("Book successfully updated");
+      queryClient.invalidateQueries(["books", "approved", "pendingorrejected"]);
+    },
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getById = async (id) => {
+  const response = await api.get(`books/${id}`);
+
+  return response.data;
+};
+
+export const useGetBookById = (id) => {
+  return useQuery({
+    queryKey: ["book", id],
+    queryFn: () => getById(id),
+  });
+};
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const getCompanyBooksById = async (id) => {
+  const response = await api.get(`books/company/${id}`);
+
+  return response.data;
+};
+
+export const useGetCompanyBooksById = (id) => {
+  return useQuery({
+    queryKey: ["books", id],
+    queryFn: () => getCompanyBooksById(id),
   });
 };

@@ -1,6 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Qs from "qs";
+import { showToastSuccessMessage } from "../utils/toastUtils";
+import { api, authApi } from "../api";
+import { useNavigate } from "react-router-dom";
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const getFilteredBlogs = async (
   pageNumber,
@@ -17,7 +22,7 @@ const getFilteredBlogs = async (
     search,
   };
 
-  var response = await axios.get("https://localhost:7047/api/Blog/paged", {
+  var response = await api.get("blogs/paged", {
     params,
     paramsSerializer: (params) => {
       return Qs.stringify(params, { arrayFormat: "repeat" });
@@ -42,8 +47,10 @@ export const useGetFilteredBlogs = (
   });
 };
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 const getBlogById = async ({ blogId }) => {
-  const response = await axios.get(`https://localhost:7047/api/Blog/${blogId}`);
+  const response = await api.get(`blogs/${blogId}`);
 
   return response.data;
 };
@@ -54,3 +61,54 @@ export const useGetBlogById = (blogId) => {
     queryFn: () => getBlogById(blogId),
   });
 };
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const deleteBlog = async (id) => {
+  const response = await authApi.delete(`blogs/${id}`);
+
+  return response.data;
+};
+
+export const useDeleteBlog = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteBlog,
+    onSuccess: () => {
+      showToastSuccessMessage("Blog successfully deleted");
+      queryClient.invalidateQueries("blogs");
+    },
+  });
+};
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const addBlog = async (data) => {
+  const formData = new FormData();
+  console.log("🚀 ~ file: blogService.js:87 ~ addBlog ~ data:", data);
+
+  for (const key in data) {
+    console.log(data[key]);
+
+    if (data[key] instanceof FileList)
+      Array.from(data[key]).forEach((image) => formData.append(key, image));
+    else formData.append(key, data[key]);
+  }
+
+  const response = await authApi.post("blogs", formData);
+
+  return response.data;
+};
+
+export const useAddBlog = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => addBlog(data),
+    onSuccess: () => {
+      showToastSuccessMessage("Blogs successfully added");
+      queryClient.invalidateQueries("blogs");
+    },
+  });
+};
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Title from "../../../components/ui/Title/Title";
 import { useLocation } from "react-router-dom";
 import { useVerifyAccount } from "../../../service/authService";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
+import SuccessMessage from "../../../components/ui/SuccessPage/SuccessMessage";
 
 const EmailConfirmation = () => {
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const loaction = useLocation();
   const searchParams = new URLSearchParams(loaction.search);
   const token = searchParams.get("token");
@@ -13,7 +16,14 @@ const EmailConfirmation = () => {
   const { mutate, isLoading } = useVerifyAccount();
 
   const handleSubmit = () => {
-    mutate({ token, email });
+    mutate(
+      { token, email },
+      {
+        onSuccess: () => {
+          setShowSuccessModal(true);
+        },
+      },
+    );
   };
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
@@ -55,6 +65,16 @@ const EmailConfirmation = () => {
           </p>
         </div>
       </div>
+
+      {showSuccessModal && (
+        <SuccessMessage
+          message={
+            "Success! 🎉 Your email has been confirmed, and you're now officially part of the Bookory family. Welcome to a world of books, where your reading adventures await. Feel free to dive into our collections and make the most of your literary journey! "
+          }
+          navigation="/login"
+          navigationTitle="Login"
+        />
+      )}
     </section>
   );
 };

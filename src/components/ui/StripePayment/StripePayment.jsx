@@ -5,7 +5,7 @@ import { authApi } from "../../../api";
 import LoadingSpinner from "../Loading/LoadingSpinner";
 import logo from "../../../assets/icons/logo.svg";
 import ResponseErrorMessage from "../ResponseMessage/ResponseErrorMessage";
-import { showToastSuccessMessage } from "../../../utils/toastUtils";
+import SuccessMessage from "../SuccessPage/SuccessMessage";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -27,8 +27,9 @@ const CARD_OPTIONS = {
   },
 };
 
-const StripePayment = ({ email, addressId }) => {
+const StripePayment = ({ email, addressId, handleClose }) => {
   const [responseErrors, setResponseErrors] = useState({});
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -37,7 +38,7 @@ const StripePayment = ({ email, addressId }) => {
   const checkout = useMutation((data) => authApi.post("order", data), {
     onSuccess: () => {
       queryClient.invalidateQueries("payment");
-      showToastSuccessMessage("Success");
+      setShowSuccessModal(true);
     },
   });
 
@@ -95,6 +96,15 @@ const StripePayment = ({ email, addressId }) => {
           Pay
         </button>
       </div>
+      {showSuccessModal && (
+        <SuccessMessage
+          message={
+            "Payment Accepted! 🎉 Thank you for your purchase on Bookory. Your payment has been successfully processed, and your order is on its way. We appreciate your support and hope you enjoy your new books. Happy reading, and thank you for choosing Bookory! "
+          }
+          navigation="/shop"
+          navigationTitle="Continue shopping"
+        />
+      )}
     </form>
   );
 };

@@ -57,7 +57,7 @@ export const useDeleteGenre = () => {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const addGenre = async (data) => {
-  const response = await authApi.post("genres", data);
+  const response = await authApi.post("/genres", data);
 
   return response.data;
 };
