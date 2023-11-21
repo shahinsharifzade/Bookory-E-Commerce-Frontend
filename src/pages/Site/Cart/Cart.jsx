@@ -2,11 +2,21 @@ import React, { useEffect, useState } from "react";
 import Title from "../../../components/ui/Title/Title";
 import CartItemsList from "./CartItemsList";
 import { useGetBasketItems } from "../../../service/cartService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useSelector } from "react-redux";
+import { checkUser } from "../../../utils/checkUser";
+import InfoDisplay from "../../../components/ui/InfoDisplay/InfoDisplay";
+import SuccessMessage from "../../../components/ui/SuccessPage/SuccessMessage";
+import { Modal } from "@mui/material";
 
 const Cart = () => {
+  const userLoggedIn = checkUser();
+  const [open, setOpen] = useState(false);
+  console.log("🚀 ~ file: Cart.jsx:16 ~ Cart ~ open:", open);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const navigate = useNavigate();
   const [total, setTotal] = useState(0);
 
@@ -88,12 +98,43 @@ const Cart = () => {
 
           <button
             className="mx-auto my-8 flex items-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"
-            onClick={() => navigate("/address")}
+            onClick={() => (userLoggedIn ? navigate("/address") : handleOpen())}
           >
             Checkout
           </button>
         </div>
       </div>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className="mx-auto flex h-screen max-w-[600px] items-center justify-center">
+          <div className=" z-10 mt-32 rounded-3xl bg-white">
+            <div className="flex-col items-center justify-center px-8 py-10">
+              <p className="mx-12 py-12 text-center text-[20px]">
+                To start ordering your favorite book you'll need to log in.
+                Don't worry; it's a quick and easy process that ensures you get
+                the best out of your shopping experience.
+              </p>
+
+              <div className="w-full">
+                <Link to={"/login"} className="w-full">
+                  <button
+                    className="mx-auto my-8 flex items-center rounded-[2rem] bg-primaryText px-16 py-6 text-2xl font-semibold text-white active:scale-95 active:shadow-xl"
+                    type="submit"
+                    onClick={handleClose}
+                  >
+                    Login
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </section>
   );
 };

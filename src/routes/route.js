@@ -13,8 +13,6 @@ import Home from "../pages/Site/Home/Home";
 import Shop from "../pages/Site/Shop/Shop";
 import Blog from "../pages/Site/Blog/Blog";
 import Cart from "../pages/Site/Cart/Cart";
-import { useSelector } from "react-redux";
-import { redirect } from "react-router-dom";
 import RegisterForm from "../components/form/Register/RegisterForm";
 import ForgotPassword from "../components/form/ForgotPassword/ForgotPassword";
 import ResetPassword from "../components/form/ResetPassword/ResetPassword";
@@ -51,15 +49,8 @@ import VendorBookDetails from "../pages/Vendor/VendorBookDetails";
 import VendorStoreDetails from "../pages/Vendor/StoreDetails";
 import UpdateCompanyForm from "../pages/Vendor/UpdateCompanyForm";
 import SuccessMessage from "../components/ui/SuccessPage/SuccessMessage";
-
-// const checkUser = () => {
-//   const token = JSON.parse(localStorage.getItem("token"));
-//   if (token) {
-//     return null;
-//   } else {
-//     return redirect("/login");
-//   }
-// };
+import { checkUser } from "../utils/checkUser";
+import { Navigate } from "react-router-dom";
 
 export const ROUTES = [
   {
@@ -69,7 +60,6 @@ export const ROUTES = [
       {
         index: true,
         element: <Home />,
-        // loader: checkUser,
       },
       {
         path: "shop",
@@ -151,6 +141,7 @@ export const ROUTES = [
       {
         path: "address",
         element: <Address />,
+        loader: checkUser,
       },
       {
         path: "aboutus",

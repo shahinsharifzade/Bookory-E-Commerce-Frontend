@@ -4,6 +4,7 @@ import AddToCart from "./AddToCart";
 import { Star } from "lucide-react";
 import AddToWishlist from "./AddToWishlist";
 import Rating from "../../../components/ui/Rating/Rating";
+import BookPrice from "../../../components/ui/Book/BookPrice";
 
 const BookDetailsContent = ({ book }) => {
   return (
@@ -47,7 +48,13 @@ const BookDetailsContent = ({ book }) => {
             </div>
 
             <div className="mb-12 border-b border-solid border-secondaryText pb-4">
-              <p className="mb-6 text-[2rem] text-primaryText">${book.price}</p>
+              <BookPrice
+                book={book}
+                discountPriceClasses={"text-[1.6rem]"}
+                priceClasses={"text-[2rem] font-semibold "}
+                container={"pb-4"}
+              />
+
               <p className="line-clamp-3 overflow-hidden text-ellipsis text-xl font-light text-[#444444]">
                 {book.description}
               </p>

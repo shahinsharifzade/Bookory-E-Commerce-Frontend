@@ -3,8 +3,9 @@ import { Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import Rating from "../../../components/ui/Rating/Rating";
 import DiscountPercentage from "../../../components/ui/DiscountPercentage/DiscountPercentage";
+import BookPrice from "../../../components/ui/Book/BookPrice";
 
-const ShopBookItem = (props) => {
+const ShopBookItem = ({ book }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -19,19 +20,17 @@ const ShopBookItem = (props) => {
         setIsHovered(false);
       }}
     >
-      <Link to={`/shop/${props.book.id}`} className="w-full">
+      <Link to={`/shop/${book.id}`} className="w-full">
         <div className="relative w-full shrink-0 rounded-[2rem] minw-md:w-[24rem] min-[1200px]:w-[23rem]">
           <img
-            src={`https://localhost:7047/assets/images/books/${props.book.mainImage}`}
+            src={`https://localhost:7047/assets/images/books/${book.mainImage}`}
             className="aspect-[2.4/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
             alt="book cover"
           />
 
-          <DiscountPercentage
-            discountPercentage={props.book.discountPercentage}
-          />
+          <DiscountPercentage discountPercentage={book.discountPercentage} />
 
-          <div
+          {/* <div
             className={`absolute bottom-4 right-4 flex flex-col ${
               isHovered ? " block" : "hidden"
             } `}
@@ -54,25 +53,27 @@ const ShopBookItem = (props) => {
                 <ShoppingCart color="#000000" strokeWidth={"1px"} />
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className={`flex flex-col items-start`}>
-          <p className="mb-4 line-clamp-1 cursor-pointer overflow-hidden text-ellipsis  pt-8 tracking-widest  hover:text-primaryText minw-xsm:text-2xl">
-            {props.book.title}
+          <p className="mb-4 line-clamp-1 cursor-pointer overflow-hidden text-ellipsis pt-8  text-left tracking-widest  hover:text-primaryText minw-xsm:text-2xl">
+            {book.title}
           </p>
 
           <div className="mb-4 flex">
-            <Rating rating={props.book.rating} />
+            <Rating rating={book.rating} />
           </div>
 
-          <p className="mb-4 cursor-pointer text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText ">
-            {props.book.author.name}
+          <p className="mb-4 cursor-pointer text-lg font-normal tracking-widest text-secondartTextBold hover:text-primaryText ">
+            {book.author.name}
           </p>
 
-          <span className="text-[2rem] tracking-widest text-primaryText">
-            ${props.book.price}
-          </span>
+          <BookPrice
+            book={book}
+            discountPriceClasses={"text-[1.6rem]"}
+            priceClasses={"text-[2rem]"}
+          />
         </div>
       </Link>
     </div>

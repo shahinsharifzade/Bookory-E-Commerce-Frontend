@@ -38,6 +38,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "startHttps": "cross-env HTTPS=true SSL_CRT_FILE=./ssl/cert.crt SSL_KEY_FILE=./ssl/cert.key react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -61,6 +62,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
     "tailwind-scrollbar": "^3.0.5",

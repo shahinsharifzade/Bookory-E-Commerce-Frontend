@@ -21,50 +21,48 @@ import BookItem from "./BookItem";
 
 const PAGE_SIZE = 20;
 const Books = () => {
+  const [selectedBooks, setSelectedBooks] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedBooks, setSelectedBooks] = useState([]);
-  const [approvedBooks, setApprovedBooks] = useState([]);
-  const [pendingOrRejectedBooks, setPendingOrRejectedBooks] = useState([]);
-
   const { data: filteredBooks, isLoading: loadingFilteredBooks } =
     useGetFilteredBooks(pageNumber, PAGE_SIZE);
 
-  const { data: pendingOrRejected, isLoading: loadingPendingOrRejected } =
+  const { data: pendingOrRejected, isLoading: loadingPendingOrRejectedBooks } =
     useGetPendingOrRejectedBooks();
 
-  useEffect(() => {
-    if (!loadingFilteredBooks && !loadingPendingOrRejected) {
-      setApprovedBooks(filteredBooks.books);
-      setPendingOrRejectedBooks(pendingOrRejected);
-      setSelectedBooks(filteredBooks.books);
-      setIsLoading(false);
-    }
-  }, [
-    filteredBooks,
-    pendingOrRejected,
-    loadingFilteredBooks,
-    loadingPendingOrRejected,
-  ]);
-
   const displayApprovedBooks = () => {
-    setSelectedBooks(approvedBooks);
+    setSelectedBooks(filteredBooks.books);
   };
 
   const displayPendingRejectedBooks = () => {
-    setSelectedBooks(pendingOrRejectedBooks);
+    setSelectedBooks(pendingOrRejected);
   };
 
-  if (isLoading || loadingFilteredBooks || loadingPendingOrRejected) {
+  useEffect(() => {
+    console.log("SLM");
+    if (loadingFilteredBooks || loadingPendingOrRejectedBooks) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+      setSelectedBooks(filteredBooks.books);
+    }
+  }, [
+    loadingFilteredBooks,
+    loadingPendingOrRejectedBooks || isLoading,
+    pendingOrRejected,
+    filteredBooks,
+  ]);
+
+  if (isLoading || loadingFilteredBooks || loadingPendingOrRejectedBooks) {
     return (
       <LoadingSpinner
         isLoading={
-          isLoading || loadingFilteredBooks || loadingPendingOrRejected
+          isLoading || loadingFilteredBooks || loadingPendingOrRejectedBooks
         }
       />
     );
@@ -117,9 +115,10 @@ const Books = () => {
           </TableHead>
 
           <TableBody>
-            {selectedBooks.map((book, index) => (
-              <BookItem book={book} key={index} />
-            ))}
+            {selectedBooks &&
+              selectedBooks.map((book, index) => (
+                <BookItem book={book} key={book.id} />
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

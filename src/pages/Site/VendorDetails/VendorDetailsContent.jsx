@@ -13,7 +13,7 @@ const VendorDetailsContent = ({ store, storeId }) => {
 
       <div className="w-full ">
         <VendorDetailsBanner store={store} />
-        <CenterBarFilter />
+        {/* <CenterBarFilter /> */}
         <VendorBooksList storeId={storeId} />
       </div>
     </div>

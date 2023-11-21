@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { User2, Heart, ShoppingBasket, LogOut } from "lucide-react";
+import { User2, Heart, ShoppingBasket, LogOut, Store } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { Link } from "react-router-dom";
@@ -99,6 +99,21 @@ const HeaderIcons = () => {
         </Link>
       )}
 
+      {activeUser && (
+        <Link
+          to={"/vendor"}
+          className={`cursor-pointer border-r border-solid border-secondaryText text-black ${
+            activeUser.role === "Vendor" || activeUser.role === "Moderator"
+              ? ""
+              : "hidden"
+          }`}
+        >
+          <div className="mx-4 h-[26px] w-[26px]">
+            <Store strokeWidth={"1.2px"} />
+          </div>
+        </Link>
+      )}
+
       <Link
         to={"wishlist"}
         className="relative cursor-pointer border-r border-solid border-secondaryText text-black"
@@ -117,9 +132,9 @@ const HeaderIcons = () => {
         <ShoppingBasket
           size={"2.4rem"}
           strokeWidth={"1.2px"}
-          className="ml-2 mr-2 font-normal"
+          className="mx-4 font-normal"
         />
-        <span className="absolute right-0 top-[-6px] flex max-h-[11px] items-center rounded-md bg-primaryText px-[3px] text-[10px] font-semibold text-white">
+        <span className="absolute right-[5px] top-[-6px] flex max-h-[11px] items-center rounded-md bg-primaryText px-[3px] text-[10px] font-semibold text-white">
           {basketCount}
         </span>
       </Link>

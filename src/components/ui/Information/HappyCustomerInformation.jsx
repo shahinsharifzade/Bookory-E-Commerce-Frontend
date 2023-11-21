@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from "react";
 import icons from "../../../assets/icons/index";
-import LoadingSpinner from "../Loading/LoadingSpinner";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-
-const fetchBooks = async () => {
-  const response = await axios
-    .get(`https://localhost:7047/api/books`)
-    .catch((error) => {
-      console.log(error.response.data.message);
-      return <div>{error.response.data.message}</div>;
-    });
-  return response.data;
-};
+import { useGetSearchedBooks } from "../../../service/bookService";
 
 const HappyCustomerInformation = () => {
   const {
     data: booksData,
     isLoading: bookIsLoading,
     isError: booksError,
-  } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
+  } = useGetSearchedBooks();
 
   const [happyCustomer, setHappyCutomer] = useState(0);
 

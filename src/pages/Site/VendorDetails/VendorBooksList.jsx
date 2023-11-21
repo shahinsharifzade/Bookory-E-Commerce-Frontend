@@ -22,7 +22,7 @@ const VendorBooksList = ({ storeId }) => {
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
   return (
-    <div className="flex flex-col">
+    <div className="mt-16 flex flex-col">
       <div className="flex flex-wrap">
         {data.books.map((book, index) => (
           <VendorBookItem book={book} key={index} />

@@ -7,6 +7,7 @@ import {
   useUpdateCartItem,
 } from "../../../service/cartService";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
+import BookPrice from "../../../components/ui/Book/BookPrice";
 
 const CartItem = ({ basketItem }) => {
   const book = basketItem.basketBook;
@@ -51,20 +52,7 @@ const CartItem = ({ basketItem }) => {
                 {book.title}
               </h3>
 
-              <div className="flex gap-2">
-                <p className="mt-4 text-[18px] font-medium text-primaryText">
-                  {book &&
-                    book.price - (book.price * book.discountPercentage) / 100}
-                  $
-                </p>
-                <p
-                  className={`self-end text-xl font-medium line-through ${
-                    book.discountPercentage === 0 ? "hidden" : ""
-                  }`}
-                >
-                  {book.discountPercentage && book.price}$
-                </p>
-              </div>
+              <BookPrice book={book} priceClasses={"text-[18px] mt-4 "} />
             </div>
           </Link>
         </div>

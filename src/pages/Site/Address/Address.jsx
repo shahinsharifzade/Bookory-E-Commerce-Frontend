@@ -6,8 +6,11 @@ import { useGetBasketItems } from "../../../service/cartService";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import StripePayment from "../../../components/ui/StripePayment/StripePayment";
 import { Modal } from "@mui/material";
+import { checkUser } from "../../../utils/checkUser";
 
 const Address = () => {
+  checkUser();
+
   const navigate = useNavigate();
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [total, setTotal] = useState(0);

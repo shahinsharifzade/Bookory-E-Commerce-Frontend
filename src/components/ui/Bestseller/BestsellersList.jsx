@@ -76,7 +76,7 @@ const BestsellersList = () => {
           {booksData.books.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <BestsellerItem books={item} />
+                <BestsellerItem book={item} />
               </SwiperSlide>
             );
           })}

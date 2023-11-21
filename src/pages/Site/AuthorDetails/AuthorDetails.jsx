@@ -1,6 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import React, { useEffect } from "react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import AuthorDetailsTop from "./AuthorDetailsTop";

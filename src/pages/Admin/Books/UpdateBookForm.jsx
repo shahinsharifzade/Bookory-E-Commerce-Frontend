@@ -11,7 +11,7 @@ import { useGetAllAuthors } from "../../../service/authorService";
 import { useGetAllGenres } from "../../../service/genreService";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { ArrowBigDown } from "lucide-react";
-import { api } from "../../../api";
+import { api, authApi } from "../../../api";
 
 const UpdateBookForm = ({ book, handleClose }) => {
   const [responseErrors, setResponseErrors] = useState({});
@@ -55,13 +55,12 @@ const UpdateBookForm = ({ book, handleClose }) => {
   const convertImagePathToFile = async (imagePath) => {
     try {
       const path = `assets/images/books/${imagePath}`;
-      const response = await api.get(`/images?path=${path}`, {
+      const response = await authApi.get(`/images?path=${path}`, {
         responseType: "arraybuffer",
       });
 
       if (response.status === 200) {
         // Process the image data
-        console.log("Res" + response);
         const blob = new Blob([response.data], { type: "image/jpeg" });
 
         // Convert Blob to File

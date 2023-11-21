@@ -19,6 +19,7 @@ const ContactForm = () => {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -33,6 +34,9 @@ const ContactForm = () => {
           const errorsData = setResponseErrorMessage(res.response.data.errors);
           setResponseErrors(errorsData);
         }
+      },
+      onSuccess: () => {
+        reset();
       },
     });
   };

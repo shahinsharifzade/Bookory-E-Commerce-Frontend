@@ -1,26 +1,16 @@
 import React from "react";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../Loading/LoadingSpinner";
 import GenreItem from "./GenreItem";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-
-const fetchGenres = async (search) => {
-  const response = await axios
-    .get(`https://localhost:7047/api/genres`)
-    .catch((error) => {
-      return <div>{error.response.data.message}</div>;
-    });
-  return response.data;
-};
+import { useGetAllGenres } from "../../../service/genreService";
 
 const GenresList = () => {
   const {
     data: genresData,
     isLoading: genreIsLoading,
     isError: genresError,
-  } = useQuery({ queryKey: ["genres"], queryFn: fetchGenres });
+  } = useGetAllGenres();
 
   if (genreIsLoading) {
     return <LoadingSpinner isLoading={genreIsLoading} />;

@@ -1,20 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthors } from "../../../features/bookFilter/bookFiltersSlice";
 import { useNavigate } from "react-router-dom";
-
-const fetchAuthor = async () => {
-  const response = await axios
-    .get(`https://localhost:7047/api/Authors`)
-    .catch((error) => {
-      return <div>{error.response.data.message}</div>;
-    });
-
-  return response.data;
-};
+import { useGetAllAuthors } from "../../../service/authorService";
 
 const FilterByAuthor = () => {
   const {
@@ -22,10 +11,7 @@ const FilterByAuthor = () => {
     isLoading: auhtorsLoading,
     isError: auhtorsError,
     error,
-  } = useQuery({
-    queryKey: ["authors"],
-    queryFn: fetchAuthor,
-  });
+  } = useGetAllAuthors();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

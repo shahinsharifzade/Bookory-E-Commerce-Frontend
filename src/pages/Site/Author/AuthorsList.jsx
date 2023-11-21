@@ -7,49 +7,28 @@ import AuthorFilter from "./AuthorFilter";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
+import { useGetFilteredAuthors } from "../../../service/authorService";
+import { PagesOutlined } from "@mui/icons-material";
 
 const PAGE_SIZE = 18;
 
 const AuthorsList = () => {
   const [pageNumber, setPageNumber] = useState(1);
-  const api = usePrivateApi();
+
   const navigate = useNavigate();
-
-  const fetchAuthor = async (pageNumber, pageSize) => {
-    const response = await api
-      .get(`/authors/paged`, {
-        params: {
-          pageNumber: pageNumber,
-          pageSize: pageSize,
-        },
-      })
-      .catch((error) => {
-        return <div>{error.response.data.message}</div>;
-      });
-
-    const authors = response.data.authors;
-    const totalCount = response.data.totalCount;
-    return { authors, totalCount };
-  };
 
   const {
     data: authorsData,
     isLoading,
     isError,
     error,
-  } = useQuery(
-    {
-      queryKey: ["authors", pageNumber, PAGE_SIZE],
-      queryFn: () => fetchAuthor(pageNumber, PAGE_SIZE),
-    },
-    {
-      retry: false,
-    },
-  );
+  } = useGetFilteredAuthors(pageNumber, PAGE_SIZE);
 
   const [selectedLetter, setSelectedLetter] = useState("ALL");
 
-  const handleFilterClick = (letter) => {
+  const handleFilterClick = (e, letter) => {
+    e.preventDefault();
+
     setSelectedLetter(letter);
     setPageNumber(1);
   };
@@ -81,7 +60,11 @@ const AuthorsList = () => {
           </div>
         ) : (
           filteredAuthors?.map((author, index) => (
-            <AuthorItem key={index} author={author} />
+            <AuthorItem
+              key={index}
+              author={author}
+              authorBooksCount={author.books.length}
+            />
           ))
         )}
       </div>

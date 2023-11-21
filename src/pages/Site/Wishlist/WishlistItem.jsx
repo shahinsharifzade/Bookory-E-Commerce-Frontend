@@ -49,7 +49,7 @@ const WishlistItem = ({ book }) => {
       </TableCell>
 
       <TableCell component="th" align="center" scope="row">
-        {book.price}$
+        {book.price - (book.price * book.discountPercentage) / 100}$
       </TableCell>
 
       <TableCell

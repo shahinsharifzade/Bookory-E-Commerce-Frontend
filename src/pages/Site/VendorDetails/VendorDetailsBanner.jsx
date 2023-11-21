@@ -2,6 +2,10 @@ import { MapPin, Phone, Star } from "lucide-react";
 import React from "react";
 
 const VendorDetailsBanner = ({ store }) => {
+  console.log(
+    "🚀 ~ file: VendorDetailsBanner.jsx:5 ~ VendorDetailsBanner ~ store:",
+    store,
+  );
   return (
     <div
       className="flex h-[350px]  flex-col rounded-3xl bg-cover bg-center bg-no-repeat "

@@ -1,5 +1,6 @@
 import React from "react";
 import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const PopularBooksBanner = () => {
   return (
@@ -16,8 +17,8 @@ const PopularBooksBanner = () => {
             <p className="mb-8  text-lg">on selected books</p>
             <div>
               <div className="flex transition-all duration-500 ease-in-out">
-                <a
-                  href="#"
+                <Link
+                  to={"/shop"}
                   className="flex items-center rounded-[4rem] bg-white px-12 py-6 text-xl text-black "
                 >
                   See More
@@ -25,7 +26,7 @@ const PopularBooksBanner = () => {
                     className={`ml-2 translate-x-0 transform transition-transform`}
                     size={"14px"}
                   />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

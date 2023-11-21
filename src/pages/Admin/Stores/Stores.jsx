@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Modal,
   Pagination,
   Paper,
   Stack,
@@ -24,6 +23,7 @@ const Stores = () => {
 
   const { data: approvedStores, isLoading: loadingApprovedStores } =
     useGetFilteredStores(1, 20);
+
   const {
     data: pendingOrRejectedStores,
     isLoading: loadingPendingOrRejectedStores,
@@ -46,11 +46,12 @@ const Stores = () => {
       setIsLoading(false);
       setSelectedStores(approvedStores.companies);
     }
-  }, [loadingApprovedStores, loadingPendingOrRejectedStores || isLoading]);
-
-  if (isLoading) {
-    return <LoadingSpinner isLoading={isLoading} />;
-  }
+  }, [
+    loadingApprovedStores,
+    loadingPendingOrRejectedStores || isLoading,
+    pendingOrRejectedStores,
+    approvedStores,
+  ]);
 
   if (isLoading || loadingApprovedStores || loadingPendingOrRejectedStores) {
     return (
@@ -105,7 +106,7 @@ const Stores = () => {
           <TableBody>
             {selectedStores &&
               selectedStores.map((store, index) => (
-                <StoreItem store={store} key={index} />
+                <StoreItem store={store} key={store.id} />
               ))}
           </TableBody>
         </Table>
@@ -120,15 +121,6 @@ const Stores = () => {
           />
         </Stack>
       </div>
-
-      {/* <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <AddGenreForm handleClose={handleClose} />
-        </Modal> */}
     </section>
   );
 };

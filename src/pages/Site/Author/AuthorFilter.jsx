@@ -19,7 +19,7 @@ const AuthorFilter = ({ selectedLetter, onFilterClick }) => {
                     ? "border-b-2 border-solid border-primaryText"
                     : ""
                 }`}
-                onClick={() => onFilterClick(letter)}
+                onClick={(e) => onFilterClick(e, letter)}
               >
                 {letter}
               </a>

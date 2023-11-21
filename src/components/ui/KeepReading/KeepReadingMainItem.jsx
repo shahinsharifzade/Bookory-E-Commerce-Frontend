@@ -2,16 +2,17 @@ import React from "react";
 import { Star } from "lucide-react";
 import Rating from "../Rating/Rating";
 import { Link } from "react-router-dom";
+import BookPrice from "../Book/BookPrice";
 
-const KeepReadingMainItem = (props) => {
+const KeepReadingMainItem = ({ book }) => {
   return (
     <Link
-      to={`/shop/${props.books.id}`}
+      to={`/shop/${book.id}`}
       className="flex flex-col items-start justify-start  py-8 text-center minw-xsm:flex-row"
     >
       <div className="w-[26rem] shrink-0 minw-xsm:w-[18rem]">
         <img
-          src={`https://localhost:7047/assets/images/books/${props.books.mainImage}`}
+          src={`https://localhost:7047/assets/images/books/${book.mainImage}`}
           className="aspect-[2.2/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
           alt="book cover"
         />
@@ -19,22 +20,25 @@ const KeepReadingMainItem = (props) => {
 
       <div className="flex flex-col items-start minw-xsm:pl-12">
         <p className="mb-4 cursor-pointer pt-8 tracking-widest hover:text-primaryText minw-xsm:text-[2rem]">
-          {props.books.title}
+          {book.title}
         </p>
 
         <div className="mb-4 flex">
-          <Rating rating={props.books.rating} />
+          <Rating rating={book.rating} />
         </div>
 
-        <p className="mb-4 cursor-pointer text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText">
-          {props.books.author.name}
+        <p className="mb-4 cursor-pointer text-lg font-normal tracking-widest text-secondartTextBold hover:text-primaryText">
+          {book.author.name}
         </p>
-        <p className="mb-4 line-clamp-3 max-w-fit cursor-pointer overflow-hidden text-ellipsis text-start text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText">
-          {props.books.description}
+        <p className="mb-4 line-clamp-3 max-w-fit cursor-pointer overflow-hidden text-ellipsis text-start text-lg font-normal tracking-widest text-secondartTextBold hover:text-primaryText">
+          {book.description}
         </p>
-        <span className="text-[2rem] tracking-widest text-primaryText">
-          ${props.books.price}
-        </span>
+
+        <BookPrice
+          book={book}
+          discountPriceClasses={"text-[1.6rem]"}
+          priceClasses={"text-[2rem]"}
+        />
       </div>
     </Link>
   );

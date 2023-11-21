@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -59,7 +57,7 @@ const TrendsList = () => {
           {booksData.books.map((item, index) => {
             return (
               <SwiperSlide key={index} className="w-full px-12">
-                <TrendItem books={item} />
+                <TrendItem book={item} />
               </SwiperSlide>
             );
           })}

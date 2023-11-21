@@ -1,20 +1,10 @@
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import BookPrice from "../../../components/ui/Book/BookPrice";
+import Rating from "../../../components/ui/Rating/Rating";
 
 const VendorBookItem = (props) => {
-  const filledStars = [];
-  const emptyStars = [];
-
-  for (let index = 0; index < props.book.rating; index++) {
-    filledStars.push(
-      <Star key={index} color="#f65d4e" fill="#f65d4e" size={"14px"} />,
-    );
-  }
-  for (let index = 0; index < 5 - props.book.rating; index++) {
-    emptyStars.push(<Star key={index} color="#f65d4e" size={"14px"} />);
-  }
-
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -62,22 +52,23 @@ const VendorBookItem = (props) => {
         </div>
 
         <div className={`flex flex-col items-start`}>
-          <p className="mb-4 line-clamp-1 cursor-pointer overflow-hidden text-ellipsis  pt-8 tracking-widest  hover:text-primaryText minw-xsm:text-2xl">
+          <p className="mb-4 line-clamp-1 cursor-pointer overflow-hidden text-ellipsis pt-8 text-left tracking-widest  hover:text-primaryText minw-xsm:text-2xl">
             {props.book.title}
           </p>
 
           <div className="mb-4 flex">
-            {filledStars}
-            {emptyStars}
+            <Rating rating={props.book.rating} />
           </div>
 
-          <p className="mb-4 cursor-pointer text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText ">
+          <p className="mb-4 cursor-pointer text-lg font-normal tracking-widest text-secondartTextBold hover:text-primaryText ">
             {props.book.author.name}
           </p>
 
-          <span className="text-[2rem] tracking-widest text-primaryText">
-            ${props.book.price}
-          </span>
+          <BookPrice
+            book={props.book}
+            discountPriceClasses={"text-[1.6rem]"}
+            priceClasses={"text-[2rem]"}
+          />
         </div>
       </Link>
     </div>

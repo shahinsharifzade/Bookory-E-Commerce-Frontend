@@ -4,6 +4,11 @@ import jwtDecode from "jwt-decode";
 
 const PrivateRoute = ({ roles, children }) => {
   const location = useLocation();
+  console.log(
+    "🚀 ~ file: PrivateRoute.jsx:7 ~ PrivateRoute ~ location:",
+    location,
+  );
+
   const token = JSON.parse(localStorage.getItem("token"));
 
   if (!token) {

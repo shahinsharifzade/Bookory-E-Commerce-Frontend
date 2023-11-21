@@ -91,8 +91,6 @@ export const useGetFilteredBooks = (
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-//
-
 const getSearchedBooks = async (search) => {
   const response = await api.get(`/Books`, {
     params: {
@@ -217,7 +215,12 @@ export const useAddBook = () => {
     mutationFn: (data) => addBook(data),
     onSuccess: () => {
       showToastSuccessMessage("Book successfully added");
-      queryClient.invalidateQueries(["books", "approved", "pendingorrejected"]);
+      queryClient.invalidateQueries([
+        "books",
+        // "approved",
+        // "authors",
+        // "pendingorrejected",
+      ]);
     },
   });
 };
@@ -247,8 +250,9 @@ export const useUpdateBook = () => {
   return useMutation({
     mutationFn: (data) => updateBook(data),
     onSuccess: () => {
+      queryClient.invalidateQueries(["books", "approved"]);
+      queryClient.invalidateQueries(["books", "pendingorrejected"]);
       showToastSuccessMessage("Book successfully updated");
-      queryClient.invalidateQueries(["books", "approved", "pendingorrejected"]);
     },
   });
 };

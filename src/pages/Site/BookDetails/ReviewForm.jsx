@@ -81,7 +81,7 @@ const ReviewForm = ({ bookId }) => {
   return (
     <>
       <form onSubmit={handleSubmit(onFormSubmit)}>
-        <div className="mb-8 flex items-center">
+        <div className=" flex items-center">
           Your Rating <span className="mb-6 mr-6 text-primaryText">*</span>
           <div className="flex gap-2">
             {bookRatingStars.map((star, index) => (
@@ -89,7 +89,9 @@ const ReviewForm = ({ bookId }) => {
             ))}
           </div>
         </div>
-        <p>{errors.Rating?.message}</p>
+        <p className="mb-8 text-xl font-normal text-red-600">
+          {!rating && errors.Rating?.message}
+        </p>
 
         <div className="rounded-3xl border border-solid  border-secondaryText p-4 pl-0">
           <textarea
@@ -99,8 +101,11 @@ const ReviewForm = ({ bookId }) => {
             className="h-[200px] w-full overflow-auto border-none border-transparent p-4 font-light outline-none "
           ></textarea>
         </div>
-        <p> {errors.Content?.message}</p>
-        <p>{errorMessage}</p>
+        <p className="text-xl font-normal text-red-600">
+          {" "}
+          {errors.Content?.message}
+        </p>
+        <p className="text-xl font-normal text-red-600">{errorMessage}</p>
         <button
           type="submit"
           className="mt-5 rounded-[3rem] border-none bg-primaryText px-12 py-6 text-white active:scale-95 active:shadow-xl"

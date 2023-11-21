@@ -1,31 +1,18 @@
 import React, { useEffect } from "react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import Title from "../../../components/ui/Title/Title";
-import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import BookDetailsContent from "./BookDetailsContent";
 import BookDetailsDesciption from "./BookDetailsDesciption";
 import RelatedBooksList from "./RelatedBooksList";
-
-const fetchBook = async (bookId) => {
-  var response = await axios.get(`https://localhost:7047/api/Books/${bookId}`);
-  return response.data;
-};
+import { useGetBookById } from "../../../service/bookService";
 
 const BookDetails = () => {
   const { bookId } = useParams();
   const navigate = useNavigate();
 
-  const {
-    data: book,
-    isError,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["bookdetails", bookId],
-    queryFn: () => fetchBook(bookId),
-  });
+  const { data: book, isError, isLoading, error } = useGetBookById(bookId);
 
   useEffect(() => {
     if (isError) {

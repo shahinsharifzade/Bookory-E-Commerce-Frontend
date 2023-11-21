@@ -1,12 +1,10 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { UserCircle2 } from "lucide-react";
 import ReviewForm from "./ReviewForm";
 import Rating from "../../../components/ui/Rating/Rating";
 import { api } from "../../../api";
-import { useNavigate } from "react-router-dom";
 
 const fetchReview = async (Id) => {
   const response = await api.get(`Comment/get/${Id}/book`);
@@ -21,8 +19,6 @@ const fetchUser = async (userId) => {
 };
 
 const BookReviews = ({ id }) => {
-  const navigate = useNavigate();
-
   const {
     data: reviewsData,
     isLoading,
@@ -66,16 +62,6 @@ const BookReviews = ({ id }) => {
     "🚀 ~ file: BookReviews.jsx:67 ~ BookReviews ~ userData:",
     userData,
   );
-
-  // useEffect(() => {
-  //   if (isError || isErrorUser) {
-  //     if (
-  //       error?.response.data.statusCode === 404 ||
-  //       errorUser?.response.data.statusCode === 404
-  //     )
-  //       navigate("notfound");
-  //   }
-  // }, [isError, isErrorUser]);
 
   if (isLoading || isLoadingUser || !reviewsData || !userData)
     return (

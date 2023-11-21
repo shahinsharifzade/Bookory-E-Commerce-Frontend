@@ -4,6 +4,7 @@ import BookModalSlider from "../Slider/BookModalSlider";
 import Rating from "../Rating/Rating";
 import { Link } from "react-router-dom";
 import DiscountPercentage from "../DiscountPercentage/DiscountPercentage";
+import BookPrice from "../Book/BookPrice";
 
 const PopularBookItem = (props) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -33,7 +34,7 @@ const PopularBookItem = (props) => {
           discountPercentage={props.book.discountPercentage}
         />
 
-        <div
+        {/* <div
           className={`absolute bottom-4 right-4 flex flex-col ${
             isHovered ? " block" : "hidden"
           } `}
@@ -61,7 +62,7 @@ const PopularBookItem = (props) => {
               <ShoppingCart color="#000000" strokeWidth={"1px"} />
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className={`flex flex-col items-start`}>
@@ -73,13 +74,15 @@ const PopularBookItem = (props) => {
           <Rating rating={props.book.rating} />
         </div>
 
-        <p className="mb-4 cursor-pointer text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText ">
+        <p className="mb-4 line-clamp-1 cursor-pointer overflow-hidden text-start text-lg font-normal tracking-widest text-secondartTextBold hover:text-primaryText ">
           {props.book.author.name}
         </p>
 
-        <span className="text-[2rem] tracking-widest text-primaryText">
-          ${props.book.price}
-        </span>
+        <BookPrice
+          book={props.book}
+          discountPriceClasses={"text-[1.6rem]"}
+          priceClasses={"text-[2rem]"}
+        />
       </div>
       {modalIsOpen ? (
         <BookModalSlider

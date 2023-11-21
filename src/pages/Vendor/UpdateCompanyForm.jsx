@@ -10,7 +10,7 @@ import Input from "../../components/ui/FormInput/Input";
 import { setResponseErrorMessage } from "../../utils/setResponseErrorMessages";
 import ResponseErrorMessage from "../../components/ui/ResponseMessage/ResponseErrorMessage";
 import LoadingSpinner from "../../components/ui/Loading/LoadingSpinner";
-import { api } from "../../api";
+import { api, authApi } from "../../api";
 
 const UpdateCompanyForm = ({ company, handleClose }) => {
   const [responseErrors, setResponseErrors] = useState({});
@@ -21,7 +21,7 @@ const UpdateCompanyForm = ({ company, handleClose }) => {
   );
   const [updateBannerImage, setUpdateBannerImage] = useState(false);
   const [currentBannerImage, setCurrentBannerImage] = useState(
-    company.BannerImage,
+    company.bannerImage,
   );
 
   const [selectedLogoImage, setSelectedLogoImage] = useState(
@@ -56,16 +56,12 @@ const UpdateCompanyForm = ({ company, handleClose }) => {
     },
   });
 
-  console.log(
-    "🚀 ~ file: UpdateCompanyForm.jsx:40 ~ UpdateCompanyForm ~ company:",
-    company,
-  );
   const { mutate, isLoading } = useUpdateCompany();
 
   const convertBannerImagePathToFile = async (imagePath) => {
     try {
       const path = `assets/images/companies/banner/${imagePath}`;
-      const response = await api.get(`/images?path=${path}`, {
+      const response = await authApi.get(`/images?path=${path}`, {
         responseType: "arraybuffer",
       });
 
@@ -88,7 +84,7 @@ const UpdateCompanyForm = ({ company, handleClose }) => {
   const convertLogoImagePathToFile = async (imagePath) => {
     try {
       const path = `assets/images/companies/logo/${imagePath}`;
-      const response = await api.get(`/images?path=${path}`, {
+      const response = await authApi.get(`/images?path=${path}`, {
         responseType: "arraybuffer",
       });
 
@@ -111,17 +107,21 @@ const UpdateCompanyForm = ({ company, handleClose }) => {
   const onSubmit = async (formData) => {
     formData.id = company.id;
 
+    console.log(
+      "🚀 ~ file: UpdateCompanyForm.jsx:111 ~ onSubmit ~ updateBannerImage:",
+      updateBannerImage,
+    );
     if (updateBannerImage) {
       formData.bannerimage = currentBannerImage;
-    } else if (!updateBannerImage) {
+    } else {
       const imageFile = await convertBannerImagePathToFile(currentBannerImage);
-      formData.bannerimage = imageFile;
+      formData.bannerImage = imageFile;
     }
 
     if (updateLogoImage) {
       formData.logo = currentLogoImage;
-    } else if (!updateLogoImage) {
-      const imageFile = await convertBannerImagePathToFile(currentLogoImage);
+    } else {
+      const imageFile = await convertLogoImagePathToFile(currentLogoImage);
       formData.logo = imageFile;
     }
 
@@ -233,7 +233,7 @@ const UpdateCompanyForm = ({ company, handleClose }) => {
               </div>
             )}
 
-            <div className="ml-8 text-xl font-medium text-secondartTextBold">
+            <div className="ml-8 mt-8 text-xl font-medium text-secondartTextBold">
               Logo
             </div>
             <Input
@@ -267,7 +267,7 @@ const UpdateCompanyForm = ({ company, handleClose }) => {
               className="mx-auto my-8 flex items-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"
               type="submit"
             >
-              Create Company
+              Update Company
             </button>
           </div>
         </form>

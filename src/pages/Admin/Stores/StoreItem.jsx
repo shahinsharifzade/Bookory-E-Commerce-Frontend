@@ -3,14 +3,13 @@ import { Modal, TableCell, TableRow } from "@mui/material";
 import { Eye, Pencil, XCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
+import UpdateCompanyForm from "../../Vendor/UpdateCompanyForm";
+import { useUpdateCompany } from "../../../service/companyService";
 
 const StoreItem = ({ store }) => {
-  console.log("🚀 ~ file: StoreItem.jsx:8 ~ StoreItem ~ store:", store);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  //   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
   return (
     <TableRow
@@ -74,6 +73,15 @@ const StoreItem = ({ store }) => {
           </div>
         </div>
       </TableCell>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <UpdateCompanyForm company={store} handleClose={handleClose} />
+      </Modal>
     </TableRow>
   );
 };

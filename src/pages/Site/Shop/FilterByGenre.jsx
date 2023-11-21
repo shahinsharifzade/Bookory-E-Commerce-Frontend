@@ -1,26 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
-import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { setGenres } from "../../../features/bookFilter/bookFiltersSlice";
 import { useNavigate } from "react-router-dom";
-
-const fetchGenre = async () => {
-  const response = await axios
-    .get(`https://localhost:7047/api/Genres`)
-    .catch((error) => {
-      return <div>{error.response.data.message}</div>;
-    });
-
-  return response.data;
-};
+import { useGetAllGenres } from "../../../service/genreService";
 
 const FilterByGenre = () => {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["genres"],
-    queryFn: fetchGenre,
-  });
+  const { data, isLoading, isError, error } = useGetAllGenres();
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const selectedGenres = useSelector((state) => state.filters.selectedGenres);

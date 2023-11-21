@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import * as yup from "yup";
 import { showToastInfoMessage } from "../../../utils/toastUtils";
-import { api } from "../../../api";
+import { api, authApi } from "../../../api";
 
 const UpdateAuthorForm = ({ author, handleClose }) => {
   const [responseErrors, setResponseErrors] = useState({});
@@ -64,7 +64,7 @@ const UpdateAuthorForm = ({ author, handleClose }) => {
   const convertImagePathToFile = async (imagePath) => {
     try {
       const path = `assets/images/authors/${imagePath}`;
-      const response = await api.get(`/images?path=${path}`, {
+      const response = await authApi.get(`/images?path=${path}`, {
         responseType: "arraybuffer",
       });
 

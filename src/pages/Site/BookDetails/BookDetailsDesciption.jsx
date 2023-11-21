@@ -66,13 +66,13 @@ const BookDetailsDesciption = ({ book }) => {
               {book.company ? (
                 <>
                   <div className="mb-4 text-xl font-bold">
-                    Store Name :
+                    Vendor Name :
                     <span className="pl-4 font-light text-secondartTextBold">
                       {book.company.user.userName}
                     </span>
                   </div>
                   <div className="mb-4 text-xl font-bold">
-                    Vendor :
+                    Store Name :
                     <span className="pl-4 font-light text-secondartTextBold">
                       {book.company.name}
                     </span>

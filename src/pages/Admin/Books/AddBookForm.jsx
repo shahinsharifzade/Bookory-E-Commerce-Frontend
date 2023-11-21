@@ -21,7 +21,7 @@ const AddBookForm = ({ handleClose }) => {
     title: yup.string().required().max(100),
     description: yup.string().required().max(300),
     price: yup.string().required(),
-    discountpercentage: yup.string().required().max(100),
+    discountpercentage: yup.string().max(100),
     stockquantity: yup.string().required(),
     authorid: yup.string().required(),
   });

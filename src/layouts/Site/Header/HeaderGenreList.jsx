@@ -1,24 +1,15 @@
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setGenres } from "../../../features/bookFilter/bookFiltersSlice";
-
-const fetchData = async () => {
-  const response = await axios.get("https://localhost:7047/api/genres");
-  return response.data;
-};
+import { useGetAllGenres } from "../../../service/genreService";
 
 const HeaderGenreList = ({ isHovered }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["genres"],
-    queryFn: fetchData,
-  });
+  const { data, isLoading, isError, error } = useGetAllGenres();
 
   const handleClick = (id) => {
     dispatch(setGenres([id]));
@@ -38,7 +29,7 @@ const HeaderGenreList = ({ isHovered }) => {
         isHovered ? "block" : "hidden"
       }`}
     >
-      <ul className="scrollbar-thin scrollbar-track-white scrollbar-thumb-[#f65d4e] scrollbar-track-rounded-xl scrollbar-thumb-rounded-xl mt-[30px] h-[16rem] overflow-y-auto rounded-3xl border border-solid border-[#e4e4e4] bg-[#fff]">
+      <ul className="mt-[30px] h-[16rem] overflow-y-auto rounded-3xl border border-solid border-[#e4e4e4] bg-[#fff] scrollbar-thin scrollbar-track-white scrollbar-thumb-[#f65d4e] scrollbar-track-rounded-xl scrollbar-thumb-rounded-xl">
         <div className="absolute left-1/2 top-10 h-4 w-4 rotate-45  border border-b-0 border-r-0 border-solid border-[#e4e4e4] bg-white"></div>
         {data &&
           data.map((item) => (

@@ -24,7 +24,7 @@ const DealsList = () => {
   return (
     <div>
       {booksData.books.map((item, index) => {
-        return <DealsItem key={index} books={item} />;
+        return <DealsItem key={index} book={item} />;
       })}
     </div>
   );

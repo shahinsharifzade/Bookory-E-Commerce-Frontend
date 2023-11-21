@@ -77,7 +77,7 @@ const FooterTop = () => {
             <p className=" text-white">Explore</p>
             <ul className="text-xl font-light text-secondaryText">
               <li className="pb-6">
-                <a className="text-white" href="#">
+                <a className="text-white" href="/aboutus">
                   About Us
                 </a>
               </li>

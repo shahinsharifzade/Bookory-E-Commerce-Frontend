@@ -130,6 +130,7 @@ const CompanyRegisterForm = () => {
               responseError={responseErrors.Address}
             />
 
+            <p>Banner Image</p>
             <Input
               name="bannerimage"
               register={register}
@@ -139,6 +140,7 @@ const CompanyRegisterForm = () => {
               responseError={responseErrors.BannerImage}
             />
 
+            <p>Logo</p>
             <Input
               name="logo"
               register={register}

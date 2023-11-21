@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import { Star, Heart, ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
+import Rating from "../../../components/ui/Rating/Rating";
+import BookPrice from "../../../components/ui/Book/BookPrice";
 
 const BookListItem = ({ book }) => {
-  const bookRatingStars = [];
-
-  for (let index = 0; index < 5; index++) {
-    if (index < book.rating) {
-      bookRatingStars.push(
-        <Star key={index} color="#f65d4e" fill="#f65d4e" size={"14px"} />,
-      );
-    } else {
-      bookRatingStars.push(<Star key={index} color="#f65d4e" size={"14px"} />);
-    }
-  }
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -64,15 +55,19 @@ const BookListItem = ({ book }) => {
           {book.title}
         </p>
 
-        <div className="mb-4 flex">{bookRatingStars}</div>
+        <div className="mb-4 flex">
+          <Rating rating={book.rating} />
+        </div>
 
-        <p className="mb-4 cursor-pointer text-lg font-semibold tracking-widest text-secondaryText hover:text-primaryText ">
+        <p className="mb-4 cursor-pointer text-lg font-normal tracking-widest text-secondartTextBold hover:text-primaryText ">
           {book.author.name}
         </p>
 
-        <span className="text-[2rem] tracking-widest text-primaryText">
-          ${book.price}
-        </span>
+        <BookPrice
+          book={book}
+          discountPriceClasses={"text-[1.6rem]"}
+          priceClasses={"text-[2rem]"}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { PanelLeftOpen, User2 } from "lucide-react";
+import { LogOut, PanelLeftOpen, User2 } from "lucide-react";
 import React from "react";
 import { usePrivateApi } from "../../../api";
 import { useGetActiveUser } from "../../../service/userService";
@@ -7,6 +7,13 @@ import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 const Header = ({ MuiDrawer, setMuiDrawer }) => {
   const authApi = usePrivateApi();
   const { data: user, isLoading } = useGetActiveUser();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+
+    window.location.reload();
+  };
+
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
   return (
@@ -28,6 +35,17 @@ const Header = ({ MuiDrawer, setMuiDrawer }) => {
             <span className="text-[12px] font-normal capitalize">
               Role : {user.role}
             </span>
+          </div>
+
+          <div
+            className={`${user ? "" : "hidden"} cursor-pointer `}
+            onClick={handleLogout}
+          >
+            <LogOut
+              size={"2.4rem"}
+              strokeWidth={"1.2px"}
+              className="ml-2 mr-2 font-normal"
+            />
           </div>
         </div>
       </div>
