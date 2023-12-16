@@ -117,6 +117,7 @@ const RegisterForm = () => {
                   <img
                     src={Customer}
                     alt="customer"
+                    title="Customer"
                     className="aspect-[2.4/3] h-full w-full cursor-pointer rounded-[2rem] object-contain"
                   />
                 </div>
@@ -131,12 +132,21 @@ const RegisterForm = () => {
                   <img
                     src={Vendor}
                     alt="vendor"
+                    title="Vendor"
                     className="aspect-[2.4/3] h-full w-full cursor-pointer rounded-[2rem] object-cover"
                   />
                 </div>
               </div>
             </div>
 
+            <p
+              className={`${
+                vendor ? "block" : "hidden"
+              } text-xl text-secondartTextBold`}
+            >
+              You were directed to the company registration section after
+              completing this section.
+            </p>
             <Input
               name="username"
               register={register}

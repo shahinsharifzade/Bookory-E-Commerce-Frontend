@@ -7,10 +7,8 @@ import {
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 
 const UpdateUser = ({ user, handleClose }) => {
-  const [roleId, setRoleId] = useState();
-
   const { data: roles, loadingRoles } = useGetAllRoles();
-  console.log("🚀 ~ file: UpdateUser.jsx:13 ~ UpdateUser ~ roles:", roles);
+
   const { mutate: changeActiveStatus, isLoading: loadingActiveStatus } =
     useChangeActiveStatus();
   const { mutate: changeRole, isLoading: loadingRole } = useChangeRole();
@@ -20,19 +18,6 @@ const UpdateUser = ({ user, handleClose }) => {
       onSuccess: () => handleClose(),
     });
   };
-
-  //   useEffect(() => {
-  //     const userId = user.user.id;
-  //     if (!loadingRoles) {
-  //       console.log(userId, roleId);
-  //       changeRole(
-  //         { userId, roleId },
-  //         {
-  //           onSuccess: () => handleClose(),
-  //         },
-  //       );
-  //     }
-  //   }, [roleId, roles]);
 
   if (loadingActiveStatus || loadingRoles || loadingRole)
     return (
@@ -47,7 +32,7 @@ const UpdateUser = ({ user, handleClose }) => {
 
       {user.user.isActive ? (
         <div
-          className="active:shadow-x cursor-pointerl mx-auto my-8 flex items-center rounded-[2rem] bg-green-600 px-16 py-6 text-xl text-white active:scale-95"
+          className="active:shadow-x mx-auto my-8 flex cursor-pointer items-center rounded-[2rem] bg-green-600 px-16 py-6 text-xl text-white active:scale-95"
           onClick={handleChangeStatus}
         >
           <p className="mx-auto text-2xl font-medium">Block</p>

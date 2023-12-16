@@ -86,7 +86,7 @@ const Address = () => {
 
           <div className="flex gap-4 py-8 text-secondartTextBold">
             <p>Discount Price : </p>
-            <span className="text-primaryText">{discount} $</span>
+            <span className="text-primaryText">{discount.toFixed(2)} $</span>
           </div>
 
           <div className="flex gap-4 border-t border-solid border-white py-8 text-secondartTextBold">
@@ -95,7 +95,7 @@ const Address = () => {
           </div>
 
           <button
-            className="my-8 flex w-full items-center justify-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"
+            className="my-8 flex w-full cursor-pointer items-center justify-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"
             onClick={handleOpen}
             disabled={!selectedAddress}
           >

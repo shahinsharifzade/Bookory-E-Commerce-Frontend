@@ -185,7 +185,8 @@ export const useDeleteBook = () => {
     onSuccess: () => {
       showToastSuccessMessage("Book successfully deleted");
       queryClient.invalidateQueries(["books", "approved"]);
-      queryClient.invalidateQueries(["books", "pending"]);
+      queryClient.invalidateQueries(["books", "pendingorrejected"]);
+      queryClient.invalidateQueries(["company"]);
     },
   });
 };
@@ -203,7 +204,7 @@ const addBook = async (data) => {
     }
   }
 
-  const response = authApi.post("books", formData);
+  const response = await authApi.post("books", formData);
 
   return response.data;
 };
@@ -215,12 +216,8 @@ export const useAddBook = () => {
     mutationFn: (data) => addBook(data),
     onSuccess: () => {
       showToastSuccessMessage("Book successfully added");
-      queryClient.invalidateQueries([
-        "books",
-        // "approved",
-        // "authors",
-        // "pendingorrejected",
-      ]);
+      queryClient.invalidateQueries(["books"]);
+      queryClient.invalidateQueries(["company"]);
     },
   });
 };
@@ -239,7 +236,7 @@ const updateBook = async (data) => {
     }
   }
 
-  const response = authApi.put("books", formData);
+  const response = await authApi.put("books", formData);
 
   return response.data;
 };

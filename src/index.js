@@ -19,11 +19,9 @@ import { Elements } from "@stripe/react-stripe-js";
 const router = createBrowserRouter(ROUTES);
 const queryClient = new QueryClient();
 
-// const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
 const stripePromise = loadStripe(
   "pk_test_51Nn1IUDU36UGP8uCILpcQwRVDL8KWaqrULBx2AE1SWvZIhwJ3isdTWpxa29c2iXVgu2FsBR77BqVk7NOp13e5jdT0089oN5GnB",
 );
-// console.log("🚀 ~ file: index.js:22 ~ stripePromise:", stripePromise);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -37,7 +35,7 @@ root.render(
           </App>
         </Elements>
       </Provider>
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   </React.StrictMode>,
 );

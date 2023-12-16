@@ -11,11 +11,13 @@ import { useGetAllAuthors } from "../../../service/authorService";
 import { useGetAllGenres } from "../../../service/genreService";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { ArrowBigDown } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddBookForm = ({ handleClose }) => {
   const [responseErrors, setResponseErrors] = useState({});
   const [responseException, setResponseException] = useState();
   const [selectedImage, setSelectedImage] = useState(null);
+  const queryClient = useQueryClient();
 
   const schema = yup.object().shape({
     title: yup.string().required().max(100),
@@ -40,16 +42,13 @@ const AddBookForm = ({ handleClose }) => {
   const { data: genres, isLoading: loadingGenres } = useGetAllGenres();
 
   const onSubmit = (formData) => {
-    console.log(
-      "🚀 ~ file: AddBookForm.jsx:35 ~ onSubmit ~ formData:",
-      formData,
-    );
     setResponseErrors({});
     formData.mainimageindex = 0;
 
     mutate(formData, {
       onSuccess: () => {
         handleClose();
+        queryClient.invalidateQueries(["books"]);
       },
 
       onError: (res) => {
@@ -59,6 +58,8 @@ const AddBookForm = ({ handleClose }) => {
         }
 
         if (res.response.data.statusCode === 409)
+          setResponseException(res.response.data.message);
+        if (res.response.data.statusCode === 400)
           setResponseException(res.response.data.message);
       },
     });

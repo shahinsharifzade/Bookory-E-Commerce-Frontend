@@ -25,7 +25,7 @@ const AuthorBookItem = (props) => {
           alt="book cover"
         />
 
-        <div
+        {/* <div
           className={`absolute bottom-4 right-4 flex flex-col ${
             isHovered ? " block" : "hidden"
           } `}
@@ -47,7 +47,7 @@ const AuthorBookItem = (props) => {
               <ShoppingCart color="#000000" strokeWidth={"1px"} />
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className={`flex flex-col items-start`}>

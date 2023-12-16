@@ -207,7 +207,7 @@ const UpdateAuthorForm = ({ author, handleClose }) => {
               className="mx-auto my-8 flex items-center rounded-[2rem] bg-primaryText px-16 py-6 text-xl text-white active:scale-95 active:shadow-xl"
               type="submit"
             >
-              Update Address
+              Update Author
             </button>
           </div>
         </form>

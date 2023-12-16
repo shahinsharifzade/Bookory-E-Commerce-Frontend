@@ -17,7 +17,15 @@ const OnSaleBooks = () => {
     isLoading: bookIsLoading,
     isError: booksError,
     error,
-  } = useGetFilteredBooks(1, 15);
+  } = useGetFilteredBooks(
+    1,
+    15,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    "onSale",
+  );
 
   useEffect(() => {
     if (booksError) {

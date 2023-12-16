@@ -23,7 +23,9 @@ const AddToCart = ({ book, displayQuantityTitle }) => {
         <div className="flex items-center">
           <div
             className="h-full cursor-pointer rounded-l-[3rem] border-[1px] border-solid border-secondaryText border-r-transparent px-8 py-6 hover:bg-primaryText hover:text-white active:scale-95 active:shadow-xl"
-            onClick={() => setBasketCount((prev) => prev - 1)}
+            onClick={() =>
+              setBasketCount((prevCount) => (prevCount > 1 ? prevCount - 1 : 1))
+            }
           >
             -
           </div>

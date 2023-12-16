@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { usePostmessage } from "../../../service/companyService";
+import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
 
 const SendMessageForm = ({ storeId }) => {
   const schema = yup.object().shape({
@@ -14,15 +15,22 @@ const SendMessageForm = ({ storeId }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const { mutate } = usePostmessage();
+  const { mutate, isLoading } = usePostmessage();
 
   const onFormSubmit = (data) => {
     data.CompanyId = storeId;
-    mutate(data);
+    mutate(data, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   };
+
+  if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 
   return (
     <div>

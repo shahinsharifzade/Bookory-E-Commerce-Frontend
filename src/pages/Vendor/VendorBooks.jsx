@@ -22,10 +22,6 @@ const VendorBooks = () => {
   const handleClose = () => setOpen(false);
 
   const { data: company, isLoading } = useGetByActiveVendor();
-  console.log(
-    "🚀 ~ file: VendorBooks.jsx:47 ~ VendorBooks ~ company:",
-    company,
-  );
 
   if (isLoading) return <LoadingSpinner isLoading={isLoading} />;
 

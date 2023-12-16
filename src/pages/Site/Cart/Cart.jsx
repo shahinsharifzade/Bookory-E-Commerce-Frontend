@@ -46,7 +46,7 @@ const Cart = () => {
               100)
         );
       }, 0);
-      const roundedTotal = newTotal.toFixed(2);
+      const roundedTotal = parseFloat(newTotal.toFixed(2));
       setTotal(roundedTotal);
     }
   }, [basket, isSuccess]);

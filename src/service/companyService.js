@@ -80,7 +80,7 @@ export const usePostmessage = () => {
   return useMutation({
     mutationFn: (data) => postMessage(data),
     onSuccess: () => {
-      console.log("SUCCESS");
+      showToastSuccessMessage("Successful message delivery");
     },
   });
 };

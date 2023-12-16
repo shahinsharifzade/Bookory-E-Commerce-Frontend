@@ -56,9 +56,9 @@ const HeaderMiddle = () => {
         </div>
 
         <div className="md:mr-[40px] lg:mr-[10rem] flex items-center">
-          <a href="#">
+          <Link to={"/"}>
             <img src={Logo} alt="Logo" />
-          </a>
+          </Link>
         </div>
 
         <div className="flex w-full justify-between">

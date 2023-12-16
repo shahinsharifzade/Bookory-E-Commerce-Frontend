@@ -22,6 +22,7 @@ const ReviewForm = ({ bookId }) => {
     register,
     handleSubmit,
     setValue,
+    reset,
     watch,
     formState: { errors },
   } = useForm({
@@ -68,6 +69,7 @@ const ReviewForm = ({ bookId }) => {
     mutate(data, {
       onSuccess: () => {
         setErrorMessage("");
+        reset();
       },
       onError: (error) => {
         error.response.data.statusCode === 401 &&

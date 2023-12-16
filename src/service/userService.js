@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { authApi } from "../api";
+import { showToastSuccessMessage } from "../utils/toastUtils";
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -75,6 +76,9 @@ export const useChangeActiveStatus = () => {
   return useMutation({
     mutationFn: changeActiveStatus,
     onSuccess: () => {
+      showToastSuccessMessage(
+        "User's active state has been successfully modified",
+      );
       queryClient.invalidateQueries("users");
     },
   });
@@ -98,11 +102,6 @@ export const useGetAllRoles = () => {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const changeRole = async ({ userId, roleId }) => {
-  console.log(
-    "🚀 ~ file: userService.js:101 ~ changeRole ~ userId, roleId:",
-    userId,
-    roleId,
-  );
   const params = { userId, roleId };
   const response = await authApi.put(`users/changerole`, null, {
     params: params,
@@ -117,6 +116,7 @@ export const useChangeRole = () => {
   return useMutation({
     mutationFn: (userId, roleId) => changeRole(userId, roleId),
     onSuccess: () => {
+      showToastSuccessMessage("The user's role was successfully modified");
       queryClient.invalidateQueries("users");
     },
   });
