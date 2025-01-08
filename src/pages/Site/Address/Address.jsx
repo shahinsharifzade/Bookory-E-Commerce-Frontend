@@ -104,7 +104,7 @@ const Address = () => {
         </div>
       </div>
 
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -115,7 +115,7 @@ const Address = () => {
           email={selectedAddress?.user?.email}
           handleClose={handleClose}
         />
-      </Modal>
+      </Modal> */}
     </section>
   );
 };
