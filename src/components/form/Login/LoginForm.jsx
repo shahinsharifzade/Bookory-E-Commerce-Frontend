@@ -33,7 +33,6 @@ const LoginForm = () => {
           res.response.data.statusCode === 403 ||
           res.response.data.statusCode === 404
         ) {
-          console.log("uh");
           setResponseException(res.response.data.message);
         }
       },

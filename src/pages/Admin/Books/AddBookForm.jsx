@@ -70,10 +70,6 @@ const AddBookForm = ({ handleClose }) => {
         isLoading={loadingMutate || loadingAuthors || loadingGenres}
       />
     );
-  console.log(
-    "🚀 ~ file: AddBookForm.jsx:36 ~ AddBookForm ~ authors:",
-    authors,
-  );
 
   return (
     <>

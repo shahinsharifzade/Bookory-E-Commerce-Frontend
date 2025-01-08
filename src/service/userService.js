@@ -20,7 +20,7 @@ export const useRegister = () => {
 
 const getActiveUser = async () => {
   const response = await authApi.get("Users/active");
-
+  console.log(response);
   return response.data;
 };
 

@@ -12,7 +12,7 @@ export const authApi = axios.create({
 export const usePrivateApi = () => {
   const token = useSelector((state) => state.auth.token);
 
-  authApi.interceptors.request.use((config) => {
+  authApi.interceptors.request.use((config) => { 
     config.headers.Authorization = `Bearer ${token.token}`;
     return config;
   });
