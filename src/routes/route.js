@@ -134,10 +134,10 @@ export const ROUTES = [
         element: <NotFoundPage />,
       },
 
-      {
-        path: "checkout",
-        element: <StripePayment />,
-      },
+      // {
+      //   path: "checkout",
+      //   element: <StripePayment />,
+      // },
       {
         path: "address",
         element: <Address />,
