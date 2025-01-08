@@ -22,7 +22,7 @@ import NotFoundPage from "../pages/Site/ExceptionPages/NotFoundPage";
 import AdminRoot from "../pages/Admin/AdminRoot/AdminRoot";
 import PrivateRoute from "../pages/Admin/PrivateRoute/PrivateRoute";
 import Dashboard from "../pages/Admin/Dashboard/Dashboard";
-import StripePayment from "../components/ui/StripePayment/StripePayment";
+// import StripePayment from "../components/ui/StripePayment/StripePayment";
 import Address from "../pages/Site/Address/Address";
 import Books from "../pages/Admin/Books/Books";
 import Authors from "../pages/Admin/Authors/Authors";

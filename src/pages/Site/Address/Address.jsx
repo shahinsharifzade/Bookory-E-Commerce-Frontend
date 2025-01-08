@@ -4,8 +4,8 @@ import DeliveryAddressList from "./DeliveryAddressList";
 import { useNavigate } from "react-router-dom";
 import { useGetBasketItems } from "../../../service/cartService";
 import LoadingSpinner from "../../../components/ui/Loading/LoadingSpinner";
-import StripePayment from "../../../components/ui/StripePayment/StripePayment";
-import { Modal } from "@mui/material";
+// import StripePayment from "../../../components/ui/StripePayment/StripePayment";
+// import { Modal } from "@mui/material";
 import { checkUser } from "../../../utils/checkUser";
 
 const Address = () => {
