@@ -62,7 +62,7 @@ const StoreListItem = ({ store }) => {
 
             <div className="absolute -bottom-[32px] right-[32px] cursor-pointer">
               <img
-                src={`${process.env.REACT_APP_BASE_URL}/assets/images/companies/logo/${store.logo}`}
+                src={`${process.env.REACT_APP_IMR_SRC}/assets/images/companies/logo/${store.logo}`}
                 alt={`${store.name} logo`}
                 className="h-[6.4rem] w-[6.4rem] rounded-3xl border-4 border-solid border-white"
               />

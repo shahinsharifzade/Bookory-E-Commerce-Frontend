@@ -27,7 +27,7 @@ const StoreItem = ({ store }) => {
           <div>
             <div className="w-[70px] shrink-0 rounded-[1rem]">
               <img
-                src={`${process.env.REACT_APP_BASE_URL}/assets/images/companies/logo/${store.logo}`}
+                src={`${process.env.REACT_APP_IMR_SRC}/assets/images/companies/logo/${store.logo}`}
                 className="aspect-[2.3/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
                 alt="Store logo"
                 s

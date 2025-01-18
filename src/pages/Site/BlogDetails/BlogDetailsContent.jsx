@@ -10,7 +10,7 @@ const BlogDetailsContent = ({ blog }) => {
     <div className="container">
       <div>
         <img
-          src={`${process.env.REACT_APP_BASE_URL}/assets/images/blogs/${blog.image}`}
+          src={`${process.env.REACT_APP_IMR_SRC}/assets/images/blogs/${blog.image}`}
           className="aspect-[2.3/1] h-full w-full cursor-pointer rounded-[2rem] object-cover"
         />
       </div>

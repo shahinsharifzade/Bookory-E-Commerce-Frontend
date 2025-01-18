@@ -40,7 +40,7 @@ const BookDetailsView = () => {
       <div className="my-8 flex w-full items-center">
         <div className="mx-auto w-[300px]">
           <img
-            src={`${process.env.REACT_APP_BASE_URL}/assets/images/books/${book.mainImage}`}
+            src={`${process.env.REACT_APP_IMR_SRC}/assets/images/books/${book.mainImage}`}
             alt="Book cover"
             className="aspect-[2.4/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
           />

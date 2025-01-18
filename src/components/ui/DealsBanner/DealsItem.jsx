@@ -12,7 +12,7 @@ const DealsItem = ({ book }) => {
     >
       <div className="mr-12 h-[18rem] w-full max-w-[13rem]">
         <img
-          src={`${process.env.REACT_APP_BASE_URL}/assets/images/books/${book.mainImage}`}
+          src={`${process.env.REACT_APP_IMR_SRC}/assets/images/books/${book.mainImage}`}
           className="h-full w-full cursor-pointer rounded-[2rem] object-cover"
           alt="book cover"
         />

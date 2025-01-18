@@ -20,7 +20,7 @@ const VendorBookItem = (props) => {
       <Link to={`/shop/${props.book.id}`} className="w-full">
         <div className="relative w-full shrink-0 rounded-[2rem] min-[400px]:w-[18rem] min-[1200px]:w-[23rem]">
           <img
-            src={`${process.env.REACT_APP_BASE_URL}/assets/images/books/${props.book.mainImage}`}
+            src={`${process.env.REACT_APP_IMR_SRC}/assets/images/books/${props.book.mainImage}`}
             className="aspect-[2.4/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
             alt="book cover"
           />
