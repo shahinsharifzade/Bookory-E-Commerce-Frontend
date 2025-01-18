@@ -17,7 +17,7 @@ const UpdateCompanyForm = ({ company, handleClose }) => {
   const [responseException, setResponseException] = useState();
 
   const [selectedBannerImage, setSelectedBannerImage] = useState(
-    `https://localhost:7047/assets/images/companies/banner/${company.bannerImage}`,
+    `${process.env.REACT_APP_IMR_SRC}/assets/images/companies/banner/${company.bannerImage}`,
   );
   const [updateBannerImage, setUpdateBannerImage] = useState(false);
   const [currentBannerImage, setCurrentBannerImage] = useState(
@@ -25,7 +25,7 @@ const UpdateCompanyForm = ({ company, handleClose }) => {
   );
 
   const [selectedLogoImage, setSelectedLogoImage] = useState(
-    `https://localhost:7047/assets/images/companies/logo/${company.logo}`,
+    `${process.env.REACT_APP_IMR_SRC}/assets/images/companies/logo/${company.logo}`,
   );
   const [updateLogoImage, setUpdateLogoImage] = useState(false);
   const [currentLogoImage, setCurrentLogoImage] = useState(company.logo);

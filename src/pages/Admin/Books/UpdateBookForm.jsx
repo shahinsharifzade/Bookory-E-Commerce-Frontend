@@ -17,7 +17,7 @@ const UpdateBookForm = ({ book, handleClose }) => {
   const [responseErrors, setResponseErrors] = useState({});
   const [responseException, setResponseException] = useState();
   const [selectedImage, setSelectedImage] = useState(
-    `https://localhost:7047/assets/images/books/${book.mainImage}`,
+    `${process.env.REACT_APP_IMR_SRC}/assets/images/books/${book.mainImage}`,
   );
   const [updateImage, setUpdateImage] = useState(false);
   const [currentImage, setCurrentImage] = useState(book.mainImage);

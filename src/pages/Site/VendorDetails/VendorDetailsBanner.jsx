@@ -6,7 +6,7 @@ const VendorDetailsBanner = ({ store }) => {
     <div
       className="flex h-[350px]  flex-col rounded-3xl bg-cover bg-center bg-no-repeat "
       style={{
-        backgroundImage: `url("https://localhost:7047/assets/images/companies/banner/${store.bannerImage}")`,
+        backgroundImage: `url("${process.env.REACT_APP_IMR_SRC}/assets/images/companies/banner/${store.bannerImage}")`,
       }}
     >
       <div className="relative flex h-full max-w-[36rem]">

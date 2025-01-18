@@ -26,7 +26,7 @@ const StoreListItem = ({ store }) => {
         <div
           style={{
             backgroundImage: isHovered
-              ? `url("https://localhost:7047/assets/images/companies/banner/${store.bannerImage}")`
+              ? `url("${process.env.REACT_APP_IMR_SRC}/assets/images/companies/banner/${store.bannerImage}")`
               : "none",
           }}
           className={`relative flex flex-col rounded-t-3xl ${

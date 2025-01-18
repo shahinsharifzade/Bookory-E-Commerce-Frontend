@@ -17,9 +17,12 @@ const getStores = async (pageNumber, pageSize, search, sortBy) => {
     "filters.SortBy": sortBy,
   };
 
-  const response = await axios.get(`https://localhost:7047/api/Company/paged`, {
-    params: params,
-  });
+  const response = await axios.get(
+    `${process.env.REACT_APP_BASE_URL}/api/Company/paged`,
+    {
+      params: params,
+    },
+  );
   return response.data;
 };
 
@@ -34,7 +37,9 @@ export const useGetFilteredStores = (pageNumber, pageSize, search, sortBy) => {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const getAll = async () => {
-  var response = await axios.get("https://localhost:7047/api/Company");
+  var response = await axios.get(
+    `${process.env.REACT_APP_BASE_URL}/api/Company`,
+  );
   return response.data;
 };
 
@@ -48,7 +53,9 @@ export const useGetAll = () => {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const getById = async (id) => {
-  const response = await axios.get(`https://localhost:7047/api/Company/${id}`);
+  const response = await axios.get(
+    `${process.env.REACT_APP_BASE_URL}/api/Company/${id}`,
+  );
 
   return response.data;
 };
@@ -69,7 +76,7 @@ const postMessage = async (data) => {
     formData.append(key, data[key]);
   }
   var response = await axios.post(
-    `https://localhost:7047/api/Company/email`,
+    `${process.env.REACT_APP_BASE_URL}/api/Company/email`,
     formData,
   );
 
