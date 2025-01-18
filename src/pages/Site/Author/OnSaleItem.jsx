@@ -12,7 +12,7 @@ const OnSaleItem = (props) => {
     >
       <div className="w-full rounded-[2rem] minw-md:w-[180px]">
         <img
-          src={`https://localhost:7047/assets/images/books/${props.books.mainImage}`}
+          src={`${process.env.REACT_APP_BASE_URL}/assets/images/books/${props.books.mainImage}`}
           className="aspect-[1/1.4] h-full w-full cursor-pointer rounded-[2rem] object-cover"
           alt="book cover"
         />

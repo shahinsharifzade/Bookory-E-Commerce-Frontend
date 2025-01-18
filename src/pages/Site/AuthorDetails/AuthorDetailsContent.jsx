@@ -27,7 +27,7 @@ const AuthorDetailsContent = ({ author }) => {
       <div className="flex flex-col minw-sm:flex-row">
         <div className="mb-12 h-[30rem] shrink-0 rounded-3xl max-minw-sm:mx-auto">
           <img
-            src={`https://localhost:7047/assets/images/authors/${author.mainImage}`}
+            src={`${process.env.REACT_APP_BASE_URL}/assets/images/authors/${author.mainImage}`}
             className="aspect-[1/1] h-full rounded-3xl object-cover minw-sm:w-full"
             alt=""
           />

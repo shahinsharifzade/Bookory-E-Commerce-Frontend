@@ -177,7 +177,7 @@ const UpdateAuthorForm = ({ author, handleClose }) => {
                     onClick={() => handleAuthorImageRemove(index)}
                   >
                     <img
-                      src={`https://localhost:7047/assets/images/authors/${image.image}`}
+                      src={`${process.env.REACT_APP_BASE_URL}/assets/images/authors/${image.image}`}
                       className="aspect-[2.3/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
                       alt="Author cover"
                     />

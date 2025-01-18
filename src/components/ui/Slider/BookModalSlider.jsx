@@ -52,7 +52,7 @@ const BookModalSlider = ({ booksArr, bookId, isOpened, setModalIsOpened }) => {
               >
                 <div className="h-[400px] w-[400px] border-2 border-solid ">
                   <img
-                    src={`https://localhost:7047/assets/images/books/${item.mainImage}`}
+                    src={`${process.env.REACT_APP_BASE_URL}/assets/images/books/${item.mainImage}`}
                     alt=""
                   />
                 </div>

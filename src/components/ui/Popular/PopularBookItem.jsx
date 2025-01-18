@@ -25,7 +25,7 @@ const PopularBookItem = (props) => {
     >
       <div className="relative w-full shrink-0 rounded-[2rem] minw-md:w-[24rem] min-[1200px]:w-[18rem]">
         <img
-          src={`https://localhost:7047/assets/images/books/${props.book.mainImage}`}
+          src={`${process.env.REACT_APP_BASE_URL}/assets/images/books/${props.book.mainImage}`}
           className="aspect-[2.2/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
           alt="book cover"
         />

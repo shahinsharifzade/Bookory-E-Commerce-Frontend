@@ -12,7 +12,7 @@ const TrendItem = ({ book }) => {
     >
       <div className="relative h-full w-full shrink-0 rounded-[2rem] minw-xsm:w-[18rem]">
         <img
-          src={`https://localhost:7047/assets/images/books/${book.mainImage}`}
+          src={`${process.env.REACT_APP_BASE_URL}/assets/images/books/${book.mainImage}`}
           className="aspect-[2.2/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
           alt="book cover"
         />

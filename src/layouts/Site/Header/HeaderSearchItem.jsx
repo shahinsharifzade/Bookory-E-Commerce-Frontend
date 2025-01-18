@@ -11,7 +11,7 @@ const HeaderSearchItem = ({ book }) => {
       <Link to={`shop/${book.id}`} className="flex items-center px-4 py-4">
         <div>
           <img
-            src={`https://localhost:7047/assets/images/books/${book.mainImage}`}
+            src={`${process.env.REACT_APP_BASE_URL}/assets/images/books/${book.mainImage}`}
             alt={`${book.title} cover`}
             className="h-28 w-20 object-cover"
           />

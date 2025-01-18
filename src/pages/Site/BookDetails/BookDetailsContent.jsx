@@ -13,7 +13,7 @@ const BookDetailsContent = ({ book }) => {
         <div className="mr-8 w-1/2 rounded-3xl border border-solid border-secondaryText max-minw-1000:mx-auto ">
           <div className="cursor-pointer p-12">
             <img
-              src={`https://localhost:7047/assets/images/books/${book.mainImage}`}
+              src={`${process.env.REACT_APP_BASE_URL}/assets/images/books/${book.mainImage}`}
               className="aspect-[2.3/3] h-full w-full rounded-3xl object-cover"
               alt="book cover"
             />

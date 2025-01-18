@@ -12,7 +12,7 @@ const KeepReadingMainItem = ({ book }) => {
     >
       <div className="w-[26rem] shrink-0 minw-xsm:w-[18rem]">
         <img
-          src={`https://localhost:7047/assets/images/books/${book.mainImage}`}
+          src={`${process.env.REACT_APP_BASE_URL}/assets/images/books/${book.mainImage}`}
           className="aspect-[2.2/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
           alt="book cover"
         />

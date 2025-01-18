@@ -8,7 +8,7 @@ const AuthorItem = ({ author, authorBooksCount }) => {
         <div className="flex flex-col items-start justify-center">
           <div className="mb-8 h-36">
             <img
-              src={`https://localhost:7047/assets/images/authors/${author.mainImage}`}
+              src={`${process.env.REACT_APP_BASE_URL}/assets/images/authors/${author.mainImage}`}
               alt="Auhtor Profile"
               className="aspect-[1/1] h-full w-full cursor-pointer rounded-2xl object-cover"
             />

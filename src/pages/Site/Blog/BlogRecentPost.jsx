@@ -35,7 +35,7 @@ const BlogRecentPost = () => {
             <div className="mr-8 w-1/4">
               <div className="cursor-pointer">
                 <img
-                  src={`https://localhost:7047/assets/images/blogs/${item.image}`}
+                  src={`${process.env.REACT_APP_BASE_URL}/assets/images/blogs/${item.image}`}
                   className="aspect-[1/1] h-full w-full rounded-[2rem] object-cover"
                 />
               </div>

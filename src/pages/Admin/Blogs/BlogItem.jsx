@@ -27,7 +27,7 @@ const BlogItem = ({ blog }) => {
           <div>
             <div className="w-[120px] shrink-0 rounded-[1rem]">
               <img
-                src={`https://localhost:7047/assets/images/blogs/${blog.image}`}
+                src={`${process.env.REACT_APP_BASE_URL}/assets/images/blogs/${blog.image}`}
                 className="aspect-[3/2.3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
                 alt="Blog cover"
               />

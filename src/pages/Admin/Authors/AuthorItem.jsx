@@ -27,7 +27,7 @@ const AuthorItem = ({ author }) => {
           <div>
             <div className="w-[70px] shrink-0 rounded-[1rem]">
               <img
-                src={`https://localhost:7047/assets/images/authors/${author.mainImage}`}
+                src={`${process.env.REACT_APP_BASE_URL}/assets/images/authors/${author.mainImage}`}
                 className="aspect-[2.3/3] h-full w-full cursor-pointer rounded-[2rem] object-cover "
                 alt="Author cover"
               />
