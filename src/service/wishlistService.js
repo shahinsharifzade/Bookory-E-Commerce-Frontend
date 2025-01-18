@@ -8,7 +8,7 @@ import { authApi } from "../api";
 const addToWishlist = async (Id) => {
   const params = { Id };
   const response = await authApi.post(
-    `${process.env.REACT_APP_BASE_URL}/api/Wishlist`,
+    `${process.env.REACT_APP_BASE_URL}/Wishlist`,
     null,
     {
       params,
@@ -34,7 +34,7 @@ export const useAddToWishlist = () => {
 
 const CheckItemExists = async (Id) => {
   const response = await authApi.get(
-    `${process.env.REACT_APP_BASE_URL}/api/Wishlist/${Id}`,
+    `${process.env.REACT_APP_BASE_URL}/Wishlist/${Id}`,
     {
       withCredentials: true,
     },
@@ -55,7 +55,7 @@ export const useCheckItemExists = (id) => {
 
 const DeleteItem = async (Id) => {
   const response = await authApi.delete(
-    `${process.env.REACT_APP_BASE_URL}/api/Wishlist/${Id}`,
+    `${process.env.REACT_APP_BASE_URL}/Wishlist/${Id}`,
     {
       withCredentials: true,
     },

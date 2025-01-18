@@ -18,7 +18,7 @@ const getStores = async (pageNumber, pageSize, search, sortBy) => {
   };
 
   const response = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/Company/paged`,
+    `${process.env.REACT_APP_BASE_URL}/Company/paged`,
     {
       params: params,
     },
@@ -37,9 +37,7 @@ export const useGetFilteredStores = (pageNumber, pageSize, search, sortBy) => {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const getAll = async () => {
-  var response = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/Company`,
-  );
+  var response = await axios.get(`${process.env.REACT_APP_BASE_URL}/Company`);
   return response.data;
 };
 
@@ -54,7 +52,7 @@ export const useGetAll = () => {
 
 const getById = async (id) => {
   const response = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/Company/${id}`,
+    `${process.env.REACT_APP_BASE_URL}/Company/${id}`,
   );
 
   return response.data;
@@ -76,7 +74,7 @@ const postMessage = async (data) => {
     formData.append(key, data[key]);
   }
   var response = await axios.post(
-    `${process.env.REACT_APP_BASE_URL}/api/Company/email`,
+    `${process.env.REACT_APP_BASE_URL}/Company/email`,
     formData,
   );
 
