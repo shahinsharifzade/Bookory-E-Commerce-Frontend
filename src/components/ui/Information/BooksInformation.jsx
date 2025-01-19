@@ -33,8 +33,8 @@ const BooksInformation = () => {
   }
 
   return (
-    <div className="flex w-full">
-      <div className="mx-6 flex w-1/2 rounded-3xl border-[1px] border-solid border-secondaryText px-12 py-16">
+    <div className="flex w-full flex-col max-minw-xl:mx-auto minw-xsm:flex-row">
+      <div className="mx-6 mb-6  flex rounded-3xl border-[1px] border-solid border-secondaryText px-12 py-16 minw-xsm:w-1/2">
         <div className="mr-12 rounded-full bg-[#edebfc] p-5">
           <img src={icons.Book} className="h-16 w-16" alt="Book icon" />
         </div>
@@ -44,7 +44,7 @@ const BooksInformation = () => {
         </div>
       </div>
 
-      <div className="mx-6 flex w-1/2 rounded-3xl border-[1px] border-solid border-secondaryText px-12 py-16">
+      <div className="mx-6 mb-6  flex  rounded-3xl border-[1px] border-solid border-secondaryText px-12 py-16 minw-xsm:w-1/2">
         <div className="mr-12 rounded-full bg-[#edebfc] p-5">
           <img src={icons.Basket} className="h-16 w-16" alt="Basket icon" />
         </div>

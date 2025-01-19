@@ -7,7 +7,7 @@ const Deals = () => {
   return (
     <section className="flex flex-col pb-32">
       <div className="container mb-14 flex flex-col items-center justify-between min-[470px]:flex-row">
-        <div className="flex w-full max-w-[100%] items-center justify-between">
+        <div className="flex w-full max-w-[100%] items-center justify-center min-[470px]:justify-between">
           <h2 className="shrink-0 pr-12 text-[3.5rem] tracking-tighter">
             Deals of the week
           </h2>

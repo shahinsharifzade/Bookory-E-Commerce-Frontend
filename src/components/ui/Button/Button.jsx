@@ -6,7 +6,7 @@ const Button = (props) => {
   return (
     <Link
       to={props.route}
-      className="ml-20 flex shrink-0 items-center justify-center transition-all duration-500 ease-in-out"
+      className="flex shrink-0 items-center justify-center transition-all duration-500 ease-in-out"
     >
       <a
         href="#"
