@@ -13,25 +13,25 @@ import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
 
 const router = createBrowserRouter(ROUTES);
 const queryClient = new QueryClient();
 
-const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
+// const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <Elements stripe={stripePromise}>
-          <App>
-            <RouterProvider router={router}></RouterProvider>
-            <ToastContainer />
-          </App>
-        </Elements>
+        {/* <Elements stripe={stripePromise}> */}
+        <App>
+          <RouterProvider router={router}></RouterProvider>
+          <ToastContainer />
+        </App>
+        {/* </Elements> */}
       </Provider>
       {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
